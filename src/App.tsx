@@ -1,15 +1,27 @@
+import { useState } from 'react'
 import './App.css'
-import Navbar from './components/Navbar'
+import Header from './components/Header'
+import Footer from './components/Footer'
 import LoginView from './pages/LoginView'
+import SignUpView from './pages/SignUpView'
+
+type Page = 'login' | 'signup'
 
 function App() {
+  const [page, setPage] = useState<Page>('login')
+
   return (
     <div className="app">
-      <Navbar />
+      <Header
+        btnLabel={page === 'login' ? 'Sign up' : 'Log in'}
+        onBtnClick={() => setPage(page === 'login' ? 'signup' : 'login')}
+      />
       <main className="content">
-        <LoginView />
+        {page === 'login'
+          ? <LoginView onSignUp={() => setPage('signup')} />
+          : <SignUpView onLogIn={() => setPage('login')} />}
       </main>
-      <footer className="footer">© 2024 TeamUp</footer>
+      <Footer />
     </div>
   )
 }

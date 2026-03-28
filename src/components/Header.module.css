@@ -1,10 +1,13 @@
-.navbar {
+.header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 14px 32px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    background: transparent;
+    background: #ffffff;
+    border-bottom: 1px solid #000000;
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
 .logo {
@@ -14,7 +17,7 @@
     color: #1a1a1a;
 }
 
-.signUpBtn {
+.btn {
     font-family: 'JetBrains Mono', monospace;
     font-size: 14px;
     font-weight: 500;
@@ -27,6 +30,6 @@
     transition: opacity 0.2s;
 }
 
-.signUpBtn:hover {
+.btn:hover {
     opacity: 0.8;
 }

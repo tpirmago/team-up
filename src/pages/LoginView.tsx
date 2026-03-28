@@ -1,24 +1,23 @@
 import styles from './LoginView.module.css'
+import Input from '../components/Input'
+import Button from '../components/Button'
 
-export default function LoginView() {
+interface LoginViewProps {
+    onSignUp: () => void
+}
+
+export default function LoginView({ onSignUp }: LoginViewProps) {
     return (
         <div className={styles.formCard}>
             <h2 className={styles.title}>Log in to TeamUp</h2>
 
-            <div className={styles.field}>
-                <label className={styles.label}>Email</label>
-                <input className={styles.input} type="email" />
-            </div>
+            <Input label="Email" type="email" />
+            <Input label="Password" type="password" />
 
-            <div className={styles.field}>
-                <label className={styles.label}>Password</label>
-                <input className={styles.input} type="password" />
-            </div>
-
-            <button className={styles.loginBtn}>Log in</button>
+            <Button label="Log in" fullWidth />
 
             <p className={styles.signUpText}>
-                Not a member yet? <a href="#" className={styles.signUpLink}>Sign up here</a>
+                Not a member yet? <a href="#" className={styles.signUpLink} onClick={onSignUp}>Sign up here</a>
             </p>
         </div>
     )

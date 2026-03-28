@@ -1,0 +1,26 @@
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: #1a1a1a;
+}
+
+.input {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    padding: 10px 18px;
+    border: 1px solid #ccc;
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.6);
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.input:focus {
+    border-color: #1a1a1a;
+}
