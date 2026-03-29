@@ -1,0 +1,77 @@
+nav {
+    flex: 1;
+}
+
+.navigation {
+    list-style-type: none;
+}
+
+.profilePage {
+    display: flex;
+    flex: 1;
+    margin: 30px;
+}
+
+.profileCard {
+    flex: 5;
+    padding: 40px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0px 0px 8px #817e7e;
+}
+
+.profileHeader {
+    margin-bottom: 20px;
+}
+
+.profileImg {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 1px solid black;
+}
+
+.profileInfo {
+    display: flex;
+    flex-direction: row;
+}
+
+.userName {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 50px;
+    gap: 10px;
+}
+
+.info {
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+}
+
+.personalDetails {
+    flex: 1;
+}
+
+h3 {
+    margin: 30px 0px;
+}
+
+.infoBox {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    height: 30px;
+    border: 1px solid black;
+    border-radius: 50px;
+}
+
+.skills {
+    flex: 2;
+}
+
+.skillsList {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
