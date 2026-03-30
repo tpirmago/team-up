@@ -20,8 +20,20 @@ nav {
     box-shadow: 0px 0px 8px #817e7e;
 }
 
-.profileHeader {
-    margin-bottom: 20px;
+.headerRow {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+
+.editProfile {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: bold;
 }
 
 .profileImg {
@@ -34,6 +46,7 @@ nav {
 .profileInfo {
     display: flex;
     flex-direction: row;
+    margin-top: 20px;
 }
 
 .userName {
@@ -47,11 +60,23 @@ nav {
 .info {
     display: flex;
     flex-direction: row;
-    gap: 50px;
+    gap: 100px;
 }
 
 .personalDetails {
     flex: 1;
+}
+
+.passwordRow {
+    display: flex;
+    justify-content: right;
+}
+
+.passwordButton {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: #1a1a1a;
 }
 
 h3 {
@@ -66,12 +91,31 @@ h3 {
     border-radius: 50px;
 }
 
+.lastInfoBox {
+    margin-bottom: 10px
+}
+
 .skills {
     flex: 2;
 }
 
-.skillsList {
+.skillsSection {
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+}
+
+.skillHeader {
+    margin-bottom: 10px;
+}
+
+.skillsList {
+    line-height: 2em;
+}
+
+.techSkills {
+    flex: 1
+}
+
+.softSkills {
+    flex: 1
 }

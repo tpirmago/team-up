@@ -1,9 +1,10 @@
 import styles from "./ProfileView.module.css"
 import avatar from "../assets/Background.png"
+import { GrEdit } from "react-icons/gr";
 
 export default function ProfileView() {
     return (
-        <div className={styles.profilePage} >
+        <main className={styles.profilePage} >
             <nav>
                 <ul className={styles.navigation} >
                     <li >Dashboard</li>
@@ -11,8 +12,11 @@ export default function ProfileView() {
                     <li>Events</li>
                 </ul>
             </nav>
-            <div className={styles.profileCard} >
-                <h1 className={styles.profileHeader} >My profile</h1>
+            <section className={styles.profileCard} >
+                <header className={styles.headerRow} >
+                    <h1 className={styles.profileHeader} >My profile</h1>
+                    <button className={styles.editProfile} > <GrEdit size={20} /> Edit</button>
+                </header>
                 <div className={styles.profileInfo} >
                     <img className={styles.profileImg} src={avatar} alt="" />
                     <div className={styles.userName} >
@@ -30,24 +34,26 @@ export default function ProfileView() {
                         <h4>Email</h4>
                         <div className={styles.infoBox} ></div>
                         <h4>Password</h4>
-                        <div className={styles.infoBox} ></div>
-                        <p>Change password</p>
+                        <div className={`${styles.infoBox} ${styles.lastInfoBox}`} ></div>
+                        <div className={styles.passwordRow} >
+                            <button className={styles.passwordButton} >Change password</button>
+                        </div>
                     </div>
                     <div className={styles.skills} >
                         <h3>My skills</h3>
-                        <div className={styles.skillsList} >
-                            <div>
-                                <h4>Technical Skills</h4>
-                                <ul>
+                        <div className={styles.skillsSection} >
+                            <div className={styles.techSkills} >
+                                <h4 className={styles.skillHeader} >Technical Skills</h4>
+                                <ul className={styles.skillsList} >
                                     <li></li>
                                     <li></li>
                                     <li></li>
                                     <li></li>
                                 </ul>
                             </div>
-                            <div>
-                                <h4>Soft Skills</h4>
-                                <ul>
+                            <div className={styles.softSkills} >
+                                <h4 className={styles.skillHeader} >Soft Skills</h4>
+                                <ul className={styles.skillsList} >
                                     <li></li>
                                     <li></li>
                                     <li></li>
@@ -57,7 +63,7 @@ export default function ProfileView() {
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
+            </section>
+        </main>
     )
 }
