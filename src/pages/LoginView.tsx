@@ -14,7 +14,7 @@ export default function LoginView({ onSignUp }: LoginViewProps) {
             <Input label="Email" type="email" />
             <Input label="Password" type="password" />
 
-            <Button label="Log in" fullWidth />
+            <Button label="Log in" />
 
             <p className={styles.signUpText}>
                 Not a member yet? <a href="#" className={styles.signUpLink} onClick={onSignUp}>Sign up here</a>
