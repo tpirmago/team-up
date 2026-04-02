@@ -15,6 +15,7 @@ nav {
 .profileCard {
     flex: 5;
     padding: 40px;
+    margin: 10px 50px;
     background-color: white;
     border-radius: 8px;
     box-shadow: 0px 0px 8px #817e7e;
@@ -24,16 +25,29 @@ nav {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
 }
 
+.buttonBox {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
 
 .editProfile {
+    display: flex;
     background: transparent;
     border: none;
     cursor: pointer;
-    font-size: 20px;
+    font-size: 18px;
     font-family: 'JetBrains Mono', monospace;
     font-weight: bold;
+    margin: 0 20px;
+    gap: 0.5rem;
+}
+
+.blackButton {
+    padding: 5px 20px;
 }
 
 .profileImg {
@@ -61,22 +75,11 @@ nav {
     display: flex;
     flex-direction: row;
     gap: 100px;
+    margin-top: 50px;
 }
 
 .personalDetails {
     flex: 1;
-}
-
-.passwordRow {
-    display: flex;
-    justify-content: right;
-}
-
-.passwordButton {
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    color: #1a1a1a;
 }
 
 h3 {
@@ -84,38 +87,63 @@ h3 {
 }
 
 .infoBox {
+    display: flex;
     margin-top: 10px;
-    margin-bottom: 20px;
-    height: 30px;
-    border: 1px solid black;
-    border-radius: 50px;
 }
 
-.lastInfoBox {
-    margin-bottom: 10px
+.detailHeader {
+    flex: 1;
 }
 
-.skills {
+.detailInput {
     flex: 2;
+    padding-left: 10px;
+    height: 30px;
+    border-radius: 15px;
+    border: 1px solid black;
+}
+
+.detailText {
+    flex: 2;
+    height: 30px;
+}
+
+.pwButton {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-family: 'JetBrains Mono', monospace;
+    text-decoration: underline;
+    text-align: left;
+    flex: 2
+}
+
+.otherInfo {
+    flex: 1;
+}
+
+.deleteInfo {
+    background: transparent;
+    border: none;
+    font-family: 'JetBrains Mono', monospace;
+    cursor: pointer;
+    margin: 10px 20px 0 0;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+}
+
+.extraInfo {
+    margin: 0 20px 10px 0;
 }
 
 .skillsSection {
     display: flex;
-    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
 }
 
-.skillHeader {
-    margin-bottom: 10px;
-}
-
-.skillsList {
-    line-height: 2em;
-}
-
-.techSkills {
-    flex: 1
-}
-
-.softSkills {
-    flex: 1
+.addButton {
+    margin: 10px 20px 0 0;
 }

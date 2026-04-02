@@ -4,10 +4,13 @@ import Header from './components/Header'
 import Footer from './components/Footer'
 import LoginView from './pages/LoginView'
 import SignUpView from './pages/SignUpView'
+import ProfileView from './pages/ProfileView'
 
-type Page = 'login' | 'signup'
+type Page = 'login' | 'signup' | 'profile'
 
 function App() {
+
+  const loggedIn = true
   const [page, setPage] = useState<Page>('login')
 
   return (
@@ -16,14 +19,22 @@ function App() {
         btnLabel={page === 'login' ? 'Sign up' : 'Log in'}
         onBtnClick={() => setPage(page === 'login' ? 'signup' : 'login')}
       />
-      <main className="content">
-        {page === 'login'
-          ? <LoginView onSignUp={() => setPage('signup')} />
-          : <SignUpView onLogIn={() => setPage('login')} />}
-      </main>
+      <MainView loggedIn={loggedIn} page={page} setPage={setPage}/>
       <Footer />
     </div>
   )
+}
+
+function MainView({page, setPage, loggedIn}) {
+  if (!loggedIn) {
+    return (<main className="content">
+      {page === 'login'
+        ? <LoginView onSignUp={() => setPage('signup')} />
+        : <SignUpView onLogIn={() => setPage('login')} />}
+    </main>
+    )
+  }
+  return <ProfileView />
 }
 
 export default App
