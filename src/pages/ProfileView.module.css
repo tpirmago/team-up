@@ -84,7 +84,7 @@ nav {
 }
 
 .personalDetails {
-    flex: 1;
+    flex: 7;
 }
 
 h3 {
@@ -118,7 +118,7 @@ h3 {
 }
 
 .otherInfo {
-    flex: 1;
+    flex: 8;
 }
 
 .deleteInfo {
@@ -126,7 +126,7 @@ h3 {
     border: none;
     font-family: 'JetBrains Mono', monospace;
     cursor: pointer;
-    margin: 10px 20px 0 0;
+    margin: 0px 20px 10px 0;
     font-size: 16px;
     display: flex;
     align-items: center;
@@ -137,14 +137,35 @@ h3 {
     margin: 0 20px 10px 0;
 }
 
+.skillsHeader {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
 .skillsSection {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
 }
 
-.addButton {
-    margin: 10px 20px 0 0;
+.selectDropdown {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+.selectNew {
+    padding: 5px;
+    font-family: inherit;
+    border: 1px solid #ccc;
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.6);
+    box-sizing: border-box;
+    cursor: pointer;
+    outline: none;
 }
 
 .projectGrid {

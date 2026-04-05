@@ -1,4 +1,4 @@
-h3 {
+.formHeader {
     margin: 10px 0;
 }
 
@@ -27,7 +27,7 @@ h3 {
     outline: none;
 }
 
-select {
+.selectLocation {
     width: 100%;
     padding: 10px 18px;
     font-family: inherit;

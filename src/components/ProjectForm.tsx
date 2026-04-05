@@ -6,24 +6,24 @@ export function ProjectForm() {
         <div>
             <form className={styles.formGrid} >
                 <div className={styles.leftColumn} >
-                    <div >
-                        <h3>Title</h3>
+                    <div>
+                        <h3 className={styles.formHeader} >Title</h3>
                         <Input />
                     </div>
 
                     <div >
-                        <h3>Topic</h3>
+                        <h3 className={styles.formHeader} >Topic</h3>
                         <Input />
                     </div>
                     <div>
-                        <h3>Description</h3>
-                        <textarea rows={7} className={styles.description} >htrh</textarea>
+                        <h3 className={styles.formHeader} >Description</h3>
+                        <textarea rows={7} className={styles.description} ></textarea>
                     </div>
                 </div>
                 <div className={styles.rightColumn} >
                     <div>
-                        <h3>Location mode</h3>
-                        <select>
+                        <h3 className={styles.formHeader} >Location mode</h3>
+                        <select className={styles.selectLocation} >
                             <option value="on-site">On site</option>
                             <option value="remote">Remote</option>
                             <option value="hyprid">Hyprid</option>
@@ -31,15 +31,15 @@ export function ProjectForm() {
                         </select>
                     </div>
                     <div>
-                        <h3>Team size (min)</h3>
+                        <h3 className={styles.formHeader} >Team size (min)</h3>
                         <Input type="number" />
                     </div>
                     <div >
-                        <h3>Team size (max)</h3>
+                        <h3 className={styles.formHeader} >Team size (max)</h3>
                         <Input type="number" />
                     </div>
                     <div >
-                        <h3>Duration</h3>
+                        <h3 className={styles.formHeader} >Duration</h3>
                         <Input />
                     </div>
                 </div>

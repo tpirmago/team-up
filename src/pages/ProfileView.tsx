@@ -7,6 +7,7 @@ import Button from "../components/Button";
 import DetailRow from "../components/DetailRow";
 import { ProjectCard } from "../components/ProjectCard";
 import { ProjectForm } from "../components/ProjectForm";
+import { testUser, testInterests, testSkills } from "./testData";
 
 interface User {
     user_id: number,
@@ -55,90 +56,9 @@ export default function ProfileView() {
     const usernameRef = useRef<HTMLInputElement>(null)
     const programRef = useRef<HTMLInputElement>(null)
 
-    const [user, setUser] = useState<User>({
-        user_id: 1,
-        name: "Johanna Ranki",
-        email: "jranki24@students.oamk.fi",
-        username: "jranki24",
-        firebase_id: 123456,
-        study_program: "TIK24SP",
-        avatar_url: "...",
-        skills: [
-            { skill_id: 1, skill_name: "React", category: "Frontend" },
-            { skill_id: 2, skill_name: "TypeScript", category: "Programming" },
-            { skill_id: 3, skill_name: "UI Design", category: "Design" },
-            { skill_id: 4, skill_name: "SQL", category: "Databases" }
-        ],
-        interests: [
-            { interest_id: 1, interest_name: "Web development", category: "Software" },
-            { interest_id: 2, interest_name: "UI/UX design", category: "Design" },
-            { interest_id: 3, interest_name: "Data visualization", category: "Data" },
-        ],
-        projects: [
-            {
-                project_id: 1,
-                owner_user_id: 1,
-                title: "Interactive Data Dashboard",
-                description: "A web-based dashboard for visualizing real-time data streams.",
-                topic: "data visualization",
-                team_size_min: 2,
-                team_size_max: 5,
-                duration: "6 weeks",
-                location_mode: "hybrid",
-                skills: [
-                    { skill_id: 1, skill_name: "React", category: "Frontend" },
-                    { skill_id: 3, skill_name: "UI Design", category: "Design" },
-                    { skill_id: 12, skill_name: "SQL", category: "Databases" }
-                ]
-            },
-            {
-                project_id: 2,
-                owner_user_id: 3,
-                title: "Mobile Habit Tracker",
-                description: "A cross-platform mobile app for tracking daily habits.",
-                topic: "mobile development",
-                team_size_min: 3,
-                team_size_max: 6,
-                duration: "8 weeks",
-                location_mode: "remote",
-                skills: [
-                    { skill_id: 7, skill_name: "Mobile development", category: "Software" },
-                    { skill_id: 2, skill_name: "TypeScript", category: "Programming" }
-                ]
-            },
-            {
-                project_id: 1,
-                owner_user_id: 1,
-                title: "Interactive Data Dashboard",
-                description: "A web-based dashboard for visualizing real-time data streams.",
-                topic: "data visualization",
-                team_size_min: 2,
-                team_size_max: 5,
-                duration: "6 weeks",
-                location_mode: "hybrid",
-                skills: [
-                    { skill_id: 1, skill_name: "React", category: "Frontend" },
-                    { skill_id: 3, skill_name: "UI Design", category: "Design" },
-                    { skill_id: 12, skill_name: "SQL", category: "Databases" }
-                ]
-            },
-            {
-                project_id: 2,
-                owner_user_id: 3,
-                title: "Mobile Habit Tracker",
-                description: "A cross-platform mobile app for tracking daily habits.",
-                topic: "mobile development",
-                team_size_min: 3,
-                team_size_max: 6,
-                duration: "8 weeks",
-                location_mode: "remote",
-                skills: [
-                    { skill_id: 7, skill_name: "Mobile development", category: "Software" },
-                    { skill_id: 2, skill_name: "TypeScript", category: "Programming" }
-                ]
-            }
-        ]
-    })
+    const [user, setUser] = useState<User>(testUser)
+    const allSkills = [...testSkills].sort((a, b) => a.skill_name.localeCompare(b.skill_name))
+    const allInterests = [...testInterests].sort((a, b) => a.interest_name.localeCompare(b.interest_name))
 
     const [editMode, setEditMode] = useState(false)
     const [createMode, setCreateMode] = useState(false)
@@ -220,38 +140,59 @@ export default function ProfileView() {
                         </div>
                         <div className={styles.otherInfo} >
                             <div>
+                                <div className={styles.skillsHeader} >
                                 <h3>My skills</h3>
+                                {
+                                        editMode
+                                            ?
+                                            <div className={styles.selectDropdown} >
+                                                <select className={styles.selectNew}>
+                                                    {
+                                                        allSkills.map(s => <option key={s.skill_id} >{s.skill_name}</option>)
+                                                    }
+                                                </select>
+                                                <Button label="+ Add" className={`${styles.blackButton} ${styles.addButton}`} />
+                                            </div>
+                                            : null
+                                    }
+                                </div>
                                 <div className={styles.skillsSection} >
 
                                     {
                                         user.skills.map(s =>
                                             editMode
-                                                ? <button className={styles.deleteInfo} > <RxCross2 color="red" />[{s.skill_name}]</button>
-                                                : <p className={styles.extraInfo} >[{s.skill_name}]</p>
+                                                ? <button key={s.skill_id} className={styles.deleteInfo} > <RxCross2 color="red" />[{s.skill_name}]</button>
+                                                : <p key={s.skill_id} className={styles.extraInfo} >[{s.skill_name}]</p>
                                         )
                                     }
-                                    {
-                                        editMode
-                                            ? <Button label="+ Add new" className={`${styles.blackButton} ${styles.addButton}`} />
-                                            : null
-                                    }
+                                
                                 </div>
                             </div>
                             <div>
-                                <h3>My interests</h3>
+                                <header className={styles.skillsHeader} >
+                                    <h3>My interests</h3>
+                                    {
+                                        editMode
+                                            ? <div className={styles.selectDropdown} >
+                                                <select className={styles.selectNew}>
+                                                    {
+                                                        allInterests.map(i => <option key={i.interest_id} >{i.interest_name}</option>)
+                                                    }
+                                                </select>
+                                                <Button label="+ Add" className={`${styles.blackButton} ${styles.addButton}`} />
+                                            </div>
+                                            : null
+                                    }
+                                </header>
                                 <div className={styles.skillsSection} >
                                     {
                                         user.interests.map(i =>
                                             editMode
-                                                ? <button className={styles.deleteInfo} > <RxCross2 color="red" />[{i.interest_name}]</button>
-                                                : <p className={styles.extraInfo} >[{i.interest_name}]</p>
+                                                ? <button key={i.interest_id} className={styles.deleteInfo} > <RxCross2 color="red" />[{i.interest_name}]</button>
+                                                : <p key={i.interest_id} className={styles.extraInfo} >[{i.interest_name}]</p>
                                         )
                                     }
-                                    {
-                                        editMode
-                                            ? <Button label="+ Add new" className={`${styles.blackButton} ${styles.addButton}`} />
-                                            : null
-                                    }
+                                    
                                 </div>
                             </div>
                         </div>
@@ -276,7 +217,7 @@ export default function ProfileView() {
                             ? <ProjectForm />
                             : <div className={styles.projectGrid} >
                                 {
-                                    user.projects.map(p => <ProjectCard label={p.title} description={p.description} topic={p.topic} />)
+                                    user.projects.map(p => <ProjectCard key={p.project_id} label={p.title} description={p.description} topic={p.topic} />)
                                 }
                             </div>
                     }
