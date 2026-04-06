@@ -1,15 +1,13 @@
 import styles from "./ProfileView.module.css"
-import avatar from "../assets/Background.png"
-import { GrEdit } from "react-icons/gr";
-import { RxCross2 } from "react-icons/rx";
 import { useRef, useState } from "react";
-import Button from "../components/Button";
-import DetailRow from "../components/DetailRow";
-import { ProjectCard } from "../components/ProjectCard";
-import { ProjectForm } from "../components/ProjectForm";
 import { testUser, testInterests, testSkills } from "./testData";
+import ProjectSection from "../components/ProjectSection";
+import ProfileHeader from "../components/ProfileHeader";
+import ProfileDetails from "../components/ProfileDetails";
+import ProfileSkills from "../components/ProfileSkills";
+import ProfileInterest from "../components/ProfileInterests";
 
-interface User {
+export interface User {
     user_id: number,
     name: string,
     email: string,
@@ -22,17 +20,16 @@ interface User {
     projects: Projects[]
 }
 
-interface Skills {
+export interface Skills {
     skill_id: number
     skill_name: string
     category: string
 }
 
-interface Interests {
+export interface Interests {
     interest_id: number
     interest_name: string
     category: string
-
 }
 
 interface Projects {
@@ -46,7 +43,6 @@ interface Projects {
     duration: string
     location_mode: string
     skills: Skills[]
-
 }
 
 export default function ProfileView() {
@@ -63,6 +59,9 @@ export default function ProfileView() {
     const [editMode, setEditMode] = useState(false)
     const [createMode, setCreateMode] = useState(false)
 
+    const [selectedSkillId, setSelectedSkillId] = useState<number>(allSkills[0].skill_id)
+    const [selectedInterestId, setSelectedInterestId] = useState<number>(allInterests[0].interest_id)
+
     function saveProfile() {
         setUser(prev => ({
             ...prev,
@@ -72,6 +71,53 @@ export default function ProfileView() {
             study_program: programRef.current?.value ?? prev.study_program
         }))
         setEditMode(false)
+    }
+
+    function handleDeleteProject(id: number) {
+        setUser(prev => ({
+            ...prev,
+            projects: prev.projects.filter(p => p.project_id !== id)
+        }))
+    }
+
+    function handleDeleteSkill(id: number) {
+        setUser(prev => ({
+            ...prev,
+            skills: prev.skills.filter(s => s.skill_id !== id)
+        }))
+    }
+
+    function handleDeleteInterest(id: number) {
+        setUser(prev => ({
+            ...prev,
+            interests: prev.interests.filter(i => i.interest_id !== id)
+        }))
+    }
+
+    function handleAddSkill() {
+
+        const skill = allSkills.find(s => s.skill_id === selectedSkillId)
+
+        if (skill) {
+            setUser(prev => ({
+                ...prev,
+                skills: [...prev.skills,
+                { skill_id: skill.skill_id, skill_name: skill.skill_name, category: skill.category }]
+            }))
+        }
+    }
+
+    function handleAddInterest() {
+
+        const interest = allInterests.find(i => i.interest_id === selectedInterestId)
+
+        if (interest) {
+            setUser(prev => ({
+                ...prev,
+                interests: [...prev.interests,
+                { interest_id: interest.interest_id, interest_name: interest.interest_name, category: interest.category }]
+            }))
+        }
     }
 
     return (
@@ -85,143 +131,52 @@ export default function ProfileView() {
             </nav>
             <section className={styles.profileSection} >
                 <section className={styles.profileCard} >
-                    <header className={styles.headerRow} >
-                        <h1 className={styles.profileHeader} >My profile</h1>
-                        <div className={styles.buttonBox} >
-                            <button onClick={() => setEditMode(prev => !prev)} className={styles.editProfile} >
-                                {editMode ? "Cancel" : <> <GrEdit size={20} /> Edit</>}
-                            </button>
-                            {
-                                editMode ? <Button label="Save" onClick={saveProfile} className={styles.blackButton} /> : null
-                            }
-                        </div>
-                    </header>
-                    <div className={styles.profileInfo} >
-                        <img className={styles.profileImg} src={avatar} alt="" />
-                        <div className={styles.userName} >
-                            <h2>{user.username}</h2>
-                        </div>
-                    </div>
-                    <div className={styles.info} >
-                        <div className={styles.personalDetails} >
-                            <h3>Personal details</h3>
-                            <DetailRow
+                    <ProfileHeader
+                        editMode={editMode}
+                        setEditMode={setEditMode}
+                        saveProfile={saveProfile}
+                        user={user}
+                    />
+                    <section className={styles.info} >
+                        <section className={styles.personalDetails} >
+                            <ProfileDetails
                                 editMode={editMode}
-                                label={"Full name"}
-                                value={user.name}
-                                inputRef={nameRef}
+                                user={user}
+                                nameRef={nameRef}
+                                usernameRef={usernameRef}
+                                programRef={programRef}
+                                emailRef={emailRef}
                             />
-                            <DetailRow
+                        </section>
+                        <section className={styles.tagSection} >
+                            <ProfileSkills
                                 editMode={editMode}
-                                label={"Username"}
-                                value={user.username}
-                                inputRef={usernameRef}
+                                selectedSkillId={selectedSkillId}
+                                setSelectedSkillId={setSelectedSkillId}
+                                allSkills={allSkills}
+                                handleAddSkill={handleAddSkill}
+                                user={user}
+                                handleDeleteSkill={handleDeleteSkill}
                             />
-                            <DetailRow
+                            <ProfileInterest
                                 editMode={editMode}
-                                label={"Study Program"}
-                                value={user.study_program}
-                                inputRef={programRef}
+                                selectedInterestId={selectedInterestId}
+                                setSelectedInterestId={setSelectedInterestId}
+                                user={user}
+                                allInterests={allInterests}
+                                handleAddInterest={handleAddInterest}
+                                handleDeleteInterest={handleDeleteInterest}
                             />
-                            <DetailRow
-                                editMode={editMode}
-                                label={"Email"}
-                                value={user.email}
-                                inputRef={emailRef}
-                            />
-                            <div className={styles.detailBox} >
-                                <h4 className={styles.detailHeader} >Password</h4>
-                                {
-                                    editMode
-                                        ? <button className={styles.pwButton} >Change password</button>
-                                        : <p className={styles.detailText} >••••••</p>
-                                }
-                            </div>
-                        </div>
-                        <div className={styles.otherInfo} >
-                            <div>
-                                <div className={styles.skillsHeader} >
-                                <h3>My skills</h3>
-                                {
-                                        editMode
-                                            ?
-                                            <div className={styles.selectDropdown} >
-                                                <select className={styles.selectNew}>
-                                                    {
-                                                        allSkills.map(s => <option key={s.skill_id} >{s.skill_name}</option>)
-                                                    }
-                                                </select>
-                                                <Button label="+ Add" className={`${styles.blackButton} ${styles.addButton}`} />
-                                            </div>
-                                            : null
-                                    }
-                                </div>
-                                <div className={styles.skillsSection} >
-
-                                    {
-                                        user.skills.map(s =>
-                                            editMode
-                                                ? <button key={s.skill_id} className={styles.deleteInfo} > <RxCross2 color="red" />[{s.skill_name}]</button>
-                                                : <p key={s.skill_id} className={styles.extraInfo} >[{s.skill_name}]</p>
-                                        )
-                                    }
-                                
-                                </div>
-                            </div>
-                            <div>
-                                <header className={styles.skillsHeader} >
-                                    <h3>My interests</h3>
-                                    {
-                                        editMode
-                                            ? <div className={styles.selectDropdown} >
-                                                <select className={styles.selectNew}>
-                                                    {
-                                                        allInterests.map(i => <option key={i.interest_id} >{i.interest_name}</option>)
-                                                    }
-                                                </select>
-                                                <Button label="+ Add" className={`${styles.blackButton} ${styles.addButton}`} />
-                                            </div>
-                                            : null
-                                    }
-                                </header>
-                                <div className={styles.skillsSection} >
-                                    {
-                                        user.interests.map(i =>
-                                            editMode
-                                                ? <button key={i.interest_id} className={styles.deleteInfo} > <RxCross2 color="red" />[{i.interest_name}]</button>
-                                                : <p key={i.interest_id} className={styles.extraInfo} >[{i.interest_name}]</p>
-                                        )
-                                    }
-                                    
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                        </section>
+                    </section>
                 </section>
-                <section className={styles.projectSection} >
-                    <header className={styles.headerRow} >
-                        <h2 className={styles.profileHeader} >
-                            {
-                                createMode
-                                    ? "Create New Project"
-                                    : "My projects"
-                            }
-                        </h2>
-                        <div className={styles.buttonBox} >
-                            <Button label={createMode ? "Add New Project" : "Create New Project"} onClick={() => setCreateMode(prev => !prev)} className={styles.blackButton} />
-                        </div>
-                    </header>
-
-                    {
-                        createMode
-                            ? <ProjectForm />
-                            : <div className={styles.projectGrid} >
-                                {
-                                    user.projects.map(p => <ProjectCard key={p.project_id} label={p.title} description={p.description} topic={p.topic} />)
-                                }
-                            </div>
-                    }
-
+                <section>
+                    <ProjectSection
+                        createMode={createMode}
+                        setCreateMode={setCreateMode}
+                        user={user}
+                        deleteProject={handleDeleteProject}
+                    />
                 </section>
             </section>
         </main>

@@ -12,8 +12,11 @@ nav {
     margin: 30px;
 }
 
-.profileCard,
-.projectSection {
+.profileSection {
+    flex: 5;
+}
+
+.profileCard {
     padding: 50px;
     margin: 10px 50px;
     background-color: white;
@@ -21,59 +24,8 @@ nav {
     box-shadow: 0px 0px 8px #817e7e;
 }
 
-.profileSection {
-    flex: 5;
-}
-
-.headerRow {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 30px;
-}
-
-.buttonBox {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
-
-.editProfile {
-    display: flex;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    font-size: 18px;
-    font-family: 'JetBrains Mono', monospace;
-    font-weight: bold;
-    margin: 0 20px;
-    gap: 0.5rem;
-}
-
-.blackButton {
-    padding: 5px 20px;
-}
-
-.profileImg {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    border: 1px solid black;
-}
-
-.profileInfo {
-    display: flex;
-    flex-direction: row;
-    margin-top: 20px;
-}
-
-.userName {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin-left: 50px;
-    gap: 10px;
+h3 {
+    margin: 30px 0px;
 }
 
 .info {
@@ -87,89 +39,6 @@ nav {
     flex: 7;
 }
 
-h3 {
-    margin: 30px 0px;
-}
-
-.detailBox {
-    display: flex;
-    margin-top: 10px;
-    align-items: center;
-}
-
-.detailHeader {
-    flex: 1;
-    padding: 10px 0;
-}
-
-.detailText {
-    flex: 2;
-    padding: 10px 18px;
-}
-
-.pwButton {
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    font-family: 'JetBrains Mono', monospace;
-    text-decoration: underline;
-    text-align: left;
-    flex: 2
-}
-
-.otherInfo {
+.tagSection {
     flex: 8;
-}
-
-.deleteInfo {
-    background: transparent;
-    border: none;
-    font-family: 'JetBrains Mono', monospace;
-    cursor: pointer;
-    margin: 0px 20px 10px 0;
-    font-size: 16px;
-    display: flex;
-    align-items: center;
-    gap: 3px;
-}
-
-.extraInfo {
-    margin: 0 20px 10px 0;
-}
-
-.skillsHeader {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.skillsSection {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-}
-
-.selectDropdown {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 10px;
-}
-
-.selectNew {
-    padding: 5px;
-    font-family: inherit;
-    border: 1px solid #ccc;
-    border-radius: 50px;
-    background: rgba(255, 255, 255, 0.6);
-    box-sizing: border-box;
-    cursor: pointer;
-    outline: none;
-}
-
-.projectGrid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
 }

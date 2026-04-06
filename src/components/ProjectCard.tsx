@@ -7,9 +7,11 @@ interface ProjectCardProps {
     label: string
     description: string
     topic: string
+    id: number
+    onDelete: (id: number) => void
 }
 
-export function ProjectCard({ label, description, topic }: ProjectCardProps) {
+export default function ProjectCard({ label, description, topic, id, onDelete }: ProjectCardProps) {
     return (
         <div className={styles.projectBox} >
             <div className={styles.infoColumn} >
@@ -23,7 +25,7 @@ export function ProjectCard({ label, description, topic }: ProjectCardProps) {
             <div className={styles.buttonColumn} >
                 <button className={styles.infoButton} ><IoIosInformationCircleOutline size={25} /></button>
                 <button className={styles.heartButton} ><GoHeart size={25} /></button>
-                <button className={styles.deleteButton} ><RiDeleteBin6Line size={25} /></button>
+                <button className={styles.deleteButton} onClick={() => onDelete(id)} ><RiDeleteBin6Line size={25} /></button>
             </div>
         </div>
     )
