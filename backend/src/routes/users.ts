@@ -14,15 +14,52 @@ router.get("/", async (req ,res) => {
     }
 });
 
-// temporary test endpoint
-router.post("/add-test", async (req, res) => {
-  await db.query(
-    "INSERT INTO users (name, email, username, firebase_id) VALUES ($1, $2, $3, $4)",
-    ["Backend Insert", "backend@test.com", "backenduser", "firebaseBackend123"]
-  );
+// GET one user by id
+router.get("/:id", async (req, res) => {
+  const userId = req.params.id;
 
-  res.json({ message: "Inserted test user!" });
+  try {
+    const result = await db.query(
+      "SELECT * FROM users WHERE user_id = $1",
+      [userId]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: "User not found" })
+    } 
+
+    res.json(result.rows[0]);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to fetch user" });
+  }
 });
 
+// UPDATE user profile
+router.put("/:id", async (req, res) => {
+  const userId = req.params.id;
+  const { name, study_program, avatar_url } = req.body;
+
+  try {
+    const result = await db.query(
+      `UPDATE users
+       SET name = $1,
+           study_program = $2,
+           avatar_url = $3
+       WHERE user_id = $4
+       RETURNING *`,
+      [name, study_program, avatar_url, userId]
+    );
+    
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    res.json(result.rows[0]);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to update user" });
+  }
+});
 
 export default router;
