@@ -9,7 +9,7 @@ router.get("/", async (req ,res) => {
         const result = await db.query("SELECT * FROM users");
         res.json(result.rows);
     } catch (error) {
-        console.log(error);
+        console.error(error);
         res.status(500).json({ error: "Failed to fetch users" });
     }
 });
