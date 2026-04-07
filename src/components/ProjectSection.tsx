@@ -11,43 +11,43 @@ interface ProjectSectionProps {
     deleteProject: (id: number) => void
 }
 
-export default function ProjectSection({createMode, setCreateMode, user, deleteProject}: ProjectSectionProps) {
+export default function ProjectSection({ createMode, setCreateMode, user, deleteProject, addProject }: ProjectSectionProps) {
     return (
-        <section className={styles.projectSection} >
-                    <header className={styles.headerRow} >
-                        <h2>
-                            {
-                                createMode
-                                    ? "Create New Project"
-                                    : "My projects"
-                            }
-                        </h2>
-                        <div className={styles.buttonBox} >
-                            <button onClick={() => setCreateMode(prev => !prev)} className={styles.editButton} >
-                                {createMode ? "Cancel" : null}
-                            </button>
-                            <Button
-                                label={createMode ? "Add New Project" : "Create New Project"}
-                                onClick={() => setCreateMode(prev => !prev)}
-                                className={styles.blackButton} />
-                        </div>
-                    </header>
+        <section>
+            <header className={styles.headerRow} >
+                <h2>
                     {
                         createMode
-                            ? <ProjectForm />
-                            : <div className={styles.projectGrid} >
-                                {
-                                    user.projects.map(p =>
-                                        <ProjectCard
-                                            key={p.project_id}
-                                            label={p.title}
-                                            description={p.description}
-                                            topic={p.topic}
-                                            id={p.project_id}
-                                            onDelete={deleteProject} />)
-                                }
-                            </div>
+                            ? "Create New Project"
+                            : "My projects"
                     }
-                </section>
+                </h2>
+                <div className={styles.buttonBox} >
+                    <button onClick={() => setCreateMode(prev => !prev)} className={styles.editButton} >
+                        {createMode ? "Cancel" : null}
+                    </button>
+                    <Button
+                        label={createMode ? "Add New Project" : "Create New Project"}
+                        onClick={() => setCreateMode(prev => !prev)}
+                        className={styles.blackButton} />
+                </div>
+            </header>
+            {
+                createMode
+                    ? <ProjectForm />
+                    : <div className={styles.projectGrid} >
+                        {
+                            user.projects.map(p =>
+                                <ProjectCard
+                                    key={p.project_id}
+                                    label={p.title}
+                                    description={p.description}
+                                    topic={p.topic}
+                                    id={p.project_id}
+                                    onClick={deleteProject} />)
+                        }
+                    </div>
+            }
+        </section>
     )
 }

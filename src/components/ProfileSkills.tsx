@@ -11,17 +11,20 @@ interface ProfileSkillsProps {
     handleAddSkill: (id: number) => void
     user: User
     handleDeleteSkill: (id: number) => void
+    skillError: string | null
 }
 
-export default function ProfileSkills({ editMode, selectedSkillId, setSelectedSkillId, allSkills, handleAddSkill, user, handleDeleteSkill }: ProfileSkillsProps) {
+export default function ProfileSkills({ editMode, selectedSkillId, setSelectedSkillId, allSkills, handleAddSkill, user, handleDeleteSkill, skillError }: ProfileSkillsProps) {
     return (
-            <div>
-                <div className={styles.skillsHeader} >
-                    <h3>My skills</h3>
-                    {
-                        editMode
-                            ? <div className={styles.selectDropdown} >
-                                <select className={styles.selectNew} onChange={(e) => setSelectedSkillId(Number(e.target.value))}>
+        <div>
+            <div className={styles.skillsHeader} >
+                <h3>My skills</h3>
+                {
+                    editMode
+                        ? <div className={styles.selectWrapper} >
+                            {skillError && <p className={styles.error}>{skillError}</p>}
+                            <div className={styles.selectDropdown} >
+                                <select className={styles.selectNew} value={selectedSkillId} onChange={(e) => setSelectedSkillId(Number(e.target.value))}>
                                     {
                                         allSkills.map(s => <option key={s.skill_id} value={s.skill_id} >{s.skill_name}</option>)
                                     }
@@ -32,23 +35,24 @@ export default function ProfileSkills({ editMode, selectedSkillId, setSelectedSk
                                     onClick={() => handleAddSkill(selectedSkillId)}
                                 />
                             </div>
-                            : null
-                    }
-                </div>
-                <div className={styles.skillsSection} >
-
-                    {
-                        user.skills.map(s =>
-                            editMode
-                                ? <button
-                                    key={s.skill_id}
-                                    className={styles.deleteInfo}
-                                    onClick={() => handleDeleteSkill(s.skill_id)}
-                                > <RxCross2 color="red" />[{s.skill_name}]</button>
-                                : <p key={s.skill_id} className={styles.tagName} >[{s.skill_name}]</p>
-                        )
-                    }
-                </div>
+                        </div>
+                        : null
+                }
             </div>
+            <div className={styles.skillsSection} >
+
+                {
+                    user.skills.map(s =>
+                        editMode
+                            ? <button
+                                key={s.skill_id}
+                                className={styles.deleteInfo}
+                                onClick={() => handleDeleteSkill(s.skill_id)}
+                            > <RxCross2 color="red" />[{s.skill_name}]</button>
+                            : <p key={s.skill_id} className={styles.tagName} >[{s.skill_name}]</p>
+                    )
+                }
+            </div>
+        </div>
     )
 }

@@ -5,6 +5,18 @@
     justify-content: space-between;
 }
 
+.selectWrapper {
+    position: relative;
+}
+
+.error {
+    position: absolute;
+    margin-bottom: 10px;
+    top: -2em;
+    color: rgb(176, 14, 14);
+    right: 0;
+}
+
 .selectDropdown {
     display: flex;
     flex-direction: row;

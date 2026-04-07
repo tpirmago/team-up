@@ -57,10 +57,13 @@ export default function ProfileView() {
     const allInterests = [...testInterests].sort((a, b) => a.interest_name.localeCompare(b.interest_name))
 
     const [editMode, setEditMode] = useState(false)
-    const [createMode, setCreateMode] = useState(false)
 
     const [selectedSkillId, setSelectedSkillId] = useState<number>(allSkills[0].skill_id)
     const [selectedInterestId, setSelectedInterestId] = useState<number>(allInterests[0].interest_id)
+
+    const [skillError, setSkillError] = useState<string | null>(null)
+    const [interestError, setInterestError] = useState<string | null>(null)
+
 
     function saveProfile() {
         setUser(prev => ({
@@ -71,13 +74,6 @@ export default function ProfileView() {
             study_program: programRef.current?.value ?? prev.study_program
         }))
         setEditMode(false)
-    }
-
-    function handleDeleteProject(id: number) {
-        setUser(prev => ({
-            ...prev,
-            projects: prev.projects.filter(p => p.project_id !== id)
-        }))
     }
 
     function handleDeleteSkill(id: number) {
@@ -92,9 +88,18 @@ export default function ProfileView() {
             ...prev,
             interests: prev.interests.filter(i => i.interest_id !== id)
         }))
+
+        setSelectedSkillId(allInterests[0].interest_id)
     }
 
     function handleAddSkill() {
+
+        const alreadyAdded = user.skills.some(s => s.skill_id === selectedSkillId)
+
+        if(alreadyAdded) {
+            setSkillError("You already have this skill")    
+            return
+        }
 
         const skill = allSkills.find(s => s.skill_id === selectedSkillId)
 
@@ -105,9 +110,19 @@ export default function ProfileView() {
                 { skill_id: skill.skill_id, skill_name: skill.skill_name, category: skill.category }]
             }))
         }
+
+        setSelectedSkillId(allSkills[0].skill_id)
+        setSkillError(null)
     }
 
     function handleAddInterest() {
+
+        const alreadyAdded = user.interests.some(i => i.interest_id === selectedInterestId)
+
+        if(alreadyAdded) {
+            setInterestError("You already have this interest")    
+            return
+        }
 
         const interest = allInterests.find(i => i.interest_id === selectedInterestId)
 
@@ -118,6 +133,8 @@ export default function ProfileView() {
                 { interest_id: interest.interest_id, interest_name: interest.interest_name, category: interest.category }]
             }))
         }
+
+        setInterestError(null)
     }
 
     return (
@@ -130,7 +147,7 @@ export default function ProfileView() {
                 </ul>
             </nav>
             <section className={styles.profileSection} >
-                <section className={styles.profileCard} >
+                <section className={styles.profileBackground} >
                     <ProfileHeader
                         editMode={editMode}
                         setEditMode={setEditMode}
@@ -157,6 +174,7 @@ export default function ProfileView() {
                                 handleAddSkill={handleAddSkill}
                                 user={user}
                                 handleDeleteSkill={handleDeleteSkill}
+                                skillError={skillError}
                             />
                             <ProfileInterest
                                 editMode={editMode}
@@ -166,17 +184,10 @@ export default function ProfileView() {
                                 allInterests={allInterests}
                                 handleAddInterest={handleAddInterest}
                                 handleDeleteInterest={handleDeleteInterest}
+                                interestError={interestError}
                             />
                         </section>
                     </section>
-                </section>
-                <section>
-                    <ProjectSection
-                        createMode={createMode}
-                        setCreateMode={setCreateMode}
-                        user={user}
-                        deleteProject={handleDeleteProject}
-                    />
                 </section>
             </section>
         </main>

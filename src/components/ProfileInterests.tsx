@@ -12,17 +12,20 @@ interface ProfileInterestProps {
     handleAddInterest: (id: number) => void
     user: User
     handleDeleteInterest: (id: number) => void
+    interestError: string | null
 }
 
-export default function ProfileInterest({ editMode, selectedInterestId, user, setSelectedInterestId, allInterests, handleAddInterest, handleDeleteInterest }: ProfileInterestProps) {
+export default function ProfileInterest({ editMode, selectedInterestId, user, setSelectedInterestId, allInterests, handleAddInterest, handleDeleteInterest, interestError }: ProfileInterestProps) {
     return (
         <div>
             <header className={styles.skillsHeader} >
                 <h3>My interests</h3>
                 {
                     editMode
-                        ? <div className={styles.selectDropdown} >
-                            <select className={styles.selectNew} onChange={(e) => setSelectedInterestId(Number(e.target.value))}>
+                        ? <div className={styles.selectWrapper} >
+                            {interestError && <p className={styles.error}>{interestError}</p>}
+                        <div className={styles.selectDropdown} >
+                            <select className={styles.selectNew} value={selectedInterestId} onChange={(e) => setSelectedInterestId(Number(e.target.value))}>
                                 {
                                     allInterests.map(i => <option key={i.interest_id} value={i.interest_id} >{i.interest_name}</option>)
                                 }
@@ -32,6 +35,7 @@ export default function ProfileInterest({ editMode, selectedInterestId, user, se
                                 className={styles.blackButton}
                                 onClick={() => handleAddInterest(selectedInterestId)}
                             />
+                        </div>
                         </div>
                         : null
                 }

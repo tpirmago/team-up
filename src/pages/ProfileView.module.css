@@ -6,17 +6,17 @@ nav {
     list-style-type: none;
 }
 
+.profileSection {
+    flex: 5;
+}
+
 .profilePage {
     display: flex;
     flex: 1;
     margin: 30px;
 }
 
-.profileSection {
-    flex: 5;
-}
-
-.profileCard {
+.profileBackground {
     padding: 50px;
     margin: 10px 50px;
     background-color: white;
@@ -41,4 +41,7 @@ h3 {
 
 .tagSection {
     flex: 8;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
 }
