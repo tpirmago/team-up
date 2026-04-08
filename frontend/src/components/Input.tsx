@@ -1,10 +1,7 @@
 import styles from './Input.module.css'
 
-interface InputProps {
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
     label?: string
-    type?: string
-    className?: string
-    [key: string]: any
 }
 
 export default function Input({ label, className, type = 'text', ...rest }: InputProps) {
