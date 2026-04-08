@@ -18,7 +18,7 @@ export default function DetailRow({ label, value, editMode, inputRef, type = "te
                     ? <Input className={styles.detailInput}
                         type={type}
                         defaultValue={value}
-                        inputRef={inputRef} />
+                        ref={inputRef} />
                     : <p className={styles.detailText} >{value}</p>
             }
         </div>
