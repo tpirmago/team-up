@@ -23,3 +23,24 @@ nav {
     border-radius: 8px;
     box-shadow: 0px 0px 8px #817e7e;
 }
+
+.sectionHeader {
+    margin-bottom: 30px;
+}
+
+.addButtonSection {
+    position: relative;
+}
+
+.blackButton {
+    padding: 5px 20px;
+    position: absolute;
+    top: -60px;
+    right: 0;
+}
+
+.projectGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}

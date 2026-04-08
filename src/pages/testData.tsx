@@ -111,8 +111,6 @@ export const testSkills = [
     { skill_id: 24, skill_name: "PostgreSQL", category: "Databases" }
 ]
 
-
-
 export const testInterests = [
     { interest_id: 1, interest_name: "AI ethics", category: "AI" },
     { interest_id: 2, interest_name: "Cloud computing", category: "Infrastructure" },
@@ -140,3 +138,101 @@ export const testInterests = [
     { interest_id: 24, interest_name: "Wearable technology", category: "Hardware" }
 ];
 
+export const allProjects = [
+    {
+        project_id: 1,
+        owner_user_id: 1,
+        title: "Interactive Data Dashboard",
+        description: "A web-based dashboard for visualizing real-time data streams.",
+        topic: "data visualization",
+        team_size_min: 2,
+        team_size_max: 5,
+        duration: "6 weeks",
+        location_mode: "hybrid",
+        skills: [
+            { skill_id: 16, skill_name: "React", category: "Frontend" },
+            { skill_id: 19, skill_name: "UI Design", category: "Design" },
+            { skill_id: 17, skill_name: "SQL", category: "Databases" }
+        ]
+    },
+    {
+        project_id: 2,
+        owner_user_id: 3,
+        title: "Mobile Habit Tracker",
+        description: "A cross-platform mobile app for tracking daily habits.",
+        topic: "mobile development",
+        team_size_min: 3,
+        team_size_max: 6,
+        duration: "8 weeks",
+        location_mode: "remote",
+        skills: [
+            { skill_id: 13, skill_name: "Mobile development", category: "Software" },
+            { skill_id: 18, skill_name: "TypeScript", category: "Programming" },
+            { skill_id: 11, skill_name: "JavaScript", category: "Programming" }
+        ]
+    },
+    {
+        project_id: 3,
+        owner_user_id: 2,
+        title: "AI-Powered Study Assistant",
+        description: "An AI-driven study assistant that generates quizzes and tracks learning progress.",
+        topic: "machine learning",
+        team_size_min: 2,
+        team_size_max: 4,
+        duration: "10 weeks",
+        location_mode: "on-site",
+        skills: [
+            { skill_id: 15, skill_name: "Python", category: "Programming" },
+            { skill_id: 4, skill_name: "Data analysis", category: "Data" },
+            { skill_id: 20, skill_name: "UX Research", category: "Design" }
+        ]
+    },
+    {
+        project_id: 4,
+        owner_user_id: 4,
+        title: "Sustainability Impact Calculator",
+        description: "A tool that helps users estimate their carbon footprint and suggests improvements.",
+        topic: "environmental tech",
+        team_size_min: 1,
+        team_size_max: 3,
+        duration: "4 weeks",
+        location_mode: "remote",
+        skills: [
+            { skill_id: 14, skill_name: "Node.js", category: "Backend" },
+            { skill_id: 5, skill_name: "Docker", category: "DevOps" },
+            { skill_id: 22, skill_name: "Kubernetes", category: "DevOps" }
+        ]
+    },
+    {
+        project_id: 5,
+        owner_user_id: 1,
+        title: "VR Museum Experience",
+        description: "A virtual reality museum that allows users to explore historical artifacts.",
+        topic: "VR development",
+        team_size_min: 3,
+        team_size_max: 8,
+        duration: "12 weeks",
+        location_mode: "on-site",
+        skills: [
+            { skill_id: 9, skill_name: "HTML", category: "Frontend" },
+            { skill_id: 3, skill_name: "CSS", category: "Frontend" },
+            { skill_id: 7, skill_name: "Figma", category: "Design" }
+        ]
+    },
+    {
+        project_id: 6,
+        owner_user_id: 3,
+        title: "Community Event Planner",
+        description: "A platform for organizing and promoting local community events.",
+        topic: "web development",
+        team_size_min: 2,
+        team_size_max: 5,
+        duration: "5 weeks",
+        location_mode: "hybrid",
+        skills: [
+            { skill_id: 16, skill_name: "React", category: "Frontend" },
+            { skill_id: 6, skill_name: "Express", category: "Backend" },
+            { skill_id: 8, skill_name: "Git", category: "Tools" }
+        ]
+    }
+]

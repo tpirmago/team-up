@@ -1,11 +1,9 @@
 import styles from "./ProfileView.module.css"
 import { useRef, useState } from "react";
 import { testUser, testInterests, testSkills } from "./testData";
-import ProjectSection from "../components/ProjectSection";
 import ProfileHeader from "../components/ProfileHeader";
 import ProfileDetails from "../components/ProfileDetails";
-import ProfileSkills from "../components/ProfileSkills";
-import ProfileInterest from "../components/ProfileInterests";
+import ProfileTags from "../components/ProfileTags";
 
 export interface User {
     user_id: number,
@@ -32,7 +30,7 @@ export interface Interests {
     category: string
 }
 
-interface Projects {
+export interface Projects {
     project_id: number
     owner_user_id: number
     title: string
@@ -166,25 +164,27 @@ export default function ProfileView() {
                             />
                         </section>
                         <section className={styles.tagSection} >
-                            <ProfileSkills
+                            <ProfileTags
+                                title="My skills"
                                 editMode={editMode}
-                                selectedSkillId={selectedSkillId}
-                                setSelectedSkillId={setSelectedSkillId}
-                                allSkills={allSkills}
-                                handleAddSkill={handleAddSkill}
-                                user={user}
-                                handleDeleteSkill={handleDeleteSkill}
-                                skillError={skillError}
+                                selectedId={selectedSkillId}
+                                setSelectedId={setSelectedSkillId}
+                                userTags={user.skills.map(s => ({id: s.skill_id, name: s.skill_name}))}
+                                allTags={allSkills.map(s => ({id: s.skill_id, name: s.skill_name}))}
+                                handleAdd={handleAddSkill}
+                                handleDelete={handleDeleteSkill}
+                                error={skillError}
                             />
-                            <ProfileInterest
+                            <ProfileTags
+                                title="My interests"
                                 editMode={editMode}
-                                selectedInterestId={selectedInterestId}
-                                setSelectedInterestId={setSelectedInterestId}
-                                user={user}
-                                allInterests={allInterests}
-                                handleAddInterest={handleAddInterest}
-                                handleDeleteInterest={handleDeleteInterest}
-                                interestError={interestError}
+                                selectedId={selectedInterestId}
+                                setSelectedId={setSelectedInterestId}
+                                userTags={user.interests.map(s => ({id: s.interest_id, name: s.interest_name}))}
+                                allTags={allInterests.map(s => ({id: s.interest_id, name: s.interest_name}))}
+                                handleAdd={handleAddInterest}
+                                handleDelete={handleDeleteInterest}
+                                error={interestError}
                             />
                         </section>
                     </section>

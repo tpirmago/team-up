@@ -1,11 +1,41 @@
-.formHeader {
-    margin: 10px 0;
+.headerRow {
+    position: relative;
+}
+
+.buttonBox {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: absolute;
+    top: -60px;
+    right: 0;
+}
+
+.editButton {
+    display: flex;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: bold;
+    margin: 0 20px;
+    gap: 0.5rem;
+}
+
+.blackButton {
+    padding: 5px 20px;
 }
 
 .formGrid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 50px;
+}
+
+.formHeader {
+    margin: 10px 0;
+    font-size: 1.17em;
 }
 
 .leftColumn,

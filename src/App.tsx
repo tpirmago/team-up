@@ -35,7 +35,7 @@ function MainView({page, setPage, loggedIn}) {
     </main>
     )
   }
-  return <MyProjectView />
+  return <ProfileView />
 }
 
 export default App
