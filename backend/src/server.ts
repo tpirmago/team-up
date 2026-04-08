@@ -2,6 +2,7 @@ import express from "express";
 import { db } from "./db";
 import cors from "cors";
 import usersRouter from "./routes/users";
+import authRouter from "./routes/auth";
 
 const app = express();
 
@@ -9,6 +10,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/users", usersRouter);
+app.use("/auth", authRouter);
 
 app.get("/test", async (req, res) => {
     const result = await db.query("SELECT * FROM users");
