@@ -1,4 +1,6 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { onAuthStateChanged, signOut, type User } from 'firebase/auth'
+import { auth } from './firebase'
 import './App.css'
 import Header from './components/Header'
 import Footer from './components/Footer'
@@ -6,12 +8,32 @@ import LoginView from './pages/LoginView'
 import SignUpView from './pages/SignUpView'
 import ProfileView from './pages/ProfileView'
 
-type Page = 'login' | 'signup' | 'profile'
+type Page = 'login' | 'signup'
 
 function App() {
-
-  const loggedIn = true
+  const [user, setUser] = useState<User | null>(null)
+  const [loading, setLoading] = useState(true)
   const [page, setPage] = useState<Page>('login')
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
+      setUser(firebaseUser)
+      setLoading(false)
+    })
+    return unsubscribe
+  }, [])
+
+  if (loading) return null
+
+  if (user) {
+    return (
+      <div className="app">
+        <Header btnLabel="Log out" onBtnClick={() => signOut(auth)} />
+        <ProfileView />
+        <Footer />
+      </div>
+    )
+  }
 
   return (
     <div className="app">
@@ -19,22 +41,14 @@ function App() {
         btnLabel={page === 'login' ? 'Sign up' : 'Log in'}
         onBtnClick={() => setPage(page === 'login' ? 'signup' : 'login')}
       />
-      <MainView loggedIn={loggedIn} page={page} setPage={setPage}/>
+      <main className="content">
+        {page === 'login'
+          ? <LoginView onSignUp={() => setPage('signup')} />
+          : <SignUpView onLogIn={() => setPage('login')} />}
+      </main>
       <Footer />
     </div>
   )
-}
-
-function MainView({page, setPage, loggedIn}) {
-  if (!loggedIn) {
-    return (<main className="content">
-      {page === 'login'
-        ? <LoginView onSignUp={() => setPage('signup')} />
-        : <SignUpView onLogIn={() => setPage('login')} />}
-    </main>
-    )
-  }
-  return <ProfileView />
 }
 
 export default App
