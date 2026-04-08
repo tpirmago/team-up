@@ -14,6 +14,23 @@ router.get("/", async (req ,res) => {
     }
 });
 
+// GET a project with id
+router.get("/:id", async (req ,res) => {
+    const projectId = req.params.id;
+    try{
+        const result = await db.query(`SELECT * FROM projects WHERE project_id = $1`, [projectId]);
+        
+        if (result.rows.length === 0) {
+        return res.status(404).json({ error: "Project not found" });
+        }
+
+        res.json(result.rows[0]);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Failed to fetch project" });
+    }
+});
+
 // POST a new project
 router.post("/", async (req, res) => {
     const {
