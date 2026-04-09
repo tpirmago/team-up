@@ -1,8 +1,8 @@
-nav {
+.navigation {
     flex: 1;
 }
 
-.navigation {
+.navigationList {
     list-style-type: none;
 }
 
@@ -22,10 +22,6 @@ nav {
     background-color: white;
     border-radius: 8px;
     box-shadow: 0px 0px 8px #817e7e;
-}
-
-h3 {
-    margin: 30px 0px;
 }
 
 .info {

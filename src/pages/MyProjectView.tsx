@@ -51,8 +51,8 @@ export default function MyProjectView() {
 
     return (
         <main className={styles.myProjectPage} >
-            <nav>
-                <ul className={styles.navigation} >
+            <nav className={styles.navigation} >
+                <ul className={styles.navigationList} >
                     <li >Dashboard</li>
                     <li>My Projects</li>
                     <li>Events</li>
@@ -76,7 +76,7 @@ export default function MyProjectView() {
                             />
                             : <section className={styles.addButtonSection} >
                                 <Button
-                                    label={createMode ? "Add New Project" : "Create New Project"}
+                                    label="Create New Project"
                                     onClick={() => setCreateMode(prev => !prev)}
                                     className={styles.blackButton} />
                                 <div className={styles.projectGrid} >

@@ -137,8 +137,8 @@ export default function ProfileView() {
 
     return (
         <main className={styles.profilePage} >
-            <nav>
-                <ul className={styles.navigation} >
+            <nav className={styles.navigation} >
+                <ul className={styles.navigationList} >
                     <li >Dashboard</li>
                     <li>My Projects</li>
                     <li>Events</li>

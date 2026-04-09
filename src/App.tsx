@@ -6,6 +6,7 @@ import LoginView from './pages/LoginView'
 import SignUpView from './pages/SignUpView'
 import ProfileView from './pages/ProfileView'
 import MyProjectView from './pages/MyProjectView'
+import CreateProjectView from './pages/CreateProjectView'
 
 type Page = 'login' | 'signup' | 'profile'
 
@@ -35,7 +36,7 @@ function MainView({page, setPage, loggedIn}) {
     </main>
     )
   }
-  return <ProfileView />
+  return <CreateProjectView />
 }
 
 export default App

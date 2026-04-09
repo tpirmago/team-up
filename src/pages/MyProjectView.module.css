@@ -4,11 +4,11 @@
     margin: 30px;
 }
 
-nav {
+.navigation {
     flex: 1;
 }
 
-.navigation {
+.navigationList {
     list-style-type: none;
 }
 

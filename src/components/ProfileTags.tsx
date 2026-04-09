@@ -32,7 +32,7 @@ export default function ProfileTags({
     return (
         <div>
             <header className={styles.skillsHeader} >
-                <h3>{title}</h3>
+                <h3 className={styles.headerTitle} >{title}</h3>
                 {
                     editMode
                         ? <div className={styles.selectWrapper} >

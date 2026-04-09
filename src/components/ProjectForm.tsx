@@ -21,11 +21,8 @@ export interface Form {
     skills: Skills[]
 }
 
-export default function ProjectForm({createMode, setCreateMode, onSubmit}: ProjectFormProps) {
-
-    const [formInfo, setFormInfo] = useState<Form>(
-        {
-            title: "",
+const defaultForm = {
+    title: "",
             topic: "",
             description: "",
             location: "on-site",
@@ -36,19 +33,25 @@ export default function ProjectForm({createMode, setCreateMode, onSubmit}: Proje
                 { skill_id: 7, skill_name: "Mobile development", category: "Software" },
                 { skill_id: 2, skill_name: "TypeScript", category: "Programming" }
             ]
-        })
+}
 
-        function handleForm(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) {
-            setFormInfo(prev => ( {
-                ...prev,
-                [e.target.name]: e.target.value,
-            }))
-        }
+export default function ProjectForm({ createMode, setCreateMode, onSubmit }: ProjectFormProps) {
 
-        function handleSubmit(e: React.FormEvent) {
-            e.preventDefault()
-            onSubmit(formInfo)
-        }
+    const [formInfo, setFormInfo] = useState<Form>(defaultForm)
+
+    function handleForm(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) {
+        setFormInfo(prev => ({
+            ...prev,
+            [e.target.name]: e.target.value,
+        }))
+    }
+
+    function handleSubmit(e: React.FormEvent) {
+        e.preventDefault()
+        onSubmit(formInfo)
+
+        setFormInfo(defaultForm)
+    }
 
     return (
         <>
@@ -62,7 +65,7 @@ export default function ProjectForm({createMode, setCreateMode, onSubmit}: Proje
                         className={styles.blackButton}
                         type="submit"
                         form="project-form"
-                        />
+                    />
                 </div>
             </header>
             <form className={styles.formGrid} id="project-form" onSubmit={handleSubmit} >
@@ -77,7 +80,14 @@ export default function ProjectForm({createMode, setCreateMode, onSubmit}: Proje
                     </div>
                     <div>
                         <h2 className={styles.formHeader} >Description</h2>
-                        <textarea name="description" value={formInfo.description} rows={7} className={styles.description} onChange={handleForm} required ></textarea>
+                        <textarea
+                            name="description"
+                            value={formInfo.description}
+                            rows={7}
+                            className={styles.description}
+                            onChange={handleForm}
+                            placeholder="You can write here more information about the project topic, team or schedule."
+                        ></textarea>
                     </div>
                 </div>
                 <div className={styles.rightColumn} >
