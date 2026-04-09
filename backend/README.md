@@ -54,6 +54,8 @@ POST /users/:id/skills    (Post skills to a user)
 
 GET /skills               (Get all skills)
 
+GET /interests            (Get all interests)
+
 GET /projects             (Get all projects)
 GET /projects/:id         (Get a project with id)
 POST /projects            (Create a new project)
