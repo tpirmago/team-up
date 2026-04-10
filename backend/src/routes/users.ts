@@ -162,7 +162,7 @@ router.get("/:id/interests", async (req, res) => {
       `SELECT i.*
       FROM user_interests ui
       JOIN interests i ON ui.interest_id = i.interest_id
-      WHERE ui.interest_id = $1`, [userId]
+      WHERE ui.user_id = $1`, [userId]
     );
     res.json(result.rows);
   } catch (error) {
@@ -230,7 +230,7 @@ router.put("/:id/interests", async (req, res) => {
 
     await client.query("COMMIT");
 
-    res.status(200).json({ message: "Interests udated successfully" });
+    res.status(200).json({ message: "Interests updated successfully" });
   } catch (error) {
     await client.query("ROLLBACK");
     console.error(error);
