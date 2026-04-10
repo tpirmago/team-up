@@ -51,6 +51,12 @@ GET /users                (Get all users)
 PUT /users/:id            (Update user profile)
 GET /users/:id/skills     (Get users skills)
 POST /users/:id/skills    (Post skills to a user)
+PUT /users/:id/skills     (Update user skills)
+DELETE /users/:id/skills/:skillId (Delete user skill)
+GET /users/:id/interests  (Get users interests )
+POST /users/:id/interests (Post interests  to a user)
+PUT /users/:id/interests  (Update user interests)
+DELETE /users/:id/interests/:interestsId (Delete user interest)
 
 GET /skills               (Get all skills)
 
