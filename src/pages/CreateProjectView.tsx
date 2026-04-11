@@ -1,8 +1,8 @@
 import { useState } from "react"
-import ProjectForm, { type Form } from "../components/ProjectForm"
+import ProjectForm, { type Form } from "../components/CreateProject/ProjectForm"
 import styles from "./CreateProjectView.module.css"
 import type { Projects, User } from "./ProfileView"
-import { allProjects, testUser } from "./testData"
+import { allProjects, testUser } from "../testing/testData"
 import { RxCross1 } from "react-icons/rx";
 import Button from "../components/Button"
 
@@ -42,6 +42,8 @@ export default function CreateProjectView() {
 
         setCreateMode(false)
     }
+
+    console.log(projectList)
 
     return (
         <main className={styles.createProjectPage} >

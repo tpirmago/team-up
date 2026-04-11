@@ -1,11 +1,11 @@
-import Input from "./Input"
 import styles from "./ProjectForm.module.css"
-import Button from "./Button"
-import React, { useState } from "react"
-import { type Skills } from "../pages/ProfileView"
-import { testSkills } from "../pages/testData"
-import { RxCross2 } from "react-icons/rx"
+import Button from "../Button"
+import React, { useEffect, useState } from "react"
+import { type Skills } from "../../pages/ProfileView"
+import { testSkills } from "../../testing/testData"
 import SkillsSelector from "./SkillsSelector"
+import DurationButton from "./DurationButton"
+import FormField from "./FormField"
 
 interface ProjectFormProps {
     createMode: boolean
@@ -32,14 +32,13 @@ const defaultForm = {
     teamMin: 1,
     teamMax: 1,
     duration: [],
-    skills: [
-        { skill_id: 7, skill_name: "Mobile development", category: "Software" },
-        { skill_id: 2, skill_name: "TypeScript", category: "Programming" }
-    ]
+    skills: []
 }
 
 export default function ProjectForm({ createMode, setCreateMode, onSubmit }: ProjectFormProps) {
 
+    const months = ["January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"]
     const [formInfo, setFormInfo] = useState<Form>(defaultForm)
     const [allSkills, setAllSkills] = useState<Skills[]>(testSkills)
 
@@ -80,6 +79,25 @@ export default function ProjectForm({ createMode, setCreateMode, onSubmit }: Pro
         )
     }
 
+    function toggleMonth(month: string) {
+        setFormInfo(prev => {
+        const exist = prev.duration.includes(month)
+
+        return {
+            ...prev, 
+            duration: exist
+            ? prev.duration.filter(m => m !== month)
+            : [...prev.duration, month]
+    }})
+    }
+
+    useEffect(() => {
+        setFormInfo(prev => ({
+            ...prev,
+            skills: addedSkills
+        }))
+    }, [addedSkills])
+
     return (
         <>
             <header className={styles.headerRow} >
@@ -98,23 +116,19 @@ export default function ProjectForm({ createMode, setCreateMode, onSubmit }: Pro
             <form id="project-form" onSubmit={handleSubmit} >
                 <div className={styles.formGrid}>
                     <div className={styles.leftColumn} >
-                        <FormBox handleForm={handleForm} label="Title" name="title" type="text" value={formInfo.title} />
-                        <FormBox handleForm={handleForm} label="Topic" name="topic" type="text" value={formInfo.topic} />
+                        <FormField handleForm={handleForm} label="Title" name="title" type="text" value={formInfo.title} />
+                        <FormField handleForm={handleForm} label="Topic" name="topic" type="text" value={formInfo.topic} />
                         <div >
                             <h2 className={styles.formHeader} >Duration</h2>
                             <div className={styles.monthSection} >
-                                <MonthBox monthName={"January"} />
-                                <MonthBox monthName={"February"} />
-                                <MonthBox monthName={"March"} />
-                                <MonthBox monthName={"April"} />
-                                <MonthBox monthName={"May"} />
-                                <MonthBox monthName={"June"} />
-                                <MonthBox monthName={"July"} />
-                                <MonthBox monthName={"August"} />
-                                <MonthBox monthName={"September"} />
-                                <MonthBox monthName={"October"} />
-                                <MonthBox monthName={"November"} />
-                                <MonthBox monthName={"December"} />
+                                {
+                                    months.map(m =>
+                                        <DurationButton
+                                            monthName={m} 
+                                            checked={formInfo.duration.includes(m)}
+                                            onToggle={toggleMonth}
+                                            />)
+                                }
                             </div>
                         </div>
                     </div>
@@ -128,8 +142,8 @@ export default function ProjectForm({ createMode, setCreateMode, onSubmit }: Pro
                                 <option value="optional">Optional</option>
                             </select>
                         </div>
-                        <FormBox handleForm={handleForm} type="number" label="Team size (min)" name="teamMin" value={formInfo.teamMin} />
-                        <FormBox handleForm={handleForm} type="number" label="Team size (max)" name="teamMax" value={formInfo.teamMax} />
+                        <FormField handleForm={handleForm} type="number" label="Team size (min)" name="teamMin" value={formInfo.teamMin} />
+                        <FormField handleForm={handleForm} type="number" label="Team size (max)" name="teamMax" value={formInfo.teamMax} />
                         <div>
                             <h2 className={styles.formHeader} >Description</h2>
                             <textarea
@@ -144,7 +158,7 @@ export default function ProjectForm({ createMode, setCreateMode, onSubmit }: Pro
                     </div>
                 </div>
                 <div>
-                    <SkillsSelector 
+                    <SkillsSelector
                         addSkill={addSkill}
                         allSkills={allSkills}
                         addedSkills={addedSkills}
@@ -153,38 +167,5 @@ export default function ProjectForm({ createMode, setCreateMode, onSubmit }: Pro
                 </div>
             </form >
         </>
-    )
-}
-
-interface MonthBoxProps {
-    monthName: string
-}
-
-function MonthBox({ monthName }: MonthBoxProps) {
-    return (
-        <div >
-            <label className={styles.month} >
-                <input
-                    type="checkbox" value={monthName} />
-                {monthName}
-            </label>
-        </div>
-    )
-}
-
-interface FormBoxProps {
-    label: string
-    name: string
-    value: string | number
-    type: string
-    handleForm: (e: React.ChangeEvent<HTMLInputElement>) => void
-}
-
-function FormBox({ label, name, value, type, handleForm }: FormBoxProps) {
-    return (
-        <div>
-            <h2 className={styles.formHeader} >{label}</h2>
-            <Input name={name} value={value} type={type} onChange={handleForm} required />
-        </div>
     )
 }

@@ -1,10 +1,11 @@
 import { useState } from "react"
 import styles from "./MyProjectView.module.css"
-import { allProjects, testUser } from "./testData"
+import { allProjects, testUser } from "../testing/testData"
 import type { Projects, User } from "./ProfileView"
-import ProjectCard from "../components/ProjectCard"
-import ProjectForm, { type Form } from "../components/ProjectForm"
+
+import ProjectForm, { type Form } from "../components/CreateProject/ProjectForm"
 import Button from "../components/Button"
+import ProjectCard from "../components/MyProjects/ProjectCard"
 
 export default function MyProjectView() {
 

@@ -1,8 +1,8 @@
 import styles from "./ProjectCard.module.css"
 import { GoHeart } from "react-icons/go";
 import { IoIosInformationCircleOutline } from "react-icons/io";
-import { RiDeleteBin6Line } from "react-icons/ri";
 import ConfirmDialog from "./ConfirmDialog";
+
 
 interface ProjectCardProps {
     label: string

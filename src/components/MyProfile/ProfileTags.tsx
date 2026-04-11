@@ -1,6 +1,7 @@
 import { RxCross2 } from "react-icons/rx"
-import Button from "./Button"
+
 import styles from "./ProfileTags.module.css"
+import Button from "../Button"
 
 interface Tags {
     id: number

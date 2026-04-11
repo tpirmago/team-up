@@ -1,9 +1,10 @@
 import styles from "./ProfileView.module.css"
 import { useRef, useState } from "react";
-import { testUser, testInterests, testSkills } from "./testData";
-import ProfileHeader from "../components/ProfileHeader";
-import ProfileDetails from "../components/ProfileDetails";
-import ProfileTags from "../components/ProfileTags";
+import { testUser, testInterests, testSkills } from "../testing/testData";
+import ProfileHeader from "../components/MyProfile/ProfileHeader";
+import ProfileDetails from "../components/MyProfile/DetailsSection";
+import ProfileTags from "../components/MyProfile/ProfileTags";
+
 
 export interface User {
     user_id: number,

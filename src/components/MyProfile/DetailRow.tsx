@@ -1,5 +1,5 @@
 import styles from "./DetailRow.module.css"
-import Input from "./Input"
+import Input from "../Input"
 
 interface DetailRowProps {
     label: string
