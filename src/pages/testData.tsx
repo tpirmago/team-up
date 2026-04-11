@@ -27,8 +27,8 @@ export const testUser = {
             topic: "data visualization",
             team_size_min: 2,
             team_size_max: 5,
-            duration: "6 weeks",
             location_mode: "hybrid",
+            duration: ["March", "April", "May"],
             skills: [
                 { skill_id: 1, skill_name: "React", category: "Frontend" },
                 { skill_id: 3, skill_name: "UI Design", category: "Design" },
@@ -43,7 +43,7 @@ export const testUser = {
             topic: "mobile development",
             team_size_min: 3,
             team_size_max: 6,
-            duration: "8 weeks",
+            duration: ["March", "April", "May"],
             location_mode: "remote",
             skills: [
                 { skill_id: 7, skill_name: "Mobile development", category: "Software" },
@@ -58,7 +58,7 @@ export const testUser = {
             topic: "data visualization",
             team_size_min: 2,
             team_size_max: 5,
-            duration: "6 weeks",
+            duration: ["March", "April", "May"],
             location_mode: "hybrid",
             skills: [
                 { skill_id: 1, skill_name: "React", category: "Frontend" },
@@ -74,7 +74,7 @@ export const testUser = {
             topic: "mobile development",
             team_size_min: 3,
             team_size_max: 6,
-            duration: "8 weeks",
+            duration: ["March", "April", "May"],
             location_mode: "remote",
             skills: [
                 { skill_id: 7, skill_name: "Mobile development", category: "Software" },
@@ -147,7 +147,7 @@ export const allProjects = [
         topic: "data visualization",
         team_size_min: 2,
         team_size_max: 5,
-        duration: "6 weeks",
+        duration: ["March", "April", "May"],
         location_mode: "hybrid",
         skills: [
             { skill_id: 16, skill_name: "React", category: "Frontend" },
@@ -163,7 +163,7 @@ export const allProjects = [
         topic: "mobile development",
         team_size_min: 3,
         team_size_max: 6,
-        duration: "8 weeks",
+        duration: ["March", "April", "May"],
         location_mode: "remote",
         skills: [
             { skill_id: 13, skill_name: "Mobile development", category: "Software" },
@@ -179,7 +179,7 @@ export const allProjects = [
         topic: "machine learning",
         team_size_min: 2,
         team_size_max: 4,
-        duration: "10 weeks",
+        duration: ["March", "April", "May"],
         location_mode: "on-site",
         skills: [
             { skill_id: 15, skill_name: "Python", category: "Programming" },
@@ -195,7 +195,7 @@ export const allProjects = [
         topic: "environmental tech",
         team_size_min: 1,
         team_size_max: 3,
-        duration: "4 weeks",
+        duration: ["March", "April", "May"],
         location_mode: "remote",
         skills: [
             { skill_id: 14, skill_name: "Node.js", category: "Backend" },
@@ -211,7 +211,7 @@ export const allProjects = [
         topic: "VR development",
         team_size_min: 3,
         team_size_max: 8,
-        duration: "12 weeks",
+        duration: ["March", "April", "May"],
         location_mode: "on-site",
         skills: [
             { skill_id: 9, skill_name: "HTML", category: "Frontend" },
@@ -227,7 +227,7 @@ export const allProjects = [
         topic: "web development",
         team_size_min: 2,
         team_size_max: 5,
-        duration: "5 weeks",
+        duration: ["March", "April", "May"],
         location_mode: "hybrid",
         skills: [
             { skill_id: 16, skill_name: "React", category: "Frontend" },

@@ -1,0 +1,55 @@
+.formHeader {
+    margin: 10px 0;
+    font-size: 1.17em;
+}
+
+.selectWrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.placeholderText {
+    color: #999999;
+}
+
+.deleteInfo {
+    background: transparent;
+    border: none;
+    font-family: 'JetBrains Mono', monospace;
+    cursor: pointer;
+    margin: 0px 20px 10px 0;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+}
+
+.selectDropdown {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    margin-left: 20px;
+}
+
+.selectNew {
+    padding: 5px;
+    font-family: inherit;
+    border: 1px solid #ccc;
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.6);
+    box-sizing: border-box;
+    cursor: pointer;
+    outline: none;
+}
+
+.blackButton {
+    padding: 6px 20px;
+    min-width: 85px;
+}

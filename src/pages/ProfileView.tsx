@@ -38,7 +38,7 @@ export interface Projects {
     topic: string
     team_size_min: number
     team_size_max: number
-    duration: string
+    duration: string[]
     location_mode: string
     skills: Skills[]
 }
