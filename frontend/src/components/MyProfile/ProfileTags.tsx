@@ -1,5 +1,4 @@
 import { RxCross2 } from "react-icons/rx"
-
 import styles from "./ProfileTags.module.css"
 import Button from "../Button"
 
