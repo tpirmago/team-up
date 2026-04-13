@@ -1,0 +1,50 @@
+.headerRow {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.buttonBox {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.editButton {
+    display: flex;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: bold;
+    margin: 0 20px;
+    gap: 0.5rem;
+}
+
+.blackButton {
+    padding: 5px 20px;
+}
+
+.profileInfo {
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+}
+
+.profileImg {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 1px solid black;
+}
+
+.userName {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 50px;
+    gap: 10px;
+}

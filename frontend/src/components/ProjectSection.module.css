@@ -1,0 +1,43 @@
+.projectSection {
+    padding: 50px;
+    margin: 10px 50px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0px 0px 8px #817e7e;
+}
+
+.headerRow {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.buttonBox {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.editButton {
+    display: flex;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: bold;
+    margin: 0 20px;
+    gap: 0.5rem;
+}
+
+.blackButton {
+    padding: 5px 20px;
+}
+
+.projectGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
