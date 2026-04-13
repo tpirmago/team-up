@@ -4,6 +4,7 @@ import Header from './components/Header'
 import Footer from './components/Footer'
 import LoginView from './pages/LoginView'
 import SignUpView from './pages/SignUpView'
+import Navbar from './components/Navbar'
 
 type Page = 'login' | 'signup'
 
