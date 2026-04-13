@@ -1,19 +1,66 @@
-import { useState } from "react"
-import ProjectForm, { type Form } from "../components/CreateProject/ProjectForm"
+import { useEffect, useState } from "react"
+import ProjectForm from "../components/CreateProject/ProjectForm"
 import styles from "./CreateProjectView.module.css"
-import type { Projects, User } from "./ProfileView"
-import { allProjects, testUser } from "../testing/testData"
+import type { Projects, Skills, User } from "./ProfileView"
+import { allProjects, testSkills, testUser } from "../testing/testData"
 import { RxCross1 } from "react-icons/rx";
 import Button from "../components/Button"
 
+export interface Form {
+    title: string
+    topic: string
+    description: string
+    location: string
+    teamMin: number
+    teamMax: number
+    duration: string[]
+    skills: Skills[]
+}
+
+const defaultForm = {
+    title: "",
+    topic: "",
+    description: "",
+    location: "on-site",
+    teamMin: 1,
+    teamMax: 1,
+    duration: [],
+    skills: []
+}
 
 export default function CreateProjectView() {
 
-    const [createMode, setCreateMode] = useState(true)
     const [user, setUser] = useState<User>(testUser)
     const [projectList, setProjectList] = useState<Projects[]>(allProjects)
-    const [added, setAdded] = useState(false)
+    const [projectAdded, setProjectAdded] = useState(false)
 
+    const [addedSkills, setAddedSkills] = useState<Skills[]>([])
+    const [formInfo, setFormInfo] = useState<Form>(defaultForm)
+
+    const allSkills = testSkills
+
+    useEffect(() => {
+        setFormInfo(prev => ({
+            ...prev,
+            skills: addedSkills
+        }))
+    }, [addedSkills])
+
+    function addSkill(selectedId: number) {
+
+        const alreadyAdded = addedSkills.some(i => i.skill_id === selectedId)
+        if (alreadyAdded) return
+
+        const skill = allSkills.find(i => i.skill_id === selectedId)
+        if (skill) {
+            setAddedSkills(prev => [...prev, skill])
+        }
+    }
+
+    function deleteSkill(id: number) {
+        setAddedSkills(prev => prev.filter(i => i.skill_id !== id)
+        )
+    }
 
     function handleAddProject(form: Form) {
         const nextId = projectList.length > 0 ? projectList.at(-1)!.project_id + 1 : 1
@@ -37,13 +84,11 @@ export default function CreateProjectView() {
         }))
 
         setProjectList(prev => [...prev, newProject])
+        setProjectAdded(true)
 
-        setAdded(prev => !prev)
-
-        setCreateMode(false)
+        setFormInfo(defaultForm)
+        setAddedSkills([])
     }
-
-    console.log(projectList)
 
     return (
         <main className={styles.createProjectPage} >
@@ -56,7 +101,7 @@ export default function CreateProjectView() {
             </nav>
             <section className={styles.formSection} >
                 {
-                    added
+                    projectAdded
                         ? <section className={styles.messageBackground} >
                             <h3>Project created successfully!</h3>
                             <div className={styles.buttonBox} >
@@ -64,7 +109,7 @@ export default function CreateProjectView() {
                                     label="View My Projects"
                                     className={styles.blackButton}
                                 />
-                                <button className={styles.closeButton} onClick={() => setAdded(false)} > <RxCross1 size={25} /></button>
+                                <button className={styles.closeButton} onClick={() => setProjectAdded(false)} > <RxCross1 size={25} /></button>
                             </div>
                         </section>
                         : null
@@ -74,9 +119,13 @@ export default function CreateProjectView() {
                         <h1>Create New Project</h1>
                     </header>
                     <ProjectForm
-                        createMode={createMode}
-                        setCreateMode={setCreateMode}
                         onSubmit={handleAddProject}
+                        allSkills={allSkills}
+                        addedSkills={addedSkills}
+                        formInfo={formInfo}
+                        setFormInfo={setFormInfo}
+                        addSkill={addSkill}
+                        deleteSkill={deleteSkill}
                     />
                 </section>
             </section>

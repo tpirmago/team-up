@@ -1,48 +1,26 @@
 import styles from "./ProjectForm.module.css"
 import Button from "../Button"
-import React, { useEffect, useState } from "react"
+import React from "react"
 import { type Skills } from "../../pages/ProfileView"
-import { testSkills } from "../../testing/testData"
 import SkillsSelector from "./SkillsSelector"
 import DurationButton from "./DurationButton"
 import FormField from "./FormField"
+import type { Form } from "../../pages/CreateProjectView"
 
 interface ProjectFormProps {
-    createMode: boolean
-    setCreateMode: React.Dispatch<React.SetStateAction<boolean>>
     onSubmit: (data: Form) => void
+    allSkills: Skills[]
+    addedSkills: Skills[]
+    formInfo: Form
+    setFormInfo: React.Dispatch<React.SetStateAction<Form>>
+    deleteSkill: (id: number) => void
+    addSkill: (id: number) => void
 }
 
-export interface Form {
-    title: string
-    topic: string
-    description: string
-    location: string
-    teamMin: number
-    teamMax: number
-    duration: string[]
-    skills: Skills[]
-}
-
-const defaultForm = {
-    title: "",
-    topic: "",
-    description: "",
-    location: "on-site",
-    teamMin: 1,
-    teamMax: 1,
-    duration: [],
-    skills: []
-}
-
-export default function ProjectForm({ createMode, setCreateMode, onSubmit }: ProjectFormProps) {
+export default function ProjectForm({ onSubmit, allSkills, addedSkills, formInfo, setFormInfo, deleteSkill, addSkill }: ProjectFormProps) {
 
     const months = ["January", "February", "March", "April", "May", "June",
         "July", "August", "September", "October", "November", "December"]
-    const [formInfo, setFormInfo] = useState<Form>(defaultForm)
-    const [allSkills, setAllSkills] = useState<Skills[]>(testSkills)
-
-    const [addedSkills, setAddedSkills] = useState<Skills[]>([])
 
     function handleForm(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) {
         setFormInfo(prev => ({
@@ -51,60 +29,23 @@ export default function ProjectForm({ createMode, setCreateMode, onSubmit }: Pro
         }))
     }
 
-    function handleSubmit(e: React.FormEvent) {
-        e.preventDefault()
-        onSubmit(formInfo)
-
-        setFormInfo(defaultForm)
-    }
-
-    function addSkill(selectedId: number) {
-
-        const alreadyAdded = addedSkills.some(i => i.skill_id === selectedId)
-
-        if (alreadyAdded) return
-
-        const skill = allSkills.find(i => i.skill_id === selectedId)
-
-        if (skill) {
-            setAddedSkills(prev => [
-                ...prev,
-                { skill_id: selectedId, skill_name: skill.skill_name, category: skill.category }
-            ])
-        }
-    }
-
-    function deleteSkill(id: number) {
-        setAddedSkills(prev => prev.filter(i => i.skill_id !== id)
-        )
-    }
-
     function toggleMonth(month: string) {
         setFormInfo(prev => {
-        const exist = prev.duration.includes(month)
+            const exist = prev.duration.includes(month)
 
-        return {
-            ...prev, 
-            duration: exist
-            ? prev.duration.filter(m => m !== month)
-            : [...prev.duration, month]
-    }})
+            return {
+                ...prev,
+                duration: exist
+                    ? prev.duration.filter(m => m !== month)
+                    : [...prev.duration, month]
+            }
+        })
     }
-
-    useEffect(() => {
-        setFormInfo(prev => ({
-            ...prev,
-            skills: addedSkills
-        }))
-    }, [addedSkills])
 
     return (
         <>
             <header className={styles.headerRow} >
                 <div className={styles.buttonBox} >
-                    <button onClick={() => setCreateMode(prev => !prev)} className={styles.editButton} >
-                        {createMode ? "Cancel" : null}
-                    </button>
                     <Button
                         label={"Add New Project"}
                         className={styles.blackButton}
@@ -113,7 +54,7 @@ export default function ProjectForm({ createMode, setCreateMode, onSubmit }: Pro
                     />
                 </div>
             </header>
-            <form id="project-form" onSubmit={handleSubmit} >
+            <form id="project-form" onSubmit={(e) => { e.preventDefault(); onSubmit(formInfo) }} >
                 <div className={styles.formGrid}>
                     <div className={styles.leftColumn} >
                         <FormField handleForm={handleForm} label="Title" name="title" type="text" value={formInfo.title} />
@@ -124,10 +65,11 @@ export default function ProjectForm({ createMode, setCreateMode, onSubmit }: Pro
                                 {
                                     months.map(m =>
                                         <DurationButton
-                                            monthName={m} 
+                                            key={m}
+                                            monthName={m}
                                             checked={formInfo.duration.includes(m)}
                                             onToggle={toggleMonth}
-                                            />)
+                                        />)
                                 }
                             </div>
                         </div>
