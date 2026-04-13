@@ -1,17 +1,52 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import styles from "./MyProjectView.module.css"
-import { allProjects, testUser } from "../testing/testData"
-import type { Projects, User } from "./ProfileView"
+import { allProjects, testSkills, testUser } from "../testing/testData"
+import type { Projects, Skills, User } from "./ProfileView"
 
-import ProjectForm, { type Form } from "../components/CreateProject/ProjectForm"
+import ProjectForm from "../components/CreateProject/ProjectForm"
 import Button from "../components/Button"
 import ProjectCard from "../components/MyProjects/ProjectCard"
+import type { Form } from "./CreateProjectView"
 
 export default function MyProjectView() {
 
     const [user, setUser] = useState<User>(testUser)
     const [projectList, setProjectList] = useState<Projects[]>(allProjects)
     const [createMode, setCreateMode] = useState(false)
+    const [addedSkills, setAddedSkills] = useState<Skills[]>([])
+    const defaultForm: Form = {
+        title: "",
+        topic: "",
+        description: "",
+        location: "on-site",
+        teamMin: 1,
+        teamMax: 1,
+        duration: [],
+        skills: []
+    }
+    const [formInfo, setFormInfo] = useState<Form>(defaultForm)
+    const allSkills = testSkills
+
+    useEffect(() => {
+        setFormInfo(prev => ({
+            ...prev,
+            skills: addedSkills
+        }))
+    }, [addedSkills])
+
+    function addSkill(selectedId: number) {
+        const alreadyAdded = addedSkills.some(i => i.skill_id === selectedId)
+        if (alreadyAdded) return
+
+        const skill = allSkills.find(i => i.skill_id === selectedId)
+        if (skill) {
+            setAddedSkills(prev => [...prev, skill])
+        }
+    }
+
+    function deleteSkill(id: number) {
+        setAddedSkills(prev => prev.filter(i => i.skill_id !== id))
+    }
 
     function handleDeleteProject(id: number) {
         setUser(prev => ({
@@ -71,9 +106,13 @@ export default function MyProjectView() {
                     {
                         createMode
                             ? <ProjectForm
-                                createMode={createMode}
-                                setCreateMode={setCreateMode}
                                 onSubmit={handleAddProject}
+                                allSkills={allSkills}
+                                addedSkills={addedSkills}
+                                formInfo={formInfo}
+                                setFormInfo={setFormInfo}
+                                addSkill={addSkill}
+                                deleteSkill={deleteSkill}
                             />
                             : <section className={styles.addButtonSection} >
                                 <Button
