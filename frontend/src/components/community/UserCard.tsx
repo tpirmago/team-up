@@ -1,4 +1,5 @@
 import type { CommunityUser } from "../../types/community"
+import styles from './UserCard.module.css'
 
 type UserCardProps = {
   user: CommunityUser
@@ -6,7 +7,7 @@ type UserCardProps = {
 
 export default function UserCard({ user }: UserCardProps) {
   return (
-    <div className="user-card">
+    <div className={styles.userCard}>
       <h3>{user.name}</h3>
       <p>{user.studyProgram}</p>
 
@@ -26,7 +27,7 @@ export default function UserCard({ user }: UserCardProps) {
             .join(', ')}
       </p>
 
-      <button>View profile</button>
+      <button className={styles.profileButton}>View profile</button>
     </div>
   )
 }
