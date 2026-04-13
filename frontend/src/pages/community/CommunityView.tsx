@@ -3,6 +3,7 @@ import type { CommunityUser, Interest, Skill } from '../../types/community'
 import Button from '../../components/Button'
 import Input from '../../components/Input'
 import PickRandom from '../../components/PickRandom'
+import styles from './CommunityView.module.css'
 
 const mockInterests: Interest[] = [
   { interest_id: 1, name: 'UX Design' },
@@ -43,17 +44,17 @@ const mockUsers: CommunityUser[] = [
 
 export default function CommunityView() { 
   return (
-    <section className="community">
-      <header className="community-header">
+    <section className={styles.community}>
+      <header className={styles.headerRow}>
         <h1>Connect with other students</h1>
 
-        <div className="community-actions">
-          <Button label={'Filters'} />
+        <div className={styles.communityActions}>
+          <Button className={styles.filterButton} label={'Filters'} />
           <Input placeholder="Search profile" />
         </div>
       </header>
 
-      <div className="community-grid">
+      <div className={styles.communityGrid}>
         {mockUsers.map(user => (
           <UserCard key={user.id} user={user} />
         ))}
