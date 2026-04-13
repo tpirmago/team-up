@@ -2,11 +2,16 @@ import { useState, useEffect } from 'react'
 import { onAuthStateChanged, signOut, type User } from 'firebase/auth'
 import { auth } from './firebase'
 import './App.css'
+
 import Header from './components/Header'
 import Footer from './components/Footer'
 import LoginView from './pages/LoginView'
 import SignUpView from './pages/SignUpView'
-import ProfileView from './pages/ProfileView'
+import CommunityView from './pages/community/CommunityView'
+
+// DEV ONLY: bypass auth for UI testing
+const DEV_BYPASS_AUTH = true
+
 
 type Page = 'login' | 'signup'
 
@@ -23,13 +28,16 @@ function App() {
     return unsubscribe
   }, [])
 
-  if (loading) return null
+  //if (loading) return null
+  if (loading && !DEV_BYPASS_AUTH) return null
 
-  if (user) {
+  //if (user) {
+  if (user || DEV_BYPASS_AUTH) {
     return (
       <div className="app">
         <Header btnLabel="Log out" onBtnClick={() => signOut(auth)} />
-        <ProfileView />
+        {/*<ProfileView />*/}
+        <CommunityView />
         <Footer />
       </div>
     )

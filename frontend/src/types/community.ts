@@ -1,0 +1,17 @@
+export type Interest = {
+  interest_id: number
+  name: string
+}
+
+export type Skill = {
+  skill_id: number
+  name: string
+}
+
+export type CommunityUser = {
+  id: number
+  name: string
+  studyProgram: string
+  interests: Interest[]
+  skills: Skill[]
+}
