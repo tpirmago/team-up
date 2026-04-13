@@ -1,7 +1,12 @@
 import express from "express";
 import { db } from "./db";
 import cors from "cors";
+
 import usersRouter from "./routes/users";
+import authRouter from "./routes/auth";
+import skillsRouter from "./routes/skills";
+import projectsRouter from "./routes/projects";
+import interestsRouter from "./routes/interests";
 
 const app = express();
 
@@ -9,12 +14,13 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/users", usersRouter);
+app.use("/auth", authRouter);
+app.use("/skills", skillsRouter);
+app.use("/projects", projectsRouter);
+app.use("/interests", interestsRouter);
 
-app.get("/test", async (req, res) => {
-    const result = await db.query("SELECT * FROM users");
-    res.json(result.rows);
-});
+const PORT = process.env.PORT || 3000;
 
-app.listen(3000, () => {
-  console.log("Server running on port 3000");
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });

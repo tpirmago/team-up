@@ -1,0 +1,47 @@
+.formHeader {
+    margin: 10px 0;
+}
+
+.formGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+}
+
+.leftColumn,
+.rightColumn {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.description {
+    width: 100%;
+    resize: none;
+    font-family: inherit;
+    font-size: 14px;
+    padding: 10px 18px;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    background: rgba(255, 255, 255, 0.6);
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.selectLocation {
+    width: 100%;
+    padding: 10px 18px;
+    font-family: inherit;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.6);
+    box-sizing: border-box;
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.selectLocation:focus, .description:focus {
+    border-color: #1a1a1a;
+}
