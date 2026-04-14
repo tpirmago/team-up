@@ -11,6 +11,7 @@ export type Skill = {
 export type CommunityUser = {
   id: number
   name: string
+  avatar_url: string | null
   studyProgram: string
   interests: Interest[]
   skills: Skill[]

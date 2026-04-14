@@ -5,6 +5,13 @@ import Input from '../../components/Input'
 import PickRandom from '../../components/PickRandom'
 import styles from './CommunityView.module.css'
 
+import MattiAvatar from '../../assets/avatars/MattiMeikalainenAvatar.png'
+//import AnnaAvatar from '../../assets/avatars/AnnaAaltoAvatar.png'
+import KalleAvatar from '../../assets/avatars/KalleKoodariAvatar.png'
+import LiisaAvatar from '../../assets/avatars/LiisaLintunenAvatar.png'
+import MaijaAvatar from '../../assets/avatars/MaijaMehilainenAvatar.png'
+import PekkaAvatar from '../../assets/avatars/PekkaPelotonAvatar.png'
+
 const mockInterests: Interest[] = [
   { interest_id: 1, name: 'UX Design' },
   { interest_id: 2, name: 'Healthcare' },
@@ -22,22 +29,57 @@ const mockSkills: Skill[] = [
 const mockUsers: CommunityUser[] = [
   {
     id: 1,
-    name: 'Alex Johnson',
+    name: 'Anna Aalto',
+    avatar_url: ' ',
     studyProgram: 'Information Technology',
     interests: PickRandom(mockInterests, 2),
     skills: PickRandom(mockSkills, 3),
   },
   {
     id: 2,
-    name: 'Matti Virtanen',
-    studyProgram: 'Bussiness Information Technology',
+    name: 'Matti Meikäläinen',
+    avatar_url: MattiAvatar,
+    studyProgram: 'Business Information Technology',
     interests: PickRandom(mockInterests, 2),
     skills: PickRandom(mockSkills, 3),
   },
   {
     id: 3,
-    name: 'Maija Korhonen',
+    name: 'Maija Mehiläinen',
+    avatar_url: MaijaAvatar,
     studyProgram: 'Business Analytics',
+    interests: PickRandom(mockInterests, 2),
+    skills: PickRandom(mockSkills, 3),
+  },
+  {
+    id: 4,
+    name: 'Liisa Lintunen',
+    avatar_url: LiisaAvatar,
+    studyProgram: 'Information Technology',
+    interests: PickRandom(mockInterests, 2),
+    skills: PickRandom(mockSkills, 3),
+  },
+  {
+    id: 5,
+    name: 'Pekka Peloton',
+    avatar_url: PekkaAvatar,
+    studyProgram: 'Business Information Technology',
+    interests: PickRandom(mockInterests, 2),
+    skills: PickRandom(mockSkills, 3),
+  },
+  {
+    id: 6,
+    name: 'Kalle Koodari',
+    avatar_url: KalleAvatar,
+    studyProgram: 'Information Technology',
+    interests: PickRandom(mockInterests, 2),
+    skills: PickRandom(mockSkills, 3),
+  },
+  {
+    id: 7,
+    name: 'Aino Aalto',
+    avatar_url: ' ',
+    studyProgram: 'Information Technology',
     interests: PickRandom(mockInterests, 2),
     skills: PickRandom(mockSkills, 3),
   },]
