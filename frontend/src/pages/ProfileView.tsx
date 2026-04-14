@@ -1,9 +1,9 @@
 import styles from "./ProfileView.module.css"
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { testUser, testInterests, testSkills } from "../testing/testData";
 import ProfileHeader from "../components/MyProfile/ProfileHeader";
-import ProfileDetails from "../components/MyProfile/DetailsSection";
 import ProfileTags from "../components/MyProfile/ProfileTags";
+import DetailsSection from "../components/MyProfile/DetailsSection";
 
 
 export interface User {
@@ -63,6 +63,28 @@ export default function ProfileView() {
     const [skillError, setSkillError] = useState<string | null>(null)
     const [interestError, setInterestError] = useState<string | null>(null)
 
+    const [fetchedUser, setFetchedUser] = useState<User>()
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const userRes = await fetch('http://localhost:3000/users/2')
+            const userData = await userRes.json()
+
+            const skillsRes = await fetch('http://localhost:3000/users/2/skills')
+            const skillsData = await skillsRes.json()
+
+            const interestsRes = await fetch('http://localhost:3000/users/2/interests')
+            const interestsData = await interestsRes.json()
+
+            setFetchedUser({
+                ...userData,
+                skills: skillsData,
+                interests: interestsData
+            })
+        }
+
+        fetchData()
+    }, [])
 
     function saveProfile() {
         setUser(prev => ({
@@ -95,8 +117,8 @@ export default function ProfileView() {
 
         const alreadyAdded = user.skills.some(s => s.skill_id === selectedSkillId)
 
-        if(alreadyAdded) {
-            setSkillError("You already have this skill")    
+        if (alreadyAdded) {
+            setSkillError("You already have this skill")
             return
         }
 
@@ -118,8 +140,8 @@ export default function ProfileView() {
 
         const alreadyAdded = user.interests.some(i => i.interest_id === selectedInterestId)
 
-        if(alreadyAdded) {
-            setInterestError("You already have this interest")    
+        if (alreadyAdded) {
+            setInterestError("You already have this interest")
             return
         }
 
@@ -147,46 +169,52 @@ export default function ProfileView() {
             </nav>
             <section className={styles.profileSection} >
                 <section className={styles.profileBackground} >
-                    <ProfileHeader
+                    {fetchedUser && (
+                        <ProfileHeader
                         editMode={editMode}
                         setEditMode={setEditMode}
                         saveProfile={saveProfile}
-                        user={user}
-                    />
+                        user={fetchedUser}
+                    />)}
                     <section className={styles.info} >
                         <section className={styles.personalDetails} >
-                            <ProfileDetails
-                                editMode={editMode}
-                                user={user}
-                                nameRef={nameRef}
-                                usernameRef={usernameRef}
-                                programRef={programRef}
-                                emailRef={emailRef}
-                            />
+                            {fetchedUser && (
+                                <DetailsSection
+                                    editMode={editMode}
+                                    user={fetchedUser}
+                                    nameRef={nameRef}
+                                    usernameRef={usernameRef}
+                                    programRef={programRef}
+                                    emailRef={emailRef}
+                                />
+                            )}
                         </section>
                         <section className={styles.tagSection} >
-                            <ProfileTags
+                            {fetchedUser && (
+                                <ProfileTags
                                 title="My skills"
                                 editMode={editMode}
                                 selectedId={selectedSkillId}
                                 setSelectedId={setSelectedSkillId}
-                                userTags={user.skills.map(s => ({id: s.skill_id, name: s.skill_name}))}
-                                allTags={allSkills.map(s => ({id: s.skill_id, name: s.skill_name}))}
+                                userTags={fetchedUser.skills.map(s => ({ id: s.skill_id, name: s.skill_name }))}
+                                allTags={allSkills.map(s => ({ id: s.skill_id, name: s.skill_name }))}
                                 handleAdd={handleAddSkill}
                                 handleDelete={handleDeleteSkill}
                                 error={skillError}
                             />
-                            <ProfileTags
+                            )}
+                            {fetchedUser && (
+                                <ProfileTags
                                 title="My interests"
                                 editMode={editMode}
                                 selectedId={selectedInterestId}
                                 setSelectedId={setSelectedInterestId}
-                                userTags={user.interests.map(s => ({id: s.interest_id, name: s.interest_name}))}
-                                allTags={allInterests.map(s => ({id: s.interest_id, name: s.interest_name}))}
+                                userTags={fetchedUser.interests.map(s => ({ id: s.interest_id, name: s.interest_name }))}
+                                allTags={allInterests.map(s => ({ id: s.interest_id, name: s.interest_name }))}
                                 handleAdd={handleAddInterest}
                                 handleDelete={handleDeleteInterest}
                                 error={interestError}
-                            />
+                            />)}
                         </section>
                     </section>
                 </section>

@@ -90,6 +90,8 @@ export default function CreateProjectView() {
         setAddedSkills([])
     }
 
+        console.log(projectList)
+
     return (
         <main className={styles.createProjectPage} >
             <nav className={styles.navigation} >
