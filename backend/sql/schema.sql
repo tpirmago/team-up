@@ -48,7 +48,7 @@ CREATE TABLE projects (
     location_mode TEXT,
     team_size_min INT,
     team_size_max INT,
-    duration TEXT
+    duration TEXT[]
 );
 
 -- PROJECT MEMBERS
@@ -63,4 +63,16 @@ CREATE TABLE project_skills (
     project_id INT REFERENCES projects(project_id) ON DELETE CASCADE,
     skill_id INT REFERENCES skills(skill_id) ON DELETE CASCADE,
     PRIMARY KEY (project_id, skill_id)
+);
+
+-- NOTIFICATIONS
+CREATE TABLE notifications (
+    notification_id SERIAL PRIMARY KEY,
+    type TEXT NOT NULL,
+    project_id INT REFERENCES projects(project_id) ON DELETE CASCADE,
+    sender_user_id INT REFERENCES users(user_id) ON DELETE CASCADE,
+    receiver_user_id INT REFERENCES users(user_id) ON DELETE CASCADE,
+    status TEXT DEFAULT 'pending',
+    created_at TIMESTAMP DEFAULT NOW(),
+    read BOOLEAN DEFAULT FALSE
 );
