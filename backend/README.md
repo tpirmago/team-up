@@ -46,27 +46,30 @@ When testing:
 
 ## Available endpoints
 
-GET /users                (Get all users)
-    /users/:id            (Get user by ID)
-PUT /users/:id            (Update user profile)
-GET /users/:id/skills     (Get users skills)
-POST /users/:id/skills    (Post skills to a user)
-PUT /users/:id/skills     (Update user skills)
-DELETE /users/:id/skills/:skillId (Delete user skill)
-GET /users/:id/interests  (Get users interests )
-POST /users/:id/interests (Post interests to a user)
-PUT /users/:id/interests  (Update users interests)
-DELETE /users/:id/interests/:interestsId (Delete users interest by id)
+GET /users                (Get all users)  
+GET /users/:id            (Get user by ID)  
+PUT /users/:id            (Update user profile)  
+GET /users/:id/skills     (Get user skills)  
+POST /users/:id/skills    (Post skills to a user)  
+PUT /users/:id/skills     (Update user skills)  
+DELETE /users/:id/skills/:skillId (Delete user skill)  
+GET /users/:id/interests  (Get user interests )  
+POST /users/:id/interests (Post interests to a user)  
+PUT /users/:id/interests  (Update user interests)  
+DELETE /users/:id/interests/:interestsId (Delete user interest by id)  
+GET /users/:id/projects   (Get user projects)
 
 GET /skills               (Get all skills)
 
 GET /interests            (Get all interests)
 
-GET /projects             (Get all projects)
-GET /projects/:id         (Get a project with id)
-POST /projects            (Create a new project)
-POST /projects/:id/skills (Assign required skills to a project)
+GET /projects             (Get all projects)  
+GET /projects/:id         (Get a project with id)  
+POST /projects            (Create a new project)  
+POST /projects/:id/skills (Assign required skills to a project)  
 GET /projects/:id/skills  (Get required project skills)
+
+GET /notifications/:id    (Get notificatios by user_id)
 
 ## Example request body:
 // POST /projects
