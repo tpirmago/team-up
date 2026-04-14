@@ -12,25 +12,30 @@ import ProfileView from './pages/ProfileView'
 type Page = 'login' | 'signup'
 
 function App() {
-  const [user, setUser] = useState<User | null>(null)
-  const [loading, setLoading] = useState(true)
+  const [user, setUser] = useState<any>({ displayName: 'Username', email: 'testi@koulu.fi' })
+  const [loading, setLoading] = useState(false)
   const [page, setPage] = useState<Page>('login')
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
-      setUser(firebaseUser)
-      setLoading(false)
-    })
-    return unsubscribe
-  }, [])
 
   if (loading) return null
 
   if (user) {
     return (
-      <div className="app">
-        <Header btnLabel="Log out" onBtnClick={() => signOut(auth)} />
-        <ProfileView />
+      <div className="app-container">
+        <Header btnLabel="Log out" onBtnClick={() => setUser(null)} />
+        
+        <div className="main-layout">
+          <Navbar /> 
+          <main className="content-area">
+             <div className="dashboard-header">
+                <h1>Welcome back, {user.displayName || 'User'}!</h1>
+                <button className="btn-primary">Find New Project</button>
+             </div>
+             
+             <div className="dashboard-grid">
+                <ProfileView />
+             </div>
+          </main>
+        </div>
         <Footer />
       </div>
     )

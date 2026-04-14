@@ -1,19 +1,29 @@
-function Navbar() {
-  return (
-    <nav className="navbar">
-      {/* LEFT */}
-      <div className="navbar-left">
-        <h1 className="logo">TeamUp</h1>
-      </div>
+import './Navbar.css';
 
-      {/* RIGHT */}
-      <div className="navbar-right">
-        <div className="icon">🔔</div>
-        <span className="username">Username</span>
-        <div className="icon">👤</div>
+const Navbar = () => {
+  const menuItems = [
+    { name: 'Dashboard', id: 'dashboard' },
+    { name: 'My Projects', id: 'my-projects' },
+    { name: 'Create Project', id: 'create-project' },
+    { name: 'Find New Project', id: 'find-project' },
+    { name: 'Connect with students', id: 'connect', active: true },
+    { name: 'Notifications', id: 'notifications' },
+  ];
+
+  return (
+    <div className="sidebar">
+      <div className="sidebar-menu">
+        {menuItems.map((item) => (
+          <button 
+            key={item.id} 
+            className={`menu-item ${item.active ? 'active-btn' : ''}`}
+          >
+            {item.name}
+          </button>
+        ))}
       </div>
-    </nav>
+    </div>
   );
-}
+};
 
 export default Navbar;
