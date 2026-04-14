@@ -37,7 +37,11 @@ function App() {
       <div className="app">
         <Header btnLabel="Log out" onBtnClick={() => signOut(auth)} />
         {/*<ProfileView />*/}
-        <CommunityView />
+        
+        <main className="content">
+          <CommunityView />
+        </main>
+
         <Footer />
       </div>
     )

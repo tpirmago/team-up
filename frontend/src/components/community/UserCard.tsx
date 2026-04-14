@@ -8,26 +8,29 @@ type UserCardProps = {
 export default function UserCard({ user }: UserCardProps) {
   return (
     <div className={styles.userCard}>
-      <h3>{user.name}</h3>
-      <p>{user.studyProgram}</p>
+      <div className={styles.userCardText}>
+        <h3>{user.name}</h3>
 
-      <p>
-        <strong>Interests:</strong>{' '}
-        {user.interests
-            .slice(0, 2)
-            .map(interest => interest.name)
-            .join(', ')}
-      </p>
+        <p>{user.studyProgram}</p>
 
-      <p>
-        <strong>Skills:</strong>{' '}
-        {user.skills
-            .slice(0, 3)
-            .map(skill => skill.name)
-            .join(', ')}
-      </p>
+        <p>
+          <strong>Interests:</strong>{' '}
+          {user.interests
+              .slice(0, 2)
+              .map(interest => interest.name)
+              .join(', ')}
+        </p>
 
-      <button className={styles.profileButton}>View profile</button>
+        <p>
+          <strong>Skills:</strong>{' '}
+          {user.skills
+              .slice(0, 3)
+              .map(skill => skill.name)
+              .join(', ')}
+        </p>
+
+        <button className={styles.profileButton}>View profile</button>
+      </div>
     </div>
   )
 }
