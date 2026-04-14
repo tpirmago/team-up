@@ -27,6 +27,7 @@ export default function UserCard({ user }: UserCardProps) {
         <div className={styles.userTags}>
           <p>
           <strong>Interests:</strong>{' '}
+          <br />
             {user.interests
                 .slice(0, 2)
                 .map(interest => interest.name)
@@ -35,6 +36,7 @@ export default function UserCard({ user }: UserCardProps) {
 
           <p>
             <strong>Skills:</strong>{' '}
+            <br />
             {user.skills
                 .slice(0, 3)
                 .map(skill => skill.name)

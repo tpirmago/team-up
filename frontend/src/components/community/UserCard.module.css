@@ -14,6 +14,7 @@
     0 1px 2px rgba(0, 0, 0, 0.04)
 }
 .userCardText {
+  font-family: 'JetBrains Mono', monospace;
   margin-top: 16px;
   padding-left: 10px;
   flex: 1;
@@ -27,12 +28,16 @@
   padding-top: 12px;
   line-height: 1.35;
 }
+.userTags {
+  text-align: center;
+}
 .profileButton {
+  font-family: 'JetBrains Mono', monospace;
   margin-top: auto;
   align-self: center;
-  background-color: #7d7d7e;
-  color: white;
-  border: none;
+  background-color: #ffffff;
+  color: #3f3f3f;
+  border: 1px solid #3f3f3f;
   padding: 8px 16px;
   border-radius: 16px;
   cursor: pointer;

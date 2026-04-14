@@ -29,6 +29,7 @@
 
 .filterButton {
     margin-right: 20px;
+    background-color: rgb(141, 141, 141);
 }
 
 .headerRow {
@@ -41,6 +42,7 @@
 }
 
 .communityGrid {
+    margin-top: 20px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 24px;
