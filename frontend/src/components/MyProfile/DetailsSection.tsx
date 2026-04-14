@@ -11,7 +11,7 @@ interface ProfileDetailsProps {
     emailRef: React.RefObject<HTMLInputElement | null>
 }
 
-export default function ProfileDetails({ editMode, user, nameRef, usernameRef, programRef, emailRef }: ProfileDetailsProps) {
+export default function DetailsSection({ editMode, user, nameRef, usernameRef, programRef, emailRef }: ProfileDetailsProps) {
     return (
         <div className={styles.info} >
             <div className={styles.personalDetails} >

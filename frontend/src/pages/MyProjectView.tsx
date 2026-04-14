@@ -83,8 +83,6 @@ export default function MyProjectView() {
         setCreateMode(false)
     }
 
-    console.log(projectList)
-
     return (
         <main className={styles.myProjectPage} >
             <nav className={styles.navigation} >
