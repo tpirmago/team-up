@@ -26,7 +26,7 @@ export default function ProfileHeader({editMode, setEditMode, saveProfile, user}
                 </div>
             </header>
             <div className={styles.profileInfo} >
-                <img className={styles.profileImg} src={avatar} alt="" />
+                <img className={styles.profileImg} src={user.avatar_url} alt="" />
                 <div className={styles.userName} >
                     <h2>{user.username}</h2>
                 </div>

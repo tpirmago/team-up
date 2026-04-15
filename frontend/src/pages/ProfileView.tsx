@@ -160,13 +160,6 @@ export default function ProfileView() {
 
     return (
         <main className={styles.profilePage} >
-            <nav className={styles.navigation} >
-                <ul className={styles.navigationList} >
-                    <li >Dashboard</li>
-                    <li>My Projects</li>
-                    <li>Events</li>
-                </ul>
-            </nav>
             <section className={styles.profileSection} >
                 <section className={styles.profileBackground} >
                     {fetchedUser && (

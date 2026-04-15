@@ -94,13 +94,6 @@ export default function CreateProjectView() {
 
     return (
         <main className={styles.createProjectPage} >
-            <nav className={styles.navigation} >
-                <ul className={styles.navigationList} >
-                    <li >Dashboard</li>
-                    <li>My Projects</li>
-                    <li>Events</li>
-                </ul>
-            </nav>
             <section className={styles.formSection} >
                 {
                     projectAdded

@@ -85,13 +85,6 @@ export default function MyProjectView() {
 
     return (
         <main className={styles.myProjectPage} >
-            <nav className={styles.navigation} >
-                <ul className={styles.navigationList} >
-                    <li >Dashboard</li>
-                    <li>My Projects</li>
-                    <li>Events</li>
-                </ul>
-            </nav>
             <section className={styles.projectSection} >
                 <section className={styles.projectBackground} >
                     <h1 className={styles.sectionHeader} >
