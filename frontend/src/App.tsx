@@ -6,11 +6,8 @@ import Header from './components/Header'
 import Footer from './components/Footer'
 import LoginView from './pages/LoginView'
 import SignUpView from './pages/SignUpView'
-import ProfileView from './pages/ProfileView'
-import MyProjectView from './pages/MyProjectView'
-import CreateProjectView from "./pages/CreateProjectView"
 import DashboardView from './pages/DashboardView'
-import NotificationsView from './pages/Notifications/NotificationsView'
+import CommunityView from './pages/community/CommunityView'
 
 type Page = 'login' | 'signup'
 
@@ -53,7 +50,8 @@ function App() {
       <div className="app">
         <Header btnLabel="Log out" onBtnClick={() => signOut(auth)} />
         {/* <NotificationsView /> */}
-        <DashboardView />
+        <DashboardView /> 
+        <CommunityView />
         <Footer />
       </div>
     )
