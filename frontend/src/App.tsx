@@ -19,6 +19,14 @@ function App() {
   const [loading, setLoading] = useState(true)
   const [page, setPage] = useState<Page>('login')
 
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (firebaseUser: User | null) => {
+      setUser(firebaseUser)
+      setLoading(false)
+    })
+    return unsubscribe
+  }, [])
+
   // DEV ONLY: bypass auth for UI testing
   const DEV_BYPASS_AUTH = true
 
@@ -27,18 +35,11 @@ function App() {
       <div className="app">
         <Header btnLabel="Log out" onBtnClick={() => signOut(auth)} />
         <NotificationsView />
+        <DashboardView />
         <Footer />
       </div>
     )
   }
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
-      setUser(firebaseUser)
-      setLoading(false)
-    })
-    return unsubscribe
-  }, [])
 
   if (loading) return null
 
