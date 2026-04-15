@@ -5,7 +5,7 @@ import { testUser } from "../testing/testData"
 import arrowIcon from "../assets/icons/arrow-icon.png"
 import bellIcon from "../assets/icons/bell-icon.png"
 import teammatesIcon from "../assets/icons/teammates-icon.png"
-import projectsIcon from "../assets/projects-icon.png"
+import projectsIcon from "../assets/icons/projects-icon.png"
 
 interface ToggleCardProps {
     label: string
