@@ -1,7 +1,7 @@
 import { useState } from "react"
 import styles from "./DashboardView.module.css"
 import Button from "../components/Button"
-import { testUser } from "./testData"
+import { testUser } from "../testing/testData"
 import arrowIcon from "../assets/icons/arrow-icon.png"
 import bellIcon from "../assets/icons/bell-icon.png"
 import teammatesIcon from "../assets/icons/teammates-icon.png"
@@ -37,8 +37,13 @@ function ToggleCard({ label, value, onChange }: ToggleCardProps) {
     )
 }
 
-export default function DashboardView() {
+interface DashboardViewProps {
+    username?: string
+}
+
+export default function DashboardView({ username }: DashboardViewProps = {}) {
     const user = testUser
+    const displayName = username ?? user.username
     const [openForProjects, setOpenForProjects] = useState(true)
     const [lookingForTeammates, setLookingForTeammates] = useState(true)
 
@@ -52,7 +57,7 @@ export default function DashboardView() {
         <main className={styles.dashboard}>
             <section className={styles.topBar}>
                 <div>
-                    <h1 className={styles.greeting}>Welcome back, {user.username}!</h1>
+                    <h1 className={styles.greeting}>Welcome back, {displayName}!</h1>
                     <p className={styles.subGreeting}>
                         You're currently working on {user.projects.length} project
                         {user.projects.length === 1 ? "" : "s"}
