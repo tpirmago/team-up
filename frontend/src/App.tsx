@@ -8,6 +8,7 @@ import Footer from './components/Footer'
 import LoginView from './pages/LoginView'
 import SignUpView from './pages/SignUpView'
 import CommunityView from './pages/community/CommunityView'
+import ProfileView from './pages/ProfileView'
 
 // DEV ONLY: bypass auth for UI testing
 const DEV_BYPASS_AUTH = true
@@ -36,11 +37,9 @@ function App() {
     return (
       <div className="app">
         <Header btnLabel="Log out" onBtnClick={() => signOut(auth)} />
-        {/*<ProfileView />*/}
+        <ProfileView />
         
-        <main className="content">
-          <CommunityView />
-        </main>
+        <CommunityView />
 
         <Footer />
       </div>
