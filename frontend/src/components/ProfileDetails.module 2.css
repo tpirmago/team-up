@@ -1,0 +1,27 @@
+
+
+.detailBox {
+    display: flex;
+    margin-top: 10px;
+    align-items: center;
+}
+
+.detailHeader {
+    flex: 1;
+    padding: 10px 0;
+}
+
+.detailText {
+    flex: 2;
+    padding: 10px 18px;
+}
+
+.pwButton {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-family: 'JetBrains Mono', monospace;
+    text-decoration: underline;
+    text-align: left;
+    flex: 2
+}
