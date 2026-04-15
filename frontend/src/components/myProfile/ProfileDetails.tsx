@@ -1,6 +1,6 @@
-import DetailRow from "./DetailRow"
+import DetailRow from "../myProfile/DetailRow"
 import styles from "./ProfileDetails.module.css"
-import type { User } from "../pages/ProfileView"
+import type { User } from "../../pages/ProfileView"
 
 interface ProfileDetailsProps {
     editMode: boolean

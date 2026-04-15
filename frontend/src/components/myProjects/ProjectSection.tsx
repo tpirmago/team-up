@@ -1,8 +1,8 @@
-import Button from "./Button"
-import ProjectCard from "./ProjectCard"
+import Button from "../Button"
+import ProjectCard from "./MyProjectCard"
 import ProjectForm from "./ProjectForm"
 import styles from "./ProjectSection.module.css"
-import type { User } from "../pages/ProfileView"
+import type { User } from "../../pages/ProfileView"
 
 interface ProjectSectionProps {
     createMode: boolean

@@ -3,7 +3,7 @@ import UserCard from '../../components/community/UserCard'
 import Button from '../../components/Button'
 import Input from '../../components/Input'
 import styles from './CommunityView.module.css'
-import Pagination from '../../components/Pagination/Pagination'
+import Pagination from '../../components/pagination/Pagination'
 import { mockCommunityUsers as mockUsers } from '../../data/mockCommunityUsers'
 
 export default function CommunityView() { 

@@ -1,4 +1,4 @@
-import styles from "./ProjectCard.module.css"
+import styles from "./MyProjectCard.module.css"
 import { GoHeart } from "react-icons/go";
 import { IoIosInformationCircleOutline } from "react-icons/io";
 import { RiDeleteBin6Line } from "react-icons/ri";
