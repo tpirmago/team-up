@@ -1,4 +1,5 @@
-import Input from "./Input"
+
+import Input from "../Input"
 import styles from "./ProjectForm.module.css"
 
 export default function ProjectForm() {

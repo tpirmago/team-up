@@ -1,13 +1,9 @@
-.navigation {
+nav {
     flex: 1;
 }
 
-.navigationList {
+.navigation {
     list-style-type: none;
-}
-
-.profileSection {
-    flex: 5;
 }
 
 .profilePage {
@@ -16,12 +12,20 @@
     margin: 30px;
 }
 
-.profileBackground {
+.profileSection {
+    flex: 5;
+}
+
+.profileCard {
     padding: 50px;
     margin: 10px 50px;
     background-color: white;
     border-radius: 8px;
     box-shadow: 0px 0px 8px #817e7e;
+}
+
+h3 {
+    margin: 30px 0px;
 }
 
 .info {
@@ -37,7 +41,4 @@
 
 .tagSection {
     flex: 8;
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
 }
