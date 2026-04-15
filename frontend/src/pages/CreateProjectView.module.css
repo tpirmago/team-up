@@ -1,0 +1,55 @@
+.createProjectPage {
+    display: flex;
+    flex: 1;
+    margin: 30px;
+}
+
+.navigation {
+    flex: 1;
+}
+
+.navigationList {
+    list-style-type: none;
+}
+
+.formSection {
+    flex: 5;
+}
+
+.messageBackground, .formBackground {
+    margin: 10px 50px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0px 0px 8px #817e7e;
+}
+
+.messageBackground {
+    padding: 40px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.buttonBox {
+    display: flex;
+    gap: 25px;
+}
+
+.blackButton {
+    padding: 7px 20px;
+}
+
+.closeButton {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.formBackground {
+    padding: 50px;
+}
+
+.sectionHeader {
+    margin-bottom: 30px;
+}

@@ -1,11 +1,10 @@
 import styles from "./ProfileView.module.css"
-import { useRef, useState } from "react";
-import { testUser, testInterests, testSkills } from "./testData";
-import ProjectSection from "../components/ProjectSection";
-import ProfileHeader from "../components/ProfileHeader";
-import ProfileDetails from "../components/ProfileDetails";
-import ProfileSkills from "../components/ProfileSkills";
-import ProfileInterest from "../components/ProfileInterests";
+import { useEffect, useRef, useState } from "react";
+import { testUser, testInterests, testSkills } from "../testing/testData";
+import ProfileHeader from "../components/MyProfile/ProfileHeader";
+import ProfileTags from "../components/MyProfile/ProfileTags";
+import DetailsSection from "../components/MyProfile/DetailsSection";
+
 
 export interface User {
     user_id: number,
@@ -32,7 +31,7 @@ export interface Interests {
     category: string
 }
 
-interface Projects {
+export interface Projects {
     project_id: number
     owner_user_id: number
     title: string
@@ -40,7 +39,7 @@ interface Projects {
     topic: string
     team_size_min: number
     team_size_max: number
-    duration: string
+    duration: string[]
     location_mode: string
     skills: Skills[]
 }
@@ -57,10 +56,35 @@ export default function ProfileView() {
     const allInterests = [...testInterests].sort((a, b) => a.interest_name.localeCompare(b.interest_name))
 
     const [editMode, setEditMode] = useState(false)
-    const [createMode, setCreateMode] = useState(false)
 
     const [selectedSkillId, setSelectedSkillId] = useState<number>(allSkills[0].skill_id)
     const [selectedInterestId, setSelectedInterestId] = useState<number>(allInterests[0].interest_id)
+
+    const [skillError, setSkillError] = useState<string | null>(null)
+    const [interestError, setInterestError] = useState<string | null>(null)
+
+    const [fetchedUser, setFetchedUser] = useState<User>()
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const userRes = await fetch('http://localhost:3000/users/2')
+            const userData = await userRes.json()
+
+            const skillsRes = await fetch('http://localhost:3000/users/2/skills')
+            const skillsData = await skillsRes.json()
+
+            const interestsRes = await fetch('http://localhost:3000/users/2/interests')
+            const interestsData = await interestsRes.json()
+
+            setFetchedUser({
+                ...userData,
+                skills: skillsData,
+                interests: interestsData
+            })
+        }
+
+        fetchData()
+    }, [])
 
     function saveProfile() {
         setUser(prev => ({
@@ -71,13 +95,6 @@ export default function ProfileView() {
             study_program: programRef.current?.value ?? prev.study_program
         }))
         setEditMode(false)
-    }
-
-    function handleDeleteProject(id: number) {
-        setUser(prev => ({
-            ...prev,
-            projects: prev.projects.filter(p => p.project_id !== id)
-        }))
     }
 
     function handleDeleteSkill(id: number) {
@@ -92,9 +109,18 @@ export default function ProfileView() {
             ...prev,
             interests: prev.interests.filter(i => i.interest_id !== id)
         }))
+
+        setSelectedSkillId(allInterests[0].interest_id)
     }
 
     function handleAddSkill() {
+
+        const alreadyAdded = user.skills.some(s => s.skill_id === selectedSkillId)
+
+        if (alreadyAdded) {
+            setSkillError("You already have this skill")
+            return
+        }
 
         const skill = allSkills.find(s => s.skill_id === selectedSkillId)
 
@@ -105,9 +131,19 @@ export default function ProfileView() {
                 { skill_id: skill.skill_id, skill_name: skill.skill_name, category: skill.category }]
             }))
         }
+
+        setSelectedSkillId(allSkills[0].skill_id)
+        setSkillError(null)
     }
 
     function handleAddInterest() {
+
+        const alreadyAdded = user.interests.some(i => i.interest_id === selectedInterestId)
+
+        if (alreadyAdded) {
+            setInterestError("You already have this interest")
+            return
+        }
 
         const interest = allInterests.find(i => i.interest_id === selectedInterestId)
 
@@ -118,65 +154,69 @@ export default function ProfileView() {
                 { interest_id: interest.interest_id, interest_name: interest.interest_name, category: interest.category }]
             }))
         }
+
+        setInterestError(null)
     }
 
     return (
         <main className={styles.profilePage} >
-            <nav>
-                <ul className={styles.navigation} >
+            <nav className={styles.navigation} >
+                <ul className={styles.navigationList} >
                     <li >Dashboard</li>
                     <li>My Projects</li>
                     <li>Events</li>
                 </ul>
             </nav>
             <section className={styles.profileSection} >
-                <section className={styles.profileCard} >
-                    <ProfileHeader
+                <section className={styles.profileBackground} >
+                    {fetchedUser && (
+                        <ProfileHeader
                         editMode={editMode}
                         setEditMode={setEditMode}
                         saveProfile={saveProfile}
-                        user={user}
-                    />
+                        user={fetchedUser}
+                    />)}
                     <section className={styles.info} >
                         <section className={styles.personalDetails} >
-                            <ProfileDetails
-                                editMode={editMode}
-                                user={user}
-                                nameRef={nameRef}
-                                usernameRef={usernameRef}
-                                programRef={programRef}
-                                emailRef={emailRef}
-                            />
+                            {fetchedUser && (
+                                <DetailsSection
+                                    editMode={editMode}
+                                    user={fetchedUser}
+                                    nameRef={nameRef}
+                                    usernameRef={usernameRef}
+                                    programRef={programRef}
+                                    emailRef={emailRef}
+                                />
+                            )}
                         </section>
                         <section className={styles.tagSection} >
-                            <ProfileSkills
+                            {fetchedUser && (
+                                <ProfileTags
+                                title="My skills"
                                 editMode={editMode}
-                                selectedSkillId={selectedSkillId}
-                                setSelectedSkillId={setSelectedSkillId}
-                                allSkills={allSkills}
-                                handleAddSkill={handleAddSkill}
-                                user={user}
-                                handleDeleteSkill={handleDeleteSkill}
+                                selectedId={selectedSkillId}
+                                setSelectedId={setSelectedSkillId}
+                                userTags={fetchedUser.skills.map(s => ({ id: s.skill_id, name: s.skill_name }))}
+                                allTags={allSkills.map(s => ({ id: s.skill_id, name: s.skill_name }))}
+                                handleAdd={handleAddSkill}
+                                handleDelete={handleDeleteSkill}
+                                error={skillError}
                             />
-                            <ProfileInterest
+                            )}
+                            {fetchedUser && (
+                                <ProfileTags
+                                title="My interests"
                                 editMode={editMode}
-                                selectedInterestId={selectedInterestId}
-                                setSelectedInterestId={setSelectedInterestId}
-                                user={user}
-                                allInterests={allInterests}
-                                handleAddInterest={handleAddInterest}
-                                handleDeleteInterest={handleDeleteInterest}
-                            />
+                                selectedId={selectedInterestId}
+                                setSelectedId={setSelectedInterestId}
+                                userTags={fetchedUser.interests.map(s => ({ id: s.interest_id, name: s.interest_name }))}
+                                allTags={allInterests.map(s => ({ id: s.interest_id, name: s.interest_name }))}
+                                handleAdd={handleAddInterest}
+                                handleDelete={handleDeleteInterest}
+                                error={interestError}
+                            />)}
                         </section>
                     </section>
-                </section>
-                <section>
-                    <ProjectSection
-                        createMode={createMode}
-                        setCreateMode={setCreateMode}
-                        user={user}
-                        deleteProject={handleDeleteProject}
-                    />
                 </section>
             </section>
         </main>

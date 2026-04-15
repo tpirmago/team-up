@@ -5,6 +5,22 @@
     justify-content: space-between;
 }
 
+.headerTitle {
+    margin-bottom: 30px;
+}
+
+.selectWrapper {
+    position: relative;
+}
+
+.error {
+    position: absolute;
+    margin-bottom: 10px;
+    top: -2em;
+    color: rgb(176, 14, 14);
+    left: 0;
+}
+
 .selectDropdown {
     display: flex;
     flex-direction: row;
