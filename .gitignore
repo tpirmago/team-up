@@ -9,6 +9,8 @@ lerna-debug.log*
 
 # Environment variables
 .env
+.env.local
+.env.*.local
 
 node_modules
 dist
@@ -28,5 +30,7 @@ dist-ssr
 *.sw?
 
 serviceAccountKey.json
+*.pem
+*.key
 
 .claude
