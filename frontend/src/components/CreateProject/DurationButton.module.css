@@ -1,0 +1,21 @@
+.month input {
+    display: none;
+}
+
+.month {
+    border: 1px solid #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0;
+    cursor: pointer;
+    margin: 10px;
+}
+
+.month:hover {
+    background-color: beige;
+}
+
+.active {
+    background-color: beige;
+}

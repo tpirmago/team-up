@@ -7,6 +7,8 @@ import Footer from './components/Footer'
 import LoginView from './pages/LoginView'
 import SignUpView from './pages/SignUpView'
 import ProfileView from './pages/ProfileView'
+import MyProjectView from './pages/MyProjectView'
+import CreateProjectView from "./pages/CreateProjectView"
 
 type Page = 'login' | 'signup'
 
@@ -14,6 +16,19 @@ function App() {
   const [user, setUser] = useState<User | null>(null)
   const [loading, setLoading] = useState(true)
   const [page, setPage] = useState<Page>('login')
+
+  // DEV ONLY: bypass auth for UI testing
+  const DEV_BYPASS_AUTH = true
+
+  if (DEV_BYPASS_AUTH) {
+    return (
+      <div className="app">
+        <Header btnLabel="Log out" onBtnClick={() => signOut(auth)} />
+        <MyProjectView />
+        <Footer />
+      </div>
+    )
+  }
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
