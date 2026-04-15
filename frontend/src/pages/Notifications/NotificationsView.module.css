@@ -1,0 +1,22 @@
+.notificationsPage {
+    display: flex;
+    flex: 1;
+    margin: 30px;
+}
+
+.notificationsSection {
+    flex: 5;
+}
+
+.notificationsBackground {
+    padding: 50px;
+    margin: 10px 50px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0px 0px 8px #817e7e;
+}
+
+.listSection {
+    display: flex;
+    flex-direction: column;
+}

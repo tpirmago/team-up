@@ -1,11 +1,3 @@
-.navigation {
-    flex: 1;
-}
-
-.navigationList {
-    list-style-type: none;
-}
-
 .profileSection {
     flex: 5;
 }

@@ -6,13 +6,11 @@ import Header from './components/Header'
 import Footer from './components/Footer'
 import LoginView from './pages/LoginView'
 import SignUpView from './pages/SignUpView'
-<<<<<<< Updated upstream
 import ProfileView from './pages/ProfileView'
 import MyProjectView from './pages/MyProjectView'
 import CreateProjectView from "./pages/CreateProjectView"
-=======
 import DashboardView from './pages/DashboardView'
->>>>>>> Stashed changes
+import NotificationsView from './pages/Notifications/NotificationsView'
 
 type Page = 'login' | 'signup'
 
@@ -28,7 +26,7 @@ function App() {
     return (
       <div className="app">
         <Header btnLabel="Log out" onBtnClick={() => signOut(auth)} />
-        <MyProjectView />
+        <NotificationsView />
         <Footer />
       </div>
     )

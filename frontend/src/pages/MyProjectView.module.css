@@ -4,14 +4,6 @@
     margin: 30px;
 }
 
-.navigation {
-    flex: 1;
-}
-
-.navigationList {
-    list-style-type: none;
-}
-
 .projectSection {
     flex: 5;
 }

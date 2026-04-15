@@ -7,6 +7,7 @@ import authRouter from "./routes/auth";
 import skillsRouter from "./routes/skills";
 import projectsRouter from "./routes/projects";
 import interestsRouter from "./routes/interests";
+import notificationsRouter from "./routes/notifications";
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.use("/auth", authRouter);
 app.use("/skills", skillsRouter);
 app.use("/projects", projectsRouter);
 app.use("/interests", interestsRouter);
+app.use("/notifications", notificationsRouter)
 
 const PORT = process.env.PORT || 3000;
 

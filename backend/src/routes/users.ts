@@ -294,4 +294,22 @@ router.put("/:id", async (req, res) => {
 });
 // Update user status
 
+// Get users projects
+router.get("/:id/projects", async (req, res) => {
+  const userId = req.params.id
+
+  try {
+    const result = await db.query(
+      `SELECT p.*
+      FROM projects p
+      JOIN project_members pm ON pm.project_id = p.project_id
+      WHERE pm.user_id = $1`, [userId]
+    )
+    res.json(result.rows)
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({error: "Failed to fetch user projects"})
+  }
+})
+
 export default router;
