@@ -1,0 +1,64 @@
+.userCard { 
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+
+  height: 340px;
+
+  display: flex;
+  flex-direction: column;
+
+  border: 1px solid #e6e6e6;
+  box-shadow: 
+    0 2px 6px rgba(0, 0, 0, 0.06),
+    0 1px 2px rgba(0, 0, 0, 0.04)
+}
+.userCardText {
+  font-family: 'JetBrains Mono', monospace;
+  margin-top: 16px;
+  padding-left: 10px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: clamp(0.8rem, 2.5vw, 0.9rem)
+}
+.userCard p {
+  margin: 0;
+  padding-top: 12px;
+  line-height: 1.35;
+}
+.userTags {
+  text-align: center;
+}
+.profileButton {
+  font-family: 'JetBrains Mono', monospace;
+  margin-top: auto;
+  align-self: center;
+  background-color: #ffffff;
+  color: #3f3f3f;
+  border: 1px solid #3f3f3f;
+  padding: 8px 16px;
+  border-radius: 16px;
+  cursor: pointer;
+}
+.userAvatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 0 auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: center
+}
+.userAvatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.userInfo {
+  text-align: center;
+}
