@@ -1,0 +1,20 @@
+.button {
+    all: unset;
+    cursor: pointer;
+}
+
+.read,
+.unread {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.read {
+    border: 1px solid black;
+}
+
+.unread {
+    background-color: rgb(235, 235, 235);
+}
