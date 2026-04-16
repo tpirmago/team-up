@@ -3,7 +3,7 @@ import { mockProjects } from "../../data/mockProjects"
 import { useState } from "react"
 import Button from "../../components/Button"
 import Input from "../../components/Input"
-import Pagination from "../../components/pagination/Pagination"
+import Pagination from "../../components/Pagination/Pagination"
 import ProjectCard from "../../components/findProject/ProjectCard"
 
 export default function FindProjectView() { 
