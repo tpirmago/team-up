@@ -1,10 +1,10 @@
-import type { Notifications } from "../../pages/Notifications/NotificationsView"
+import type { Notifications } from "../../pages/notifications/NotificationsView"
 import type { User } from "../../pages/ProfileView"
 import styles from "./NotificationRow.module.css"
 
 interface NotificationRowProps {
     notification: Notifications
-    openNotification: (id: number) => void
+    openNotification: (notification: Notifications) => void
     users: User[]
 }
 
@@ -16,7 +16,7 @@ export default function NotificationRow({ notification, openNotification, users 
         <button
             type="button"
             className={` ${styles.button} ${notification.read ? styles.read : styles.unread}`}
-            onClick={() => openNotification(notification.notification_id)}
+            onClick={() => openNotification(notification)}
         >
             {
                 notification.read

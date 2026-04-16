@@ -1,7 +1,7 @@
 import { useState } from "react"
 import styles from "./DashboardView.module.css"
 import Button from "../components/Button"
-import { testUser } from "./testData"
+import { testUser } from "../testing/testData"
 import arrowIcon from "../assets/icons/arrow-icon.png"
 import bellIcon from "../assets/icons/bell-icon.png"
 import teammatesIcon from "../assets/icons/teammates-icon.png"
