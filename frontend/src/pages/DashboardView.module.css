@@ -1,3 +1,10 @@
+.layout {
+    flex: 1;
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+}
+
 .dashboard {
     flex: 1;
     width: 100%;
@@ -177,6 +184,10 @@
 }
 
 @media (max-width: 767px) {
+    .layout {
+        flex-direction: column;
+    }
+
     .dashboard {
         padding: 20px 16px;
     }

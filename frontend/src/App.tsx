@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { onAuthStateChanged, signOut, type User } from 'firebase/auth'
 import { auth } from './firebase'
 import './App.css'
+import type { SidebarItem } from './components/Sidebar'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import LoginView from './pages/LoginView'
@@ -17,6 +18,7 @@ function App() {
   const [username, setUsername] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
   const [page, setPage] = useState<Page>('login')
+  const [activeNav, setActiveNav] = useState<SidebarItem>('dashboard')
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser: User | null) => {
@@ -49,11 +51,15 @@ function App() {
   if (DEV_BYPASS_AUTH) {
     return (
       <div className="app">
-        <Header btnLabel="Log out" onBtnClick={() => signOut(auth)} />
+        <Header btnLabel="Log out" onBtnClick={() => signOut(auth)} onLogoClick={() => setActiveNav('dashboard')} />
         {/* <NotificationsView /> */}
+<<<<<<< Updated upstream
         <DashboardView /> 
         <CommunityView />
         <FindProjectView />
+=======
+        <DashboardView activeNav={activeNav} onNavigate={setActiveNav} />
+>>>>>>> Stashed changes
         <Footer />
       </div>
     )
@@ -64,8 +70,8 @@ function App() {
   if (user) {
     return (
       <div className="app">
-        <Header btnLabel="Log out" onBtnClick={() => signOut(auth)} />
-        <DashboardView username={username ?? undefined} />
+        <Header btnLabel="Log out" onBtnClick={() => signOut(auth)} onLogoClick={() => setActiveNav('dashboard')} />
+        <DashboardView username={username ?? undefined} activeNav={activeNav} onNavigate={setActiveNav} />
         <Footer />
       </div>
     )
