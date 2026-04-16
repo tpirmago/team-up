@@ -14,23 +14,6 @@ router.get("/", async (req ,res) => {
     }
 });
 
-// GET a project with id
-router.get("/:id", async (req ,res) => {
-    const projectId = req.params.id;
-    try{
-        const result = await db.query(`SELECT * FROM projects WHERE project_id = $1`, [projectId]);
-        
-        if (result.rows.length === 0) {
-        return res.status(404).json({ error: "Project not found" });
-        }
-
-        res.json(result.rows[0]);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: "Failed to fetch project" });
-    }
-});
-
 // POST a new project
 router.post("/", async (req, res) => {
     const {
@@ -91,6 +74,44 @@ router.post("/:id/join", async (req, res) => {
     }
 });
 
+// POST invite notification to a project
+router.post("/:id/invite", async (req, res) => { 
+    const projectId = req.params.id
+    const {sender_user_id, receiver_user_id} = req.body
+
+    try {
+        await db.query(
+            `
+            INSERT INTO notifications (type, project_id, sender_user_id, receiver_user_id)
+            VALUES ('invite', $1, $2, $3)
+            `, [projectId, sender_user_id, receiver_user_id]
+        )
+        res.json({message: "Invitation sent"})
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({error: "Failed to create an invite notification"})
+    }
+})
+
+// POST apply notification to a project
+router.post("/:id/apply", async (req, res) => { 
+    const projectId = req.params.id
+    const {sender_user_id, receiver_user_id} = req.body
+
+    try {
+        await db.query(
+            `
+            INSERT INTO notifications (type, project_id, sender_user_id, receiver_user_id)
+            VALUES ('apply', $1, $2, $3)
+            `, [projectId, sender_user_id, receiver_user_id]
+        )
+        res.json({message: "Join request sent"})
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({error: "Failed to create an apply notification"})
+    }
+})
+
 // POST skills to a project
 router.post("/:id/skills", async (req, res) => {
   const projectId = req.params.id;
@@ -140,6 +161,23 @@ router.get("/:id/skills", async (req, res) => {
     console.error(error);
     res.status(500).json({ error: "Failed to fetch project skills" });
   }
+});
+
+// GET a project with id
+router.get("/:id", async (req ,res) => {
+    const projectId = req.params.id;
+    try{
+        const result = await db.query(`SELECT * FROM projects WHERE project_id = $1`, [projectId]);
+        
+        if (result.rows.length === 0) {
+        return res.status(404).json({ error: "Project not found" });
+        }
+
+        res.json(result.rows[0]);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Failed to fetch project" });
+    }
 });
 
 export default router;
