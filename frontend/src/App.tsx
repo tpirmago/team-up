@@ -8,6 +8,8 @@ import Footer from './components/Footer'
 import LoginView from './pages/LoginView'
 import SignUpView from './pages/SignUpView'
 import DashboardView from './pages/DashboardView'
+import CommunityView from './pages/community/CommunityView'
+import FindProjectView from './pages/projects/FindProjectView'
 
 type Page = 'login' | 'signup'
 
@@ -44,7 +46,7 @@ function App() {
   }, [])
 
   // DEV ONLY: bypass auth for UI testing
-  const DEV_BYPASS_AUTH = false
+  const DEV_BYPASS_AUTH = true
 
   if (DEV_BYPASS_AUTH) {
     return (
