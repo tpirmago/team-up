@@ -1,0 +1,77 @@
+.sidebar {
+    position: sticky;
+    top: 56px;
+    align-self: flex-start;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 220px;
+    max-height: calc(100vh - 56px);
+    padding: 24px 20px;
+    background: transparent;
+    font-family: 'JetBrains Mono', monospace;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+.nav {
+    flex: 1;
+}
+
+.list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.link {
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    color: #1a1a1a;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 20px;
+    padding: 8px 20px;
+    text-align: left;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.link:hover {
+    font-weight: 700;
+}
+
+.active {
+    border-color: #1a1a1a;
+    font-weight: 700;
+}
+
+.copyright {
+    font-size: 11px;
+    color: #7b7b7b;
+    margin: 0;
+    padding-top: 16px;
+}
+
+@media (max-width: 767px) {
+    .sidebar {
+        position: static;
+        width: 100%;
+        max-height: none;
+        padding: 16px 20px;
+    }
+
+    .list {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 12px 18px;
+    }
+
+    .copyright {
+        display: none;
+    }
+}
