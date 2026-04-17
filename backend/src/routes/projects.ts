@@ -75,8 +75,8 @@ router.post("/:id/join", async (req, res) => {
 });
 
 // POST invite notification to a project
-router.post("/:id/invite", async (req, res) => { 
-    const projectId = req.params.id
+router.post("/:project_id/invite", async (req, res) => { 
+    const projectId = req.params.project_id
     const {sender_user_id, receiver_user_id} = req.body
 
     try {
@@ -84,6 +84,7 @@ router.post("/:id/invite", async (req, res) => {
             `
             INSERT INTO notifications (type, project_id, sender_user_id, receiver_user_id)
             VALUES ('invite', $1, $2, $3)
+            ON CONFLICT DO NOTHING
             `, [projectId, sender_user_id, receiver_user_id]
         )
         res.json({message: "Invitation sent"})
@@ -94,8 +95,8 @@ router.post("/:id/invite", async (req, res) => {
 })
 
 // POST apply notification to a project
-router.post("/:id/apply", async (req, res) => { 
-    const projectId = req.params.id
+router.post("/:project_id/apply", async (req, res) => { 
+    const projectId = req.params.project_id
     const {sender_user_id, receiver_user_id} = req.body
 
     try {
@@ -103,6 +104,7 @@ router.post("/:id/apply", async (req, res) => {
             `
             INSERT INTO notifications (type, project_id, sender_user_id, receiver_user_id)
             VALUES ('apply', $1, $2, $3)
+            ON CONFLICT DO NOTHING
             `, [projectId, sender_user_id, receiver_user_id]
         )
         res.json({message: "Join request sent"})
