@@ -1,0 +1,27 @@
+.buttonRow {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.answerText {
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+@media (max-width: 767px) {
+    .buttonRow {
+        margin: 1rem;
+    }
+    
+    .answerText {
+        margin: 1rem 1rem 2rem 1rem;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+
+}
+
+@media (min-width: 1025px) and (max-width: 1525px) {
+
+}

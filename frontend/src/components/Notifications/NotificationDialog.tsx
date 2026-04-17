@@ -3,6 +3,7 @@ import React from "react";
 import type { Notifications } from "../../pages/notifications/NotificationsView";
 import type { Projects, User } from "../../pages/ProfileView";
 import { RxCross1 } from "react-icons/rx";
+import styles from "./NotificationDialog.module.css"
 
 
 interface NotificationDialogProps {
@@ -11,9 +12,19 @@ interface NotificationDialogProps {
     user: User
     dialogOpen: boolean
     closeDialog: () => void
+    acceptRequest: (notification_id: number) => void
+    declineRequest: (notification_id: number) => void
 }
 
-export default function NotificationDialog({ notification, user, project, dialogOpen, closeDialog }: NotificationDialogProps) {
+export default function NotificationDialog({
+    notification,
+    user,
+    project,
+    dialogOpen,
+    closeDialog,
+    acceptRequest,
+    declineRequest
+}: NotificationDialogProps) {
 
     return (
         <React.Fragment>
@@ -23,9 +34,9 @@ export default function NotificationDialog({ notification, user, project, dialog
             >
                 <DialogTitle
                     sx={{
-                        margin: "20px 20px 0 20px",
+                        margin: {xs: "5px"},
                         fontFamily: "inherit",
-                        fontSize: 17,
+                        fontSize: 20,
                         display: "flex",
                         justifyContent: "space-between"
                     }}>
@@ -33,7 +44,7 @@ export default function NotificationDialog({ notification, user, project, dialog
                     <Button
                         onClick={closeDialog}
                         sx={{
-                            color: "black"
+                            color: "black",
                         }}
                     ><RxCross1 size={24} /></Button>
                 </DialogTitle>
@@ -42,15 +53,16 @@ export default function NotificationDialog({ notification, user, project, dialog
                         sx={{
                             fontFamily: "inherit",
                             color: "black",
-                            margin: "20px 20px 0 20px",
+                            margin: {xs: "5px", sm: "10px"},
                         }}>
                         <NotificationMessage notification={notification} project={project} user={user} />
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions
                     sx={{
-                        display: "grid",
-                        gridTemplateColumns: "2fr 1fr 1fr",
+                        display: {xs: "flex", md: "grid"},
+                        flexDirection: {xs: "column"},
+                        gridTemplateColumns: "2fr 2fr",
                         margin: "0px 20px 0 20px"
                     }}>
                     <Button
@@ -64,32 +76,39 @@ export default function NotificationDialog({ notification, user, project, dialog
                         }}
                     >{
                             notification.type === "invite"
-                                ? "View project"
+                                ? "View project page"
                                 : "View user profile"
                         }</Button>
-                    <Button
-                        sx={{
-                            backgroundColor: "black",
-                            color: "white",
-                            borderRadius: 50,
-                            fontFamily: "inherit",
-                            padding: "5px 20px",
-                            margin: "10px 20px 20px 20px"
-                        }}
-                    >Accept</Button>
-                    <Button
-                        sx={{
-                            backgroundColor: "black",
-                            color: "white",
-                            borderRadius: 50,
-                            fontFamily: "inherit",
-                            padding: "5px 20px",
-                            margin: "10px 20px 20px 20px"
-                        }}
-                    >Decline</Button>
+                    {notification.status === "pending"
+                        ? (<div className={styles.buttonRow}>
+                            <Button
+                                onClick={() => declineRequest(notification.notification_id)}
+                                sx={{
+                                    backgroundColor: "black",
+                                    color: "white",
+                                    borderRadius: 50,
+                                    fontFamily: "inherit",
+                                    padding: "10px 20px",
+                                    margin: "10px 10px 20px 10px"
+                                }}
+                            >Decline</Button>
+                            <Button
+                                onClick={() => acceptRequest(notification.notification_id)}
+                                sx={{
+                                    backgroundColor: "black",
+                                    color: "white",
+                                    borderRadius: 50,
+                                    fontFamily: "inherit",
+                                    padding: "5px 20px",
+                                    margin: "10px 10px 20px 10px"
+                                }}
+                            >Accept</Button>
+                        </div>)
+                        : <p className={styles.answerText} >You have already answered this request.</p>
+                    }
                 </DialogActions>
             </Dialog>
-        </React.Fragment>
+        </React.Fragment >
     )
 }
 
@@ -117,9 +136,9 @@ interface NotificationMessageProps {
 function NotificationMessage({ notification, user, project }: NotificationMessageProps) {
 
     if (notification.type === "apply") {
-        return `User ${user.username} wants to join your project "${project.title}". Accept or decline their request.`
+        return `User ${user.name} wants to join your project "${project.title}". Accept or decline their request.`
     } else if (notification.type === "invite") {
-        return `User ${user.username} has invited you to join their project "${project.title}". Accept or decline their invitation.`
+        return `User ${user.name} has invited you to join their project "${project.title}". Accept or decline their invitation.`
     }
 
 }

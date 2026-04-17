@@ -10,7 +10,7 @@ import ProfileView from './pages/ProfileView'
 import MyProjectView from './pages/MyProjectView'
 import CreateProjectView from "./pages/CreateProjectView"
 import DashboardView from './pages/DashboardView'
-import NotificationsView from './pages/Notifications/NotificationsView'
+import NotificationsView from './pages/notifications/NotificationsView'
 
 
 type Page = 'login' | 'signup'

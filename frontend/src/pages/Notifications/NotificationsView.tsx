@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react"
-import NotificationsHeader from "../../components/notifications/NotificationsHeader"
 import styles from "./NotificationsView.module.css"
-import NotificationRow from "../../components/notifications/NotificationRow"
 import { type Projects, type User } from "../ProfileView"
-import NotificationDialog from "../../components/notifications/NotificationDialog"
+import NotificationsHeader from "../../components/Notifications/NotificationsHeader"
+import NotificationRow from "../../components/Notifications/NotificationRow"
+import NotificationDialog from "../../components/Notifications/NotificationDialog"
+
 
 export interface Notifications {
     notification_id: number
@@ -29,25 +30,31 @@ export default function NotificationsView() {
 
     const [dialogOpen, setDialogOpen] = useState(false)
 
+    const getNotifications = async () => {
+        const notifResponse = await fetch("http://192.168.101.105:3000/notifications/2")
+        const notifData = await notifResponse.json()
+
+        const userResponse = await fetch("http://192.168.101.105:3000/users")
+        const userData = await userResponse.json()
+
+        const projectResponse = await fetch("http://192.168.101.105:3000/projects")
+        const projectData = await projectResponse.json()
+
+        setNotificationList(notifData)
+        setUserList(userData)
+        setProjectList(projectData)
+    }
+
     useEffect(() => {
-        const getNotifications = async () => {
-            const notifResponse = await fetch("http://localhost:3000/notifications/2")
-            const notifData = await notifResponse.json()
-
-            const userResponse = await fetch("http://localhost:3000/users")
-            const userData = await userResponse.json()
-
-            const projectResponse = await fetch("http://localhost:3000/projects")
-            const projectData = await projectResponse.json()
-
-            setNotificationList(notifData)
-            setUserList(userData)
-            setProjectList(projectData)
-        }
         getNotifications()
     }, [])
 
-    function changeNotificationStatus(notification: Notifications) {
+    async function changeNotificationStatus(notification: Notifications) {
+
+        await fetch(`http://192.168.101.105:3000/notifications/${notification.notification_id}/read`, {
+            method: "PATCH"
+        })
+
         setNotificationList(prev =>
             prev.map(n =>
                 n.notification_id === notification.notification_id
@@ -65,6 +72,31 @@ export default function NotificationsView() {
         setDialogOpen(false)
     }
 
+    const handleDecline = async (notification_id: number) => {
+        closeDialog()
+        setSelectedNotification(undefined)
+        setSenderUser(undefined)
+        setSelectedProject(undefined)
+
+        await fetch(`http://192.168.101.105:3000/notifications/${notification_id}/decline`, {
+            method: "POST"
+        })
+
+        getNotifications()
+    }
+
+    const handleAccept = async (notification_id: number) => {
+        closeDialog()
+        setSelectedNotification(undefined)
+        setSenderUser(undefined)
+        setSelectedProject(undefined)
+
+        await fetch(`http://192.168.101.105:3000/notifications/${notification_id}/accept`, {
+            method: "POST"
+        })
+
+        getNotifications()
+    }
 
     const filtered = listStatus === "unread"
         ? notificationList.filter(n => n.read === false)
@@ -73,13 +105,6 @@ export default function NotificationsView() {
 
     return (
         <main className={styles.notificationsPage} >
-            <nav className={styles.navigation} >
-                <ul className={styles.navigationList} >
-                    <li >Dashboard</li>
-                    <li>My Projects</li>
-                    <li>Events</li>
-                </ul>
-            </nav>
             <section className={styles.notificationsSection} >
                 <section className={styles.notificationsBackground} >
                     <NotificationsHeader
@@ -112,7 +137,9 @@ export default function NotificationsView() {
                                     project={selectedProject}
                                     dialogOpen={dialogOpen}
                                     closeDialog={closeDialog}
-                                    />
+                                    acceptRequest={handleAccept}
+                                    declineRequest={handleDecline}
+                                />
                             )}
                     </section>
                 </section>

@@ -3,7 +3,7 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 30px;
+    margin-bottom: 2rem;
 }
 
 .headerButtons {
@@ -13,6 +13,7 @@
 
 .switchButton {
     font-weight: bold;
+    color: black;
 }
 
 .switchButton,
@@ -29,4 +30,24 @@
     background-color: #1a1a1a;
     border-radius: 18px;
     color: white;
+}
+
+@media (max-width: 767px) {
+    .headerRow {
+        flex-direction: column;
+    }
+
+    .notificationTitle {
+        margin-bottom: 1.5rem;
+        font-size: 2rem;
+    }
+
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+
+}
+
+@media (min-width: 1025px) and (max-width: 1525px) {
+
 }

@@ -20,20 +20,20 @@ export default function NotificationRow({ notification, openNotification, users 
         >
             {
                 notification.read
-                    ? <p></p>
-                    : <p>New</p>
+                    ? <p>{notification.status}</p>
+                    : <p>new</p>
             }
             {
                 users.map(u =>
                     u.user_id === notification.sender_user_id
-                        ? < p > {u.username}</p>
+                        ? < p className={styles.notificationSender} > {u.username}</p>
                         : null
                 )
             }
             {
                 notification.type === "apply"
-                    ? <p>Your project has received a new join request!</p>
-                    : <p>You have received a new project invitation!</p>
+                    ? <p className={styles.notificationText} >Your project has received a new join request!</p>
+                    : <p className={styles.notificationText} >You have received a new project invitation!</p>
             }
             <p>{date}</p>
         </button >
