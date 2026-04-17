@@ -46,30 +46,39 @@ When testing:
 
 ## Available endpoints
 
-GET /users                (Get all users)  
-GET /users/:id            (Get user by ID)  
-PUT /users/:id            (Update user profile)  
-GET /users/:id/skills     (Get user skills)  
-POST /users/:id/skills    (Post skills to a user)  
-PUT /users/:id/skills     (Update user skills)  
-DELETE /users/:id/skills/:skillId (Delete user skill)  
-GET /users/:id/interests  (Get user interests )  
-POST /users/:id/interests (Post interests to a user)  
-PUT /users/:id/interests  (Update user interests)  
-DELETE /users/:id/interests/:interestsId (Delete user interest by id)  
-GET /users/:id/projects   (Get user projects)
+GET    /users                                   (Get all users)  
+GET    /users/:id                               (Get user by ID)  
+PUT    /users/:id                               (Update user profile)  
+GET    /users/:id/skills                        (Get user skills)  
+POST   /users/:id/skills                        (Post skills to a user)  
+PUT    /users/:id/skills                        (Update user skills)  
+DELETE /users/:id/skills/:skillId               (Delete user skill)  
+GET    /users/:id/interests                     (Get user interests )  
+POST   /users/:id/interests                     (Post interests to a user)  
+PUT    /users/:id/interests                     (Update user interests)  
+DELETE /users/:id/interests/:interestsId        (Delete user interest by id)  
+GET    /users/:id/projects                      (Get user projects)
 
-GET /skills               (Get all skills)
+GET /skills        (Get all skills)
 
-GET /interests            (Get all interests)
+GET /interests     (Get all interests)
 
-GET /projects             (Get all projects)  
-GET /projects/:id         (Get a project with id)  
-POST /projects            (Create a new project)  
-POST /projects/:id/skills (Assign required skills to a project)  
-GET /projects/:id/skills  (Get required project skills)
+GET  /projects                          (Get all projects)  
+GET  /projects/:id                      (Get a project with id)  
+POST /projects                          (Create a new project)  
+POST /projects/:id/join                 (Add user to project)
+POST /projects/:id/skills               (Assign required skills to a project)  
+GET  /projects/:id/skills               (Get required project skills)  
+POST /projects/:project_id/invite       (Post invite notification to a project)  
+POST /projects/:project_id/apply        (Post apply notification to a project)
 
-GET /notifications/:id    (Get notificatios by user_id)
+GET   /notifications/:user_id                     (Get notificatios by user_id)  
+PATCH /notifications/:notification_id/read        (Mark notification as read)  
+POST  /notifications/:notification_id/decline     (Decline project join request)  
+POST  /notifications/:notification_id/accept      (Accept project join request and add user to project)  
+
+POST /auth/register   (Register user after Firebase signup)  
+GET  /auth/me         (Get current user by Firebase token)
 
 ## Example request body:
 // POST /projects

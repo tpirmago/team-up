@@ -63,7 +63,7 @@ router.post("/:notification_id/decline", async (req, res) => {
     }
 })
 
-// Mark notification as accepted
+// Mark notification as accepted and add user to project
 router.post("/:notification_id/accept", async (req, res) => {
     const notifID = req.params.notification_id
 
