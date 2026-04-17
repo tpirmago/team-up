@@ -1,14 +1,14 @@
 import { useState } from 'react'
 import UserCard from '../../components/community/UserCard'
-import Button from '../../components/Button'
-import Input from '../../components/Input'
+import SecondaryButton from '../../components/SecondaryButton'
+import SearchBar from '../../components/SearchBar'
 import styles from './CommunityView.module.css'
 import Pagination from '../../components/Pagination/Pagination'
 import { mockCommunityUsers as mockUsers } from '../../data/mockCommunityUsers'
 
 export default function CommunityView() { 
   const [page, setPage] = useState(0)
-  const PAGE_SIZE = 9
+  const PAGE_SIZE = 12
   const pageUsers = mockUsers.slice(
     page * PAGE_SIZE,
     (page + 1) * PAGE_SIZE
@@ -20,8 +20,8 @@ export default function CommunityView() {
         <h1>Connect with other students</h1>
 
         <div className={styles.communityActions}>
-          <Button className={styles.filterButton} label={'Filters'} />
-          <Input placeholder="Search profile" />
+          <SecondaryButton label={'Filters'} variant="filter" />
+          <SearchBar className={styles.searchUsers} placeholder="Search profile" />
         </div>
       </header>
 
@@ -30,13 +30,15 @@ export default function CommunityView() {
           <UserCard key={user.id} user={user} />
         ))}
       </div>
-
-      <Pagination
-        page={page}
-        totalItems={mockUsers.length}
-        pageSize={PAGE_SIZE}
-        onPageChange={(newPage) => setPage(newPage)}
-      />
+      
+      <div className={styles.pagination}>
+        <Pagination
+          page={page}
+          totalItems={mockUsers.length}
+          pageSize={PAGE_SIZE}
+          onPageChange={(newPage) => setPage(newPage)}
+        />
+      </div>
     </section>
   )
 }

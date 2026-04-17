@@ -1,9 +1,9 @@
 .userCard { 
   background-color: #ffffff;
-  border-radius: 12px;
-  padding: 20px;
+  border-radius: 16px;
+  padding: 1.5rem;
 
-  height: 340px;
+  height: 35vh;
 
   display: flex;
   flex-direction: column;
@@ -15,32 +15,25 @@
 }
 .userCardText {
   font-family: 'JetBrains Mono', monospace;
-  margin-top: 16px;
-  padding-left: 10px;
+  margin-top: 0.8rem;
+  padding-left: 0.65rem;
   flex: 1;
   display: flex;
   flex-direction: column;
   gap: 4px;
-  font-size: clamp(0.8rem, 2.5vw, 0.9rem)
+  font-size: 0.9rem;
 }
 .userCard p {
   margin: 0;
-  padding-top: 12px;
+  padding-top: 0.75rem;
   line-height: 1.35;
+}
+.userCard button {
+  margin-top: auto;
 }
 .userTags {
   text-align: center;
-}
-.profileButton {
-  font-family: 'JetBrains Mono', monospace;
-  margin-top: auto;
-  align-self: center;
-  background-color: #ffffff;
-  color: #3f3f3f;
-  border: 1px solid #3f3f3f;
-  padding: 8px 16px;
-  border-radius: 16px;
-  cursor: pointer;
+  font-size: 0.8rem;
 }
 .userAvatar {
   width: 64px;
@@ -61,4 +54,42 @@
 }
 .userInfo {
   text-align: center;
+}
+
+@media (max-width: 767px) {
+  .userCard {
+    padding: 1rem;
+    height: auto;
+    width: auto;
+  }
+  .userCardText {
+    font-size: 0.75rem;
+    padding-left: 0.5rem;
+  }
+}
+@media (min-width: 768px) and (max-width: 1024px) {
+  .userCard {
+    padding: 1rem;
+    height: auto;
+  }
+  .userCardText {
+    padding-left: 0.5rem;
+  }
+  .userTags {
+    text-align: center;
+    padding-bottom: 0.75rem;
+}
+}
+@media (min-width: 1025px) and (max-width: 1525px) {
+  .userCard {
+    padding: 1rem;
+    height: auto;
+  }
+  .userCardText {
+    font-size: 0.8rem;
+  }
+    .userTags {
+    padding-bottom: 0.75rem;
+    font-size: 0.7rem;
+}
 }
