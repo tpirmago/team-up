@@ -8,6 +8,7 @@ import Footer from './components/Footer'
 import LoginView from './pages/LoginView'
 import SignUpView from './pages/SignUpView'
 import DashboardView from './pages/DashboardView'
+import NotificationsView from './pages/notifications/NotificationsView'
 import CommunityView from './pages/community/CommunityView'
 import FindProjectView from './pages/projects/FindProjectView'
 
@@ -46,7 +47,7 @@ function App() {
   }, [])
 
   // DEV ONLY: bypass auth for UI testing
-  const DEV_BYPASS_AUTH = true
+  const DEV_BYPASS_AUTH = false
 
   if (DEV_BYPASS_AUTH) {
     return (

@@ -1,7 +1,7 @@
 .notificationsPage {
     display: flex;
     flex: 1;
-    margin: 30px;
+    margin: 2rem;
 }
 
 .notificationsSection {
@@ -9,14 +9,33 @@
 }
 
 .notificationsBackground {
-    padding: 50px;
-    margin: 10px 50px;
+    padding: 3rem;
+    margin: 1rem 3rem;
     background-color: white;
     border-radius: 8px;
     box-shadow: 0px 0px 8px #817e7e;
 }
 
+.noMessage {
+    display: flex;
+    gap: 1rem;
+    font-size: 1.2rem;
+    align-items: center;
+}
+
 .listSection {
     display: flex;
     flex-direction: column;
+}
+
+@media (max-width: 767px) {
+
+    .notificationsPage {
+        margin: 0;
+    }
+
+    .notificationsBackground {
+        padding: 1.5rem;
+        margin: 1.5rem;
+    }
 }

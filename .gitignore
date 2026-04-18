@@ -30,5 +30,7 @@ dist-ssr
 *.sw?
 
 serviceAccountKey.json
+
+.claude
 *.pem
 *.key
