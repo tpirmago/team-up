@@ -1,10 +1,12 @@
 import { Router } from "express";
 import { db } from "../db";
+import { authMiddleware } from "../middleware/auth";
+import { auth } from "firebase-admin";
 
 const router = Router()
 
 // GET user notifications by user_id
-router.get("/:user_id", async (req, res) => {
+router.get("/:user_id", authMiddleware, async (req, res) => {
     const userId = req.params.user_id
 
     try {
@@ -23,7 +25,7 @@ router.get("/:user_id", async (req, res) => {
 })
 
 // Mark notification as read
-router.patch("/:notification_id/read", async (req, res) => {
+router.patch("/:notification_id/read", authMiddleware, async (req, res) => {
     const notifID = req.params.notification_id
 
     try {
@@ -41,7 +43,7 @@ router.patch("/:notification_id/read", async (req, res) => {
 })
 
 // Mark notification as declined
-router.post("/:notification_id/decline", async (req, res) => {
+router.post("/:notification_id/decline", authMiddleware, async (req, res) => {
     const notifID = req.params.notification_id
 
     try {
@@ -65,7 +67,7 @@ router.post("/:notification_id/decline", async (req, res) => {
 })
 
 // Mark notification as accepted and add user to project
-router.post("/:notification_id/accept", async (req, res) => {
+router.post("/:notification_id/accept", authMiddleware, async (req, res) => {
     const notifID = req.params.notification_id
 
     try {

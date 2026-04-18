@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react"
 import styles from "./NotificationsView.module.css"
 import { type Projects, type User } from "../ProfileView"
-import NotificationsHeader from "../../components/Notifications/NotificationsHeader"
-import NotificationRow from "../../components/Notifications/NotificationRow"
-import NotificationDialog from "../../components/Notifications/NotificationDialog"
-
+import NotificationsHeader from "../../components/notifications/NotificationsHeader"
+import NotificationRow from "../../components/notifications/NotificationRow"
+import NotificationDialog from "../../components/notifications/NotificationDialog"
+import { authFetch } from "../../utils/authFetch"
+import { FiInbox } from "react-icons/fi"
 
 export interface Notifications {
     notification_id: number
@@ -31,13 +32,17 @@ export default function NotificationsView() {
     const [dialogOpen, setDialogOpen] = useState(false)
 
     const getNotifications = async () => {
-        const notifResponse = await fetch("http://192.168.101.105:3000/notifications/2")
+
+        const meResponse = await authFetch("http://localhost:3000/auth/me")
+        const me = await meResponse.json()
+
+        const notifResponse = await fetch(`http://localhost:3000/notifications/${me.user_id}`)
         const notifData = await notifResponse.json()
 
-        const userResponse = await fetch("http://192.168.101.105:3000/users")
+        const userResponse = await fetch("http://localhost:3000/users")
         const userData = await userResponse.json()
 
-        const projectResponse = await fetch("http://192.168.101.105:3000/projects")
+        const projectResponse = await authFetch("http://localhost:3000/projects")
         const projectData = await projectResponse.json()
 
         setNotificationList(notifData)
@@ -51,7 +56,7 @@ export default function NotificationsView() {
 
     async function changeNotificationStatus(notification: Notifications) {
 
-        await fetch(`http://192.168.101.105:3000/notifications/${notification.notification_id}/read`, {
+        await authFetch(`http://localhost:3000/notifications/${notification.notification_id}/read`, {
             method: "PATCH"
         })
 
@@ -78,7 +83,7 @@ export default function NotificationsView() {
         setSenderUser(undefined)
         setSelectedProject(undefined)
 
-        await fetch(`http://192.168.101.105:3000/notifications/${notification_id}/decline`, {
+        await authFetch(`http://localhost:3000/notifications/${notification_id}/decline`, {
             method: "POST"
         })
 
@@ -91,7 +96,7 @@ export default function NotificationsView() {
         setSenderUser(undefined)
         setSelectedProject(undefined)
 
-        await fetch(`http://192.168.101.105:3000/notifications/${notification_id}/accept`, {
+        await authFetch(`http://localhost:3000/notifications/${notification_id}/accept`, {
             method: "POST"
         })
 
@@ -105,43 +110,47 @@ export default function NotificationsView() {
 
     return (
         <main className={styles.notificationsPage} >
+            <nav className={styles.navigation} >
+                <ul className={styles.navigationList} >
+                    <li >Dashboard</li>
+                    <li>My Projects</li>
+                    <li>Events</li>
+                </ul>
+            </nav>
             <section className={styles.notificationsSection} >
                 <section className={styles.notificationsBackground} >
                     <NotificationsHeader
                         status={listStatus}
                         setStatus={setListStatus}
                     />
-                    <div className={styles.rowHeader} >
-                        <p className={styles.rowHeaderItem} >sender</p>
-                        <p>message</p>
-                        <p>date</p>
-                    </div>
-                    <section className={styles.listSection} >
-                        {notificationList &&
-                            (
-                                filtered.map(n =>
-                                    <NotificationRow
-                                        key={n.notification_id}
-                                        notification={n}
-                                        openNotification={changeNotificationStatus}
-                                        users={userList}
-                                    />
+                    {notificationList.length === 0
+                        ? <p> <FiInbox size={24} /> No notifications yet</p>
+                        : <section className={styles.listSection} >
+                            {notificationList &&
+                                (
+                                    filtered.map(n =>
+                                        <NotificationRow
+                                            key={n.notification_id}
+                                            notification={n}
+                                            openNotification={changeNotificationStatus}
+                                            users={userList}
+                                        />
+                                    )
                                 )
-                            )
-                        }
-                        {
-                            selectedNotification && senderUser && selectedProject && (
-                                <NotificationDialog
-                                    notification={selectedNotification}
-                                    user={senderUser}
-                                    project={selectedProject}
-                                    dialogOpen={dialogOpen}
-                                    closeDialog={closeDialog}
-                                    acceptRequest={handleAccept}
-                                    declineRequest={handleDecline}
-                                />
-                            )}
-                    </section>
+                            }
+                            {
+                                selectedNotification && senderUser && selectedProject && (
+                                    <NotificationDialog
+                                        notification={selectedNotification}
+                                        user={senderUser}
+                                        project={selectedProject}
+                                        dialogOpen={dialogOpen}
+                                        closeDialog={closeDialog}
+                                        acceptRequest={handleAccept}
+                                        declineRequest={handleDecline}
+                                    />
+                                )}
+                        </section>}
                 </section>
             </section>
         </main>

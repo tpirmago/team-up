@@ -31,10 +31,17 @@ export default function NotificationDialog({
             <Dialog
                 open={dialogOpen}
                 onClose={closeDialog}
+                slotProps={{
+                    paper: {
+                    sx: {
+                        width: { laptop: "50%", desktop: "40%" },
+                        maxWidth: "600px"
+                    }}
+                }}
             >
                 <DialogTitle
                     sx={{
-                        margin: {xs: "5px"},
+                        margin: { mobile: "5px" },
                         fontFamily: "inherit",
                         fontSize: 20,
                         display: "flex",
@@ -53,15 +60,15 @@ export default function NotificationDialog({
                         sx={{
                             fontFamily: "inherit",
                             color: "black",
-                            margin: {xs: "5px", sm: "10px"},
+                            margin: { mobile: "5px", tablet: "10px" },
                         }}>
                         <NotificationMessage notification={notification} project={project} user={user} />
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions
                     sx={{
-                        display: {xs: "flex", md: "grid"},
-                        flexDirection: {xs: "column"},
+                        display: { mobile: "flex", tablet: "grid" },
+                        flexDirection: { mobile: "column" },
                         gridTemplateColumns: "2fr 2fr",
                         margin: "0px 20px 0 20px"
                     }}>
