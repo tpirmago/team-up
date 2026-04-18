@@ -36,13 +36,13 @@ export default function NotificationsView() {
         const meResponse = await authFetch("http://localhost:3000/auth/me")
         const me = await meResponse.json()
 
-        const notifResponse = await fetch(`http://localhost:3000/notifications/${me.user_id}`)
+        const notifResponse = await authFetch(`http://localhost:3000/notifications/${me.user_id}`)
         const notifData = await notifResponse.json()
 
         const userResponse = await fetch("http://localhost:3000/users")
         const userData = await userResponse.json()
 
-        const projectResponse = await authFetch("http://localhost:3000/projects")
+        const projectResponse = await fetch("http://localhost:3000/projects")
         const projectData = await projectResponse.json()
 
         setNotificationList(notifData)
@@ -110,13 +110,6 @@ export default function NotificationsView() {
 
     return (
         <main className={styles.notificationsPage} >
-            <nav className={styles.navigation} >
-                <ul className={styles.navigationList} >
-                    <li >Dashboard</li>
-                    <li>My Projects</li>
-                    <li>Events</li>
-                </ul>
-            </nav>
             <section className={styles.notificationsSection} >
                 <section className={styles.notificationsBackground} >
                     <NotificationsHeader
@@ -124,7 +117,7 @@ export default function NotificationsView() {
                         setStatus={setListStatus}
                     />
                     {notificationList.length === 0
-                        ? <p> <FiInbox size={24} /> No notifications yet</p>
+                        ? <p className={styles.noMessage} > <FiInbox size={24} /> No notifications yet</p>
                         : <section className={styles.listSection} >
                             {notificationList &&
                                 (

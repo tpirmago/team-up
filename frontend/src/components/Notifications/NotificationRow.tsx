@@ -19,7 +19,10 @@ export default function NotificationRow({ notification, openNotification, users 
             onClick={() => openNotification(notification)}
         >
             <div className={styles.firstRowsection} >
-                <p>{notification.read ? <p>{notification.status}</p> : <p>new</p>}</p>
+                {
+                    notification.read
+                        ? <p>{notification.status}</p>
+                        : <p>new</p>}
                 {
                     users.map(u =>
                         u.user_id === notification.sender_user_id

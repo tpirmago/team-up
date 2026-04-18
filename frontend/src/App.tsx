@@ -2,52 +2,71 @@ import { useState, useEffect } from 'react'
 import { onAuthStateChanged, signOut, type User } from 'firebase/auth'
 import { auth } from './firebase'
 import './App.css'
+import type { SidebarItem } from './components/Sidebar'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import LoginView from './pages/LoginView'
 import SignUpView from './pages/SignUpView'
-import ProfileView from './pages/ProfileView'
-import MyProjectView from './pages/MyProjectView'
-import CreateProjectView from "./pages/CreateProjectView"
 import DashboardView from './pages/DashboardView'
 import NotificationsView from './pages/notifications/NotificationsView'
-
+import CommunityView from './pages/community/CommunityView'
+import FindProjectView from './pages/projects/FindProjectView'
 
 type Page = 'login' | 'signup'
 
 function App() {
   const [user, setUser] = useState<User | null>(null)
+  const [username, setUsername] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
   const [page, setPage] = useState<Page>('login')
+  const [activeNav, setActiveNav] = useState<SidebarItem>('dashboard')
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser: User | null) => {
+      setUser(firebaseUser)
+      setLoading(false)
+
+      if (firebaseUser) {
+        try {
+          const token = await firebaseUser.getIdToken()
+          const res = await fetch('http://localhost:3000/auth/me', {
+            headers: { Authorization: `Bearer ${token}` },
+          })
+          if (res.ok) {
+            const data = await res.json()
+            setUsername(data.username)
+          }
+        } catch {
+          /* ignore — fall back to default greeting */
+        }
+      } else {
+        setUsername(null)
+      }
+    })
+    return unsubscribe
+  }, [])
 
   // DEV ONLY: bypass auth for UI testing
-  const DEV_BYPASS_AUTH = true
+  const DEV_BYPASS_AUTH = false
 
   if (DEV_BYPASS_AUTH) {
     return (
       <div className="app">
-        <Header btnLabel="Log out" onBtnClick={() => signOut(auth)} />
-        <NotificationsView />
+        <Header btnLabel="Log out" onBtnClick={() => signOut(auth)} onLogoClick={() => setActiveNav('dashboard')} />
+        {/* <NotificationsView /> */}
+        <DashboardView activeNav={activeNav} onNavigate={setActiveNav} />
         <Footer />
       </div>
     )
   }
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
-      setUser(firebaseUser)
-      setLoading(false)
-    })
-    return unsubscribe
-  }, [])
 
   if (loading) return null
 
   if (user) {
     return (
       <div className="app">
-        <Header btnLabel="Log out" onBtnClick={() => signOut(auth)} />
-        <DashboardView />
+        <Header btnLabel="Log out" onBtnClick={() => signOut(auth)} onLogoClick={() => setActiveNav('dashboard')} />
+        <DashboardView username={username ?? undefined} activeNav={activeNav} onNavigate={setActiveNav} />
         <Footer />
       </div>
     )

@@ -2,6 +2,7 @@
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    padding-top: 55px;
     background-image: url('./assets/Background.png');
     background-size: cover;
     background-position: center;

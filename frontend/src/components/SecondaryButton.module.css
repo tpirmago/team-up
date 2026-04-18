@@ -1,0 +1,40 @@
+.baseButton {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.95rem;
+    align-self: center;
+    color: #3f3f3f;
+    padding: 0.5rem 0.8rem;
+    border-radius: 50px;
+    cursor: pointer;
+}
+.filterButton {
+    background-color: #8d8d8d;
+    color: white;
+}
+.viewButton {
+    background-color: transparent;
+    border: 1px solid #3f3f3f;
+    color: #1a1a1a;
+}
+.baseButton:hover {
+    opacity: 0.8;
+}
+
+@media (max-width: 767px) {
+    .baseButton {
+        font-size: 0.7rem;
+        padding: 8px 18px;
+    }
+}
+@media (min-width: 768px) and (max-width: 1024px) {  
+    .baseButton {
+        font-size: 0.75rem;
+        padding: 6px 18px;
+    }
+}
+@media (min-width: 1025px) and (max-width: 1525px) {
+    .baseButton {
+        font-size: 0.85rem;
+        padding: 6px 20px;
+    }
+}

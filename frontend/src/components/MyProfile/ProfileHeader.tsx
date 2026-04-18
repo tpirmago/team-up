@@ -2,7 +2,7 @@ import { GrEdit } from "react-icons/gr"
 import styles from "./ProfileHeader.module.css"
 import Button from "../Button"
 import type { User } from "../../pages/ProfileView"
-import avatar from "../../assets/Background.png"
+// import avatar from "../../assets/Background.png"
 
 interface ProfileHeaderProps {
     editMode: boolean
