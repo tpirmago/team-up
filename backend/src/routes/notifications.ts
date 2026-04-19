@@ -52,13 +52,21 @@ router.post("/:notification_id/decline", authMiddleware, async (req, res) => {
             SET status = 'declined'
             WHERE notification_id = $1
                 AND status = 'pending'    
-            RETURNING notification_id`,
+            RETURNING *`,
             [notifID]
         )
 
-        if (result.rowCount === 0) {
+        const notification = result.rows[0]
+        if (!notification) {
             return res.status(404).json({ error: "Notification not found" })
         }
+
+        await db.query(
+            `INSERT INTO notifications (type, project_id, sender_user_id, receiver_user_id, status)
+            VALUES ('response', $1, $2, $3, 'declined')`,
+            [notification.project_id, notification.receiver_user_id, notification.sender_user_id]
+        )
+
         res.json({ message: "Request declined" })
     } catch (error) {
         console.log(error)
