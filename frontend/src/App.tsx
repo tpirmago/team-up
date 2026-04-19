@@ -53,13 +53,9 @@ function App() {
       <div className="app">
         <Header btnLabel="Log out" onBtnClick={() => signOut(auth)} onLogoClick={() => setActiveNav('dashboard')} />
         {/* <NotificationsView /> */}
-<<<<<<< Updated upstream
-        <DashboardView /> 
-        <CommunityView />
-        <FindProjectView />
-=======
         <DashboardView activeNav={activeNav} onNavigate={setActiveNav} />
->>>>>>> Stashed changes
+        {/* <CommunityView />
+        <FindProjectView /> */}
         <Footer />
       </div>
     )
