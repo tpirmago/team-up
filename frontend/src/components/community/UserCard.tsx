@@ -1,6 +1,7 @@
 import type { CommunityUser } from "../../types/community"
 import styles from './UserCard.module.css'
 import defaultAvatar from '../../assets/avatars/defaultAvatar.png'
+import SecondaryButton from "../SecondaryButton"
 
 type UserCardProps = {
   user: CommunityUser
@@ -43,7 +44,7 @@ export default function UserCard({ user }: UserCardProps) {
                 .join(', ')}
           </p>
         </div>
-        <button className={styles.profileButton}>View profile</button>
+        <SecondaryButton label="View profile" variant="view" />
       </div>
     </div>
   )

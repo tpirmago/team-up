@@ -19,7 +19,7 @@ const items: { key: SidebarItem; label: string }[] = [
     { key: "my-projects", label: "My Projects" },
     { key: "create-project", label: "Create Project" },
     { key: "find-project", label: "Find New Project" },
-    { key: "meet-teammates", label: "Meet teammates" },
+    { key: "meet-teammates", label: "Meet Teammates" },
     { key: "notifications", label: "Notifications" },
 ]
 

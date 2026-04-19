@@ -8,8 +8,9 @@ import Footer from './components/Footer'
 import LoginView from './pages/LoginView'
 import SignUpView from './pages/SignUpView'
 import DashboardView from './pages/DashboardView'
-// import CommunityView from './pages/community/CommunityView'
-// import FindProjectView from './pages/projects/FindProjectView'
+import NotificationsView from './pages/notifications/NotificationsView'
+import CommunityView from './pages/community/CommunityView'
+import FindProjectView from './pages/projects/FindProjectView'
 
 type Page = 'login' | 'signup'
 
@@ -54,8 +55,6 @@ function App() {
         <Header btnLabel="Log out" onBtnClick={() => signOut(auth)} onLogoClick={() => setActiveNav('dashboard')} />
         {/* <NotificationsView /> */}
         <DashboardView activeNav={activeNav} onNavigate={setActiveNav} />
-        {/* <CommunityView />
-        <FindProjectView /> */}
         <Footer />
       </div>
     )

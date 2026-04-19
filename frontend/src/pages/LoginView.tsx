@@ -18,6 +18,14 @@ export default function LoginView({ onSignUp }: LoginViewProps) {
         setError('')
         try {
             await signInWithEmailAndPassword(auth, email, password)
+
+            const token = await auth.currentUser?.getIdToken()
+
+            if (!token) {
+                return console.log( "error: No token provided" );
+            }
+
+            localStorage.setItem("token", token)
         } catch (err: unknown) {
             const message = err instanceof Error ? err.message : 'Login failed'
             setError(message)
