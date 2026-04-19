@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react"
 import styles from "./Sidebar.module.css"
 
 export type SidebarItem =
@@ -23,26 +24,58 @@ const items: { key: SidebarItem; label: string }[] = [
 ]
 
 export default function Sidebar({ activeItem, onNavigate }: SidebarProps) {
+    const [open, setOpen] = useState(false)
+
+    useEffect(() => {
+        if (!open) return
+        function onKey(e: KeyboardEvent) {
+            if (e.key === "Escape") setOpen(false)
+        }
+        window.addEventListener("keydown", onKey)
+        return () => window.removeEventListener("keydown", onKey)
+    }, [open])
+
+    function handleNavigate(item: SidebarItem) {
+        onNavigate(item)
+        setOpen(false)
+    }
+
     return (
-        <aside className={styles.sidebar}>
-            <nav className={styles.nav}>
-                <ul className={styles.list}>
-                    {items.map((item) => {
-                        const isActive = item.key === activeItem
-                        return (
-                            <li key={item.key}>
-                                <button
-                                    type="button"
-                                    className={`${styles.link} ${isActive ? styles.active : ""}`}
-                                    onClick={() => onNavigate(item.key)}
-                                >
-                                    {item.label}
-                                </button>
-                            </li>
-                        )
-                    })}
-                </ul>
-            </nav>
-        </aside>
+        <>
+            <button
+                type="button"
+                className={styles.hamburger}
+                aria-label={open ? "Close menu" : "Open menu"}
+                aria-expanded={open}
+                onClick={() => setOpen((v) => !v)}
+            >
+                <span className={`${styles.bar} ${open ? styles.barTop : ""}`} />
+                <span className={`${styles.bar} ${open ? styles.barMid : ""}`} />
+                <span className={`${styles.bar} ${open ? styles.barBot : ""}`} />
+            </button>
+
+            {open && <div className={styles.overlay} onClick={() => setOpen(false)} />}
+
+            <aside className={`${styles.sidebar} ${open ? styles.open : ""}`}>
+                <nav className={styles.nav}>
+                    <ul className={styles.list}>
+                        {items.map((item) => {
+                            const isActive = item.key === activeItem
+                            return (
+                                <li key={item.key}>
+                                    <button
+                                        type="button"
+                                        className={`${styles.link} ${isActive ? styles.active : ""}`}
+                                        onClick={() => handleNavigate(item.key)}
+                                    >
+                                        {item.label}
+                                    </button>
+                                </li>
+                            )
+                        })}
+                    </ul>
+                </nav>
+            </aside>
+        </>
     )
 }

@@ -183,13 +183,15 @@
     object-fit: contain;
 }
 
+@media (max-width: 1199px) {
+    .dashboard {
+        padding: 24px 32px;
+    }
+}
+
 @media (max-width: 767px) {
     .layout {
         flex-direction: column;
-    }
-
-    .dashboard {
-        padding: 20px 16px;
     }
 
     .topBar {
@@ -219,5 +221,11 @@
 
     .rowText {
         font-size: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .dashboard {
+        padding: 20px 16px;
     }
 }
