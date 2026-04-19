@@ -138,3 +138,9 @@
         gap: 18px;
     }
 }
+
+@media (max-width: 480px) {
+    .hamburger {
+        left: 16px;
+    }
+}

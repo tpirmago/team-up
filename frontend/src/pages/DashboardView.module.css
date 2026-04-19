@@ -35,8 +35,25 @@
 
 .grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 30px;
+    grid-template-columns: minmax(0, 55fr) minmax(0, 45fr);
+    grid-template-areas:
+        "projects toggles"
+        "projects right";
+    grid-template-rows: auto 1fr;
+    row-gap: 20px;
+    column-gap: 30px;
+}
+
+.projectsCard {
+    grid-area: projects;
+}
+
+.togglesRow {
+    grid-area: toggles;
+}
+
+.rightColumn {
+    grid-area: right;
 }
 
 .projectsCard,
@@ -51,6 +68,11 @@
 .cardTitle {
     font-size: 16px;
     margin: 0 0 16px 0;
+}
+
+.projectsList {
+    display: flex;
+    flex-direction: column;
 }
 
 .projectItem {
@@ -74,13 +96,28 @@
 .projectBtn {
     display: flex;
     justify-content: flex-end;
-    margin-top: 10px;
+    margin-top: 40px;
 }
 
 .viewAllWrap {
     display: flex;
     justify-content: flex-start;
     margin-top: 10px;
+}
+
+.compactBtn {
+    padding: 8px 20px;
+    border-radius: 20px;
+}
+
+.findBtn {
+    align-self: flex-end;
+}
+
+.secondaryBtn {
+    background: #fff;
+    color: #1a1a1a;
+    border: 1px solid #1a1a1a;
 }
 
 .rightColumn {
@@ -91,13 +128,15 @@
 
 .togglesRow {
     display: flex;
+    flex-wrap: wrap;
     gap: 20px;
 }
 
 .toggleCard {
-    flex: 1;
+    flex: 1 1 280px;
+    min-width: 0;
     display: flex;
-    flex-direction: row;
+    flex-flow: row nowrap;
     align-items: center;
     justify-content: space-between;
     gap: 12px;
@@ -163,7 +202,9 @@
 
 .rowText {
     flex: 1;
+    min-width: 0;
     font-size: 13px;
+    overflow-wrap: break-word;
 }
 
 .arrowBtn {
@@ -189,6 +230,28 @@
     }
 }
 
+@media (max-width: 1023px) {
+    .grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: none;
+        grid-template-areas:
+            "toggles"
+            "projects"
+            "right";
+        gap: 20px;
+    }
+
+    .rightColumn {
+        flex-direction: row;
+        gap: 20px;
+    }
+
+    .rightColumn > .infoCard {
+        flex: 1 1 0;
+        min-width: 0;
+    }
+}
+
 @media (max-width: 767px) {
     .layout {
         flex-direction: column;
@@ -204,16 +267,6 @@
         font-size: 20px;
     }
 
-    .grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
-
-    .togglesRow {
-        flex-direction: column;
-        gap: 14px;
-    }
-
     .projectsCard,
     .infoCard {
         padding: 18px;
@@ -221,6 +274,26 @@
 
     .rowText {
         font-size: 12px;
+    }
+}
+
+@media (min-width: 841px) and (max-width: 1023px) {
+    .projectsList {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 14px;
+    }
+
+    .projectsList > .projectItem {
+        flex: 1 1 0;
+        min-width: 0;
+        margin-bottom: 0;
+    }
+}
+
+@media (max-width: 840px) {
+    .rightColumn {
+        flex-direction: column;
     }
 }
 
