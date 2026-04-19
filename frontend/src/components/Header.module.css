@@ -36,3 +36,9 @@
 .btn:hover {
     opacity: 0.8;
 }
+
+@media (max-width: 1199px) {
+    .logo {
+        margin-left: 36px;
+    }
+}
