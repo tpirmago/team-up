@@ -1,4 +1,4 @@
-import type { Notifications } from "../../pages/Notifications/NotificationsView"
+import type { Notifications } from "../../pages/notifications/NotificationsView"
 import type { User } from "../../pages/ProfileView"
 import styles from "./NotificationRow.module.css"
 

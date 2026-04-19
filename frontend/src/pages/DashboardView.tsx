@@ -6,6 +6,8 @@ import type { SidebarItem } from "../components/Sidebar"
 import MyProjectView from "./MyProjectView"
 import CreateProjectView from "./CreateProjectView"
 import NotificationsView from "./notifications/NotificationsView"
+import CommunityView from "./community/CommunityView"
+import FindProjectView from "./projects/FindProjectView"
 import { testUser } from "../testing/testData"
 import arrowIcon from "../assets/icons/arrow-icon.png"
 import bellIcon from "../assets/icons/bell-icon.png"
@@ -69,12 +71,9 @@ export default function DashboardView({ username, activeNav, onNavigate }: Dashb
             case "notifications":
                 return <NotificationsView />
             case "find-project":
+                return <FindProjectView />
             case "meet-teammates":
-                return (
-                    <main className={styles.dashboard}>
-                        <p>Coming soon</p>
-                    </main>
-                )
+                return <CommunityView />
             default:
                 return (
                     <main className={styles.dashboard}>
