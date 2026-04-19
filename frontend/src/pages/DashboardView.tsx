@@ -58,7 +58,7 @@ export default function DashboardView({ username, activeNav, onNavigate }: Dashb
 
     const recommendedProjects = 12
     const recommendedTeammates = 27
-    const newNotifications = 1
+    const newNotifications: number = 15
 
     const displayedProjects = user.projects.slice(0, 2)
 
@@ -85,41 +85,72 @@ export default function DashboardView({ username, activeNav, onNavigate }: Dashb
                                     {user.projects.length === 1 ? "" : "s"}
                                 </p>
                             </div>
-                            <Button label="Find New Project" />
+                            <Button
+                                label="Find New Project"
+                                className={`${styles.compactBtn} ${styles.findBtn}`}
+                                onClick={() => onNavigate("find-project")}
+                            />
                         </section>
 
                         <section className={styles.grid}>
                             <div className={styles.projectsCard}>
                                 <h3 className={styles.cardTitle}>Your projects</h3>
 
-                                {displayedProjects.map((p) => (
-                                    <div key={p.project_id} className={styles.projectItem}>
-                                        <p className={styles.projectName}>{p.title}</p>
-                                        <p className={styles.projectMeta}>Duration: {p.duration}</p>
-                                        <p className={styles.projectMeta}>Status: In Progress</p>
-                                        <div className={styles.projectBtn}>
-                                            <Button label="View Project" />
+                                <div className={styles.projectsList}>
+                                    {displayedProjects.map((p) => (
+                                        <div key={p.project_id} className={styles.projectItem}>
+                                            <p className={styles.projectName}>{p.title}</p>
+                                            <p className={styles.projectMeta}>Duration: {p.duration}</p>
+                                            <p className={styles.projectMeta}>Status: In Progress</p>
+                                            <div className={styles.projectBtn}>
+                                                <Button label="View Project" className={`${styles.compactBtn} ${styles.secondaryBtn}`} />
+                                            </div>
                                         </div>
-                                    </div>
-                                ))}
+                                    ))}
+                                </div>
 
                                 <div className={styles.viewAllWrap}>
-                                    <Button label="View All" />
+                                    <Button
+                                        label="View All"
+                                        className={`${styles.compactBtn} ${styles.secondaryBtn}`}
+                                        onClick={() => onNavigate("my-projects")}
+                                    />
                                 </div>
                             </div>
 
+                            <div className={styles.togglesRow}>
+                                <ToggleCard
+                                    label="Open for projects"
+                                    value={openForProjects}
+                                    onChange={setOpenForProjects}
+                                />
+                                <ToggleCard
+                                    label="Looking for teammates"
+                                    value={lookingForTeammates}
+                                    onChange={setLookingForTeammates}
+                                />
+                            </div>
+
                             <div className={styles.rightColumn}>
-                                <div className={styles.togglesRow}>
-                                    <ToggleCard
-                                        label="Open for projects"
-                                        value={openForProjects}
-                                        onChange={setOpenForProjects}
-                                    />
-                                    <ToggleCard
-                                        label="Looking for teammates"
-                                        value={lookingForTeammates}
-                                        onChange={setLookingForTeammates}
-                                    />
+                                <div className={styles.infoCard}>
+                                    <h3 className={styles.cardTitle}>Notifications</h3>
+                                    <div className={styles.infoRow}>
+                                        <img src={bellIcon} alt="" className={styles.rowIcon} />
+                                        <span className={styles.rowText}>
+                                            You have {newNotifications} new notification
+                                            {newNotifications === 1 ? "" : "s"}
+                                        </span>
+                                        <button
+                                            type="button"
+                                            className={styles.arrowBtn}
+                                            onClick={() => onNavigate("notifications")}
+                                        >
+                                            <img src={arrowIcon} alt="Open" />
+                                        </button>
+                                    </div>
+                                    {/* <div className={styles.viewAllWrap}>
+                                        <Button label="View All" className={`${styles.compactBtn} ${styles.secondaryBtn}`} />
+                                    </div> */}
                                 </div>
 
                                 <div className={styles.infoCard}>
@@ -141,23 +172,6 @@ export default function DashboardView({ username, activeNav, onNavigate }: Dashb
                                         <button type="button" className={styles.arrowBtn}>
                                             <img src={arrowIcon} alt="Open" />
                                         </button>
-                                    </div>
-                                </div>
-
-                                <div className={styles.infoCard}>
-                                    <h3 className={styles.cardTitle}>Notifications</h3>
-                                    <div className={styles.infoRow}>
-                                        <img src={bellIcon} alt="" className={styles.rowIcon} />
-                                        <span className={styles.rowText}>
-                                            You have {newNotifications} new notification
-                                            {newNotifications === 1 ? "" : "s"}
-                                        </span>
-                                        <button type="button" className={styles.arrowBtn}>
-                                            <img src={arrowIcon} alt="Open" />
-                                        </button>
-                                    </div>
-                                    <div className={styles.viewAllWrap}>
-                                        <Button label="View All" />
                                     </div>
                                 </div>
                             </div>

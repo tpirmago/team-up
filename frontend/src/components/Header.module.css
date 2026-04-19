@@ -2,7 +2,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 14px 32px;
+    padding: 14px 40px;
     background: #ffffff;
     border-bottom: 1px solid #1a1a1a;
     position: fixed;
@@ -38,7 +38,17 @@
 }
 
 @media (max-width: 1199px) {
+    .header {
+        padding: 14px 32px;
+    }
+
     .logo {
         margin-left: 36px;
+    }
+}
+
+@media (max-width: 480px) {
+    .header {
+        padding: 14px 16px;
     }
 }
