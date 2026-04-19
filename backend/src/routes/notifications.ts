@@ -5,8 +5,9 @@ import { auth } from "firebase-admin";
 
 const router = Router()
 
+
 // GET user notifications by user_id
-router.get("/:user_id", authMiddleware, async (req, res) => {
+router.get("/:user_id", async (req, res) => {
     const userId = req.params.user_id
 
     try {
@@ -110,6 +111,12 @@ router.post("/:notification_id/accept", authMiddleware, async (req, res) => {
             SET status = 'accepted'
             WHERE notification_id = $1`,
             [notifID]
+        )
+
+        await db.query(
+            `INSERT INTO notifications (type, project_id, sender_user_id, receiver_user_id, status)
+            VALUES ('response', $1, $2, $3, 'accepted')`,
+            [notification.project_id, notification.receiver_user_id, notification.sender_user_id]
         )
 
         res.json({ message: "Request accepted and user added to project" })

@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { db } from "../db";
+import { authMiddleware } from "../middleware/auth";
 
 const router = Router();
 
@@ -181,5 +182,54 @@ router.get("/:id", async (req ,res) => {
         res.status(500).json({ error: "Failed to fetch project" });
     }
 });
+
+// DELETE a project by id
+router.delete("/:project_id", authMiddleware, async (req, res) => {
+    const projectId = req.params.project_id
+    const firebaseUid = (req as any).uid
+
+    try {
+
+        const userResult = await db.query(
+            `SELECT user_id
+            FROM users
+            WHERE firebase_id = $1`,
+            [firebaseUid]
+        )
+
+        const userId = userResult.rows[0]?.user_id
+
+        if(!userId) {
+            res.status(401).json({error: "User not found"})
+        }
+
+        const result = await db.query(
+            `SELECT owner_user_id
+            FROM projects
+            WHERE project_id = $1`,
+            [projectId]
+        )
+
+        const project = result.rows[0]
+
+        if(!project) {
+            return res.status(404).json({error: "Project not found"})
+        }
+
+        if(project.owner_user_id !== userId) {
+            return res.status(403).json({error: "Not authorized to delete this project"})
+        }
+
+        await db.query(
+            `DELETE FROM projects
+            WHERE project_id = $1`,
+            [projectId, ]
+        )
+        res.json({message: "Project deleted successfully"})
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({error: "Failed to delete project"})
+    }
+})
 
 export default router;

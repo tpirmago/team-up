@@ -1,5 +1,4 @@
 import styles from "./ProjectCard.module.css"
-import { GoHeart } from "react-icons/go";
 import { IoIosInformationCircleOutline } from "react-icons/io";
 import ConfirmDialog from "./ConfirmDialog";
 
@@ -10,9 +9,11 @@ interface ProjectCardProps {
     topic: string
     id: number
     onClick: (id: number) => void
+    ownerId: number
+    userId: number
 }
 
-export default function ProjectCard({ label, description, topic, id, onClick }: ProjectCardProps) {
+export default function ProjectCard({ label, description, topic, id, onClick, ownerId, userId }: ProjectCardProps) {
     return (
         <div className={styles.projectBox} >
             <div className={styles.infoColumn} >
@@ -25,8 +26,11 @@ export default function ProjectCard({ label, description, topic, id, onClick }: 
             </div>
             <div className={styles.buttonColumn} >
                 <button className={styles.infoButton} ><IoIosInformationCircleOutline size={25} /></button>
-                <button className={styles.heartButton} ><GoHeart size={25} /></button>
-                <ConfirmDialog onDelete={onClick} id={id} />
+                {
+                    ownerId === userId
+                        ? <ConfirmDialog onDelete={onClick} id={id} />
+                        : null
+                }
             </div>
         </div>
     )
