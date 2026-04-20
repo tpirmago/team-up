@@ -10,7 +10,7 @@ interface ProjectCardProps {
     id: number
     onClick: (id: number) => void
     ownerId: number
-    userId: number
+    userId: number | undefined
 }
 
 export default function ProjectCard({ label, description, topic, id, onClick, ownerId, userId }: ProjectCardProps) {

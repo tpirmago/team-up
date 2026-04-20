@@ -1,7 +1,7 @@
 .myProjectPage {
     display: flex;
     flex: 1;
-    margin: 30px;
+    margin: 2rem;
 }
 
 .projectSection {
@@ -9,15 +9,15 @@
 }
 
 .projectBackground {
-    padding: 50px;
-    margin: 10px 50px;
+    padding: 3rem;
+    margin: 1rem 3rem;
     background-color: white;
     border-radius: 8px;
     box-shadow: 0px 0px 8px #817e7e;
 }
 
 .sectionHeader {
-    margin-bottom: 30px;
+    margin-bottom: 3rem;
 }
 
 .addButtonSection {
@@ -29,6 +29,13 @@
     position: absolute;
     top: -60px;
     right: 0;
+}
+
+.noMessage {
+    display: flex;
+    gap: 1rem;
+    font-size: 1.2rem;
+    align-items: center;
 }
 
 .projectGrid {

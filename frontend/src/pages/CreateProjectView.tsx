@@ -17,7 +17,7 @@ export interface Form {
     skills: Skills[]
 }
 
-const defaultForm = {
+const defaultForm: Form = {
     title: "",
     topic: "",
     description: "",
