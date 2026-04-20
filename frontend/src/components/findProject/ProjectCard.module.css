@@ -1,10 +1,9 @@
 .projectCard {
     background-color: #ffffff;
-    border-radius: 12px;
-    padding: 20px;
+    border-radius: 16px;
+    padding: 1.5rem;
 
-    height: 340px;
-
+    height: 100%;
     display: flex;
     flex-direction: column;
 
@@ -13,48 +12,74 @@
     0 2px 6px rgba(0, 0, 0, 0.06),
     0 1px 2px rgba(0, 0, 0, 0.04)
 }
-
-.projectHeaderRow {
-    align-items: center;
+.projectCard button {
+    margin-top: auto;
+    font-size: 0.9rem;
 }
-
+.projectHeaderRow {
+    font-size: 1.1rem;
+}
+.projectTopic {
+    font-size: 1.05rem;
+    margin-top: 1.5rem;
+}
+.projectDescription {
+    margin-top: 1rem;   
+    line-clamp: 4;    
+    display: -webkit-box;
+    -webkit-line-clamp: 4; /* number of visible lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
 .infoColumn {
-    margin-top: 12px;
-    align-items: center;
-    justify-content: center;
+    text-align: center;
     gap: 8px;
 }
-
-.heartButton,
-.deleteButton,
-.infoButton {
-    background: transparent;
-    border: none;
-    cursor: pointer;
-}
-
-.projectTopic {
-    margin-bottom: 10px;
-}
-
 .projectMeta {
-  margin-top: 12px;
-  font-size: 0.75rem;
-  color: #555;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    font-size: 0.9rem;
 }
-.viewProjectCard {
-    font-family: 'JetBrains Mono', monospace;
-    margin-top: auto;
-    align-self: center;
-    background-color: #ffffff;
-    color: #3f3f3f;
-    border: 1px solid #3f3f3f;
-    padding: 8px 16px;
-    border-radius: 16px;
-    cursor: pointer;
+
+@media (max-width: 767px) {
+    .infoColumn {
+        font-size: 0.9rem;
+    }
+    .viewProjectCard {
+        margin-top: 1rem;
+    }
+    .projectMeta {
+        margin-top: 1rem;
+        font-size: 0.8rem;
+    }
+
+}
+@media (min-width: 768px) and (max-width: 1024px) {
+  .projectCard {
+    padding: 1rem;
+  }
+  .infoColumn {
+    font-size: 0.95rem;
+  }
+}
+@media (min-width: 1025px) and (max-width: 1525px) {
+    .projectCard button {
+        font-size: 0.85rem;
+    }
+    .projectHeaderRow {
+        font-size: 1rem;
+    }
+    .projectTopic {
+        font-size: 0.95rem;
+        margin-top: 0.8rem;
+    }
+    .projectDescription {
+        margin-top: 0.8rem;
+        line-clamp: 3;
+        -webkit-line-clamp: 3; 
+    }
+    .projectMeta {
+        font-size: 0.85rem;
+    }
 }

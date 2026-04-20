@@ -15,7 +15,12 @@
 
 @media (max-width: 767px) {
     .searchBar {
-        font-size: 0.7rem;
+        font-size: 0.8rem;
         padding: 8px 18px;
+    }
+}
+@media (min-width: 768px) and (max-width: 1024px) {  
+    .searchBar {
+        font-size: 0.9rem;
     }
 }

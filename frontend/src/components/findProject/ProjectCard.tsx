@@ -1,4 +1,5 @@
 import styles from "./ProjectCard.module.css"
+import SecondaryButton from "../SecondaryButton"
 //import { GoHeart } from "react-icons/go";
 //import { IoIosInformationCircleOutline } from "react-icons/io";
 
@@ -32,7 +33,7 @@ export default function ProjectCard({ label, description, topic, location_mode, 
                 <span>•</span>
                 <span>{duration}</span>
             </div>
-            <button className={styles.viewProjectCard}>View Project</button>
+            <SecondaryButton label="View project" variant="view" />
             {/* <div className={styles.buttonColumn} >
                 <button className={styles.infoButton} ><IoIosInformationCircleOutline size={25} /></button>
                 <button className={styles.heartButton} ><GoHeart size={25} /></button>

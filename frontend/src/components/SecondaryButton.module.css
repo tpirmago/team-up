@@ -22,19 +22,16 @@
 
 @media (max-width: 767px) {
     .baseButton {
-        font-size: 0.7rem;
-        padding: 8px 18px;
+        font-size: 0.8rem;
     }
 }
 @media (min-width: 768px) and (max-width: 1024px) {  
     .baseButton {
-        font-size: 0.75rem;
-        padding: 6px 18px;
+        font-size: 0.9rem;
     }
 }
 @media (min-width: 1025px) and (max-width: 1525px) {
     .baseButton {
         font-size: 0.85rem;
-        padding: 6px 20px;
     }
 }
