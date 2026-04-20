@@ -1,32 +1,27 @@
 .projectBox {
     display: flex;
+    flex-direction: column;
     padding: 20px;
     border-radius: 15px;
     border: 1px solid black;
     gap: 10px;
 }
 
-.infoColumn {
-    flex: 10
+.textColumn {
+    flex: 10;
 }
 
 .buttonColumn {
     flex: 1;
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.projectHeaderRow {
-    display: flex;
-    padding-right: 30px;
+    flex-direction: row;
+    justify-content: space-evenly;
 }
 
 .projectHeader {
-    margin: 0 15px 15px 0;
+    margin-bottom: 1.5rem;
 }
 
-.heartButton,
 .deleteButton,
 .infoButton {
     background: transparent;
@@ -34,10 +29,43 @@
     cursor: pointer;
 }
 
-.projectTopic {
-    margin-bottom: 10px;
+.secondaryButton {
+    padding: 8px 20px;
+    border-radius: 20px;
+    background: #fff;
+    color: #1a1a1a;
+    border: 1px solid #1a1a1a;
 }
 
-.projectDescription {
-    padding-right: 30px;
+.projectTopic, .projectDescription {
+    margin-bottom: 1rem;
 }
+
+@media (max-width: 767px) {
+
+    .projectHeaderRow {
+        padding-right: 0;
+    }
+
+    .projectHeader {
+        margin-right: 0;
+    }
+
+    .projectDescription {
+        padding-right: 0;
+    }
+
+    /* .buttonColumn {
+        flex-direction: row;
+        justify-content: space-evenly;
+        margin-top: 1rem;
+    } */
+}
+
+/* @media (min-width: 768px) and (max-width: 1024px) {
+    .buttonColumn {
+        flex-direction: row;
+        justify-content: space-evenly;
+        margin-top: 1rem;
+    }
+} */

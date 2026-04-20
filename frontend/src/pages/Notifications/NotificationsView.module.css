@@ -2,10 +2,11 @@
     display: flex;
     flex: 1;
     margin: 2rem;
+    width: 100%;
 }
 
 .notificationsSection {
-    flex: 5;
+    flex: 1;
 }
 
 .notificationsBackground {

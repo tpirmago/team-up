@@ -3,6 +3,7 @@ import Button from "../Button";
 import styles from "./SkillsSelector.module.css"
 import { useState } from "react";
 import type { Skills } from "../../pages/ProfileView";
+import SecundaryButton from "../SecondaryButton";
 
 interface SkillsSelectorProps {
     addedSkills: Skills[]
@@ -39,10 +40,9 @@ export default function SkillsSelector({addedSkills, allSkills, addSkill, delete
                             allSkills.map(i => <option key={i.skill_id} value={i.skill_id} >{i.skill_name}</option>)
                         }
                     </select>
-                    <Button
+                    <SecundaryButton
                         type="button"
                         label="+ Add"
-                        className={styles.blackButton}
                         onClick={() => addSkill(selectedId)}
                     />
                 </div>

@@ -28,7 +28,7 @@ export default function ConfirmDialog({ onDelete, id }: ConfirmDialogProps) {
 
     return (
         <React.Fragment>
-            <button className={styles.deleteButton} onClick={openDialog} ><RiDeleteBin6Line size={25} /></button>
+            <button className={styles.deleteButton} onClick={openDialog} ><RiDeleteBin6Line size={25} color="#1a1a1a" /></button>
             <Dialog
                 open={open}
                 onClose={closeDialog}

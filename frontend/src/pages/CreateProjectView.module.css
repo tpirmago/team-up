@@ -1,7 +1,7 @@
 .createProjectPage {
     display: flex;
     flex: 1;
-    margin: 30px;
+    margin: 2rem;
 }
 
 .formSection {
@@ -29,7 +29,7 @@
 }
 
 .blackButton {
-    padding: 7px 20px;
+        padding: 0.5rem 1rem;
 }
 
 .closeButton {
@@ -44,4 +44,15 @@
 
 .sectionHeader {
     margin-bottom: 30px;
+}
+
+@media (max-width: 767px) {
+    .createProjectPage {
+        margin: 0;
+    }
+
+    .messageBackground, .formBackground {
+        padding: 1.5rem;
+        margin: 1.5rem;
+    }
 }

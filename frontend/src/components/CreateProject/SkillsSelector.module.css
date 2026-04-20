@@ -39,7 +39,7 @@
 }
 
 .selectNew {
-    padding: 5px;
+    padding: 0.5rem 0.8rem;
     font-family: inherit;
     border: 1px solid #ccc;
     border-radius: 50px;
@@ -49,7 +49,18 @@
     outline: none;
 }
 
-.blackButton {
-    padding: 6px 20px;
-    min-width: 85px;
+.secondaryButton {
+    padding: 8px 20px;
+    border-radius: 20px;
+    background: #fff;
+    color: #1a1a1a;
+    border: 1px solid #1a1a1a;
+}
+
+@media (max-width: 767px) {
+    .selectWrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
 }

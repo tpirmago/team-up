@@ -33,16 +33,16 @@ export default function NotificationsView() {
 
     const getNotifications = async () => {
 
-        const meResponse = await authFetch("http://localhost:4000/auth/me")
+        const meResponse = await authFetch("http://192.168.101.105:4000/auth/me")
         const me = await meResponse.json()
 
-        const notifResponse = await authFetch(`http://localhost:4000/notifications/${me.user_id}`)
+        const notifResponse = await authFetch(`http://192.168.101.105:4000/notifications/${me.user_id}`)
         const notifData = await notifResponse.json()
 
-        const userResponse = await fetch("http://localhost:4000/users")
+        const userResponse = await fetch("http://192.168.101.105:4000/users")
         const userData = await userResponse.json()
 
-        const projectResponse = await fetch("http://localhost:4000/projects")
+        const projectResponse = await fetch("http://192.168.101.105:4000/projects")
         const projectData = await projectResponse.json()
 
         setNotificationList(notifData)
@@ -56,7 +56,7 @@ export default function NotificationsView() {
 
     async function changeNotificationStatus(notification: Notifications) {
 
-        await authFetch(`http://localhost:4000/notifications/${notification.notification_id}/read`, {
+        await authFetch(`http://192.168.101.105:4000/notifications/${notification.notification_id}/read`, {
             method: "PATCH"
         })
 
@@ -83,7 +83,7 @@ export default function NotificationsView() {
         setSenderUser(undefined)
         setSelectedProject(undefined)
 
-        await authFetch(`http://localhost:4000/notifications/${notification_id}/decline`, {
+        await authFetch(`http://192.168.101.105:4000/notifications/${notification_id}/decline`, {
             method: "POST"
         })
 
@@ -96,7 +96,7 @@ export default function NotificationsView() {
         setSenderUser(undefined)
         setSelectedProject(undefined)
 
-        await authFetch(`http://localhost:4000/notifications/${notification_id}/accept`, {
+        await authFetch(`http://192.168.101.105:4000/notifications/${notification_id}/accept`, {
             method: "POST"
         })
 

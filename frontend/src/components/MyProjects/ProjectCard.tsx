@@ -1,6 +1,7 @@
 import styles from "./ProjectCard.module.css"
 import { IoIosInformationCircleOutline } from "react-icons/io";
 import ConfirmDialog from "./ConfirmDialog";
+import Button from "../Button";
 
 
 interface ProjectCardProps {
@@ -16,16 +17,13 @@ interface ProjectCardProps {
 export default function ProjectCard({ label, description, topic, id, onClick, ownerId, userId }: ProjectCardProps) {
     return (
         <div className={styles.projectBox} >
-            <div className={styles.infoColumn} >
-                <header className={styles.projectHeaderRow} >
-                    <h3 className={styles.projectHeader} >{label}</h3>
-                </header>
-
+            <div className={styles.textColumn} >
+                <h3 className={styles.projectHeader} >{label}</h3>
                 <h4 className={styles.projectTopic} >Topic: {topic}</h4>
                 <p className={styles.projectDescription} >{description}</p>
             </div>
             <div className={styles.buttonColumn} >
-                <button className={styles.infoButton} ><IoIosInformationCircleOutline size={25} /></button>
+                <Button label="View Project" className={styles.secondaryButton} />
                 {
                     ownerId === userId
                         ? <ConfirmDialog onDelete={onClick} id={id} />

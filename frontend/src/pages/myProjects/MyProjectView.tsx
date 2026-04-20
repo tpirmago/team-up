@@ -5,6 +5,7 @@ import Button from "../../components/Button"
 import ProjectCard from "../../components/MyProjects/ProjectCard"
 import { authFetch } from "../../utils/authFetch"
 import { LuFolderCode } from "react-icons/lu";
+import MyProjectHeader from "../../components/MyProjects/MyProjectHeader"
 
 export default function MyProjectView() {
 
@@ -14,12 +15,12 @@ export default function MyProjectView() {
     // Fetches projects owned by current user from the database 
     const getMyProjects = async () => {
 
-        const meResponse = await authFetch("http://localhost:4000/auth/me")
+        const meResponse = await authFetch("http://192.168.101.105:4000/auth/me")
         const me = await meResponse.json()
 
         setCurrentUser(me)
 
-        const projectResponse = await fetch(`http://localhost:4000/users/${me.user_id}/projects`)
+        const projectResponse = await fetch(`http://192.168.101.105:4000/users/${me.user_id}/projects`)
         const projectData = await projectResponse.json()
 
         setProjectList(projectData)
@@ -31,7 +32,7 @@ export default function MyProjectView() {
 
 
     async function handleDeleteProject(id: number) {
-        await authFetch(`http://localhost:4000/projects/${id}`, { method: "DELETE" })
+        await authFetch(`http://192.168.101.105:4000/projects/${id}`, { method: "DELETE" })
         getMyProjects()
 
         setProjectList(prev => [...prev.filter(p => p.project_id !== id)])
@@ -41,29 +42,23 @@ export default function MyProjectView() {
         <main className={styles.myProjectPage} >
             <section className={styles.projectSection} >
                 <section className={styles.projectBackground} >
-                    <h1 className={styles.sectionHeader} >Create New Project</h1>
-                    <section className={styles.addButtonSection} >
-                        <Button
-                            label="Create New Project"
-                            className={styles.blackButton} />
+                    <MyProjectHeader />
+                    <section className={styles.projectGrid} >
                         {
                             projectList.length === 0
                                 ? <p className={styles.noMessage} > <LuFolderCode size={24} /> No projects yet</p>
-                                : <div className={styles.projectGrid} >
-                                    {
-                                        projectList.map(p =>
-                                            <ProjectCard
-                                                key={p.project_id}
-                                                label={p.title}
-                                                description={p.description}
-                                                topic={p.topic}
-                                                id={p.project_id}
-                                                onClick={handleDeleteProject}
-                                                ownerId={p.owner_user_id}
-                                                userId={currentUser?.user_id}
-                                            />)
-                                    }
-                                </div>
+                                : projectList.map(p =>
+                                    <ProjectCard
+                                        key={p.project_id}
+                                        label={p.title}
+                                        description={p.description}
+                                        topic={p.topic}
+                                        id={p.project_id}
+                                        onClick={handleDeleteProject}
+                                        ownerId={p.owner_user_id}
+                                        userId={currentUser?.user_id}
+                                    />)
+
                         }
                     </section>
                 </section>

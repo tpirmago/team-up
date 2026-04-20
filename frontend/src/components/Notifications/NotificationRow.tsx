@@ -26,7 +26,7 @@ export default function NotificationRow({ notification, openNotification, users 
                 {
                     users.map(u =>
                         u.user_id === notification.sender_user_id
-                            ? < p className={styles.notificationSender} > {u.username}</p>
+                            ? < p key={u.user_id} className={styles.notificationSender} > {u.username}</p>
                             : null
                     )
                 }

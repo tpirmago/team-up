@@ -5,9 +5,10 @@ interface SecundaryButtonProps {
   label: string
   variant?: "filter" | "view"
   onClick?: () => void
+  [key: string]: any
 }
 
-export default function SecundaryButton({ label, variant = "view", onClick }: SecundaryButtonProps) {
+export default function SecundaryButton({ label, variant = "view", onClick, ...rest }: SecundaryButtonProps) {
   return (
     <Button
       label={label}
@@ -17,6 +18,7 @@ export default function SecundaryButton({ label, variant = "view", onClick }: Se
           ? `${styles.baseButton} ${styles.filterButton}`
           : `${styles.baseButton} ${styles.viewButton}`
       }
+      {...rest}
     />
   )
 }

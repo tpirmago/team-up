@@ -99,14 +99,12 @@ export default function ProjectForm({ onSubmit, allSkills, addedSkills, formInfo
                         </div>
                     </div>
                 </div>
-                <div>
-                    <SkillsSelector
-                        addSkill={addSkill}
-                        allSkills={allSkills}
-                        addedSkills={addedSkills}
-                        deleteSkill={deleteSkill}
-                    />
-                </div>
+                <SkillsSelector
+                    addSkill={addSkill}
+                    allSkills={allSkills}
+                    addedSkills={addedSkills}
+                    deleteSkill={deleteSkill}
+                />
             </form >
         </>
     )

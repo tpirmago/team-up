@@ -90,8 +90,6 @@ export default function CreateProjectView() {
         setAddedSkills([])
     }
 
-        console.log(projectList)
-
     return (
         <main className={styles.createProjectPage} >
             <section className={styles.formSection} >

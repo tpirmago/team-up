@@ -2,10 +2,11 @@
     display: flex;
     flex: 1;
     margin: 2rem;
+    width: 100%;
 }
 
 .projectSection {
-    flex: 5;
+    flex: 1;
 }
 
 .projectBackground {
@@ -24,13 +25,6 @@
     position: relative;
 }
 
-.blackButton {
-    padding: 5px 20px;
-    position: absolute;
-    top: -60px;
-    right: 0;
-}
-
 .noMessage {
     display: flex;
     gap: 1rem;
@@ -40,6 +34,28 @@
 
 .projectGrid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 20px;
+}
+
+@media (max-width: 767px) {
+    .myProjectPage {
+        margin: 0;
+    }
+
+    .projectBackground {
+        padding: 1.5rem;
+        margin: 1.5rem;
+    }
+
+    .projectGrid {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .projectGrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
