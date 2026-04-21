@@ -39,7 +39,6 @@
     gap: 1.5rem;
     margin-bottom: 2rem;    
 }
-
 .projectsGrid {
     margin-top: 1.8rem;
     margin-bottom: 1.5rem;
@@ -47,15 +46,22 @@
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 1.5rem;
     flex: 1;
-    overflow-y: auto;
     align-items: stretch;
+    overflow-y: auto;
+    overflow: visible;
 }
 
 @media (max-width: 767px) {
     .content {
+        margin-top: 2rem;
+        margin-bottom: 2rem;
         padding: 1.5rem;
         background-color: #f0f0f000;
         box-shadow: none;
+    }
+    .projectsGrid {
+        margin-top: 0rem;
+        padding: 0rem;
     }
     .headerRow {
         justify-content: center;
@@ -84,6 +90,7 @@
         justify-content: center;
     }
     .projectsGrid{
+        padding: 0rem;
         align-items: stretch;
         grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
         margin-bottom: 0.5rem;

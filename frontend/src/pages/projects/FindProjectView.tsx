@@ -1,17 +1,22 @@
-import styles from "./FindProject.module.css"
-import { mockProjects } from "../../data/mockProjects"
-import { useState } from "react"
-import SecondaryButton from "../../components/SecondaryButton"
-import SearchBar from "../../components/SearchBar"
-import Pagination from "../../components/Pagination/Pagination"
-import ProjectCard from "../../components/findProject/ProjectCard"
+import styles from './FindProject.module.css'
+import useProjects from '../../hooks/useProjects'
+import { useState } from 'react'
+import SecondaryButton from '../../components/SecondaryButton'
+import SearchBar from '../../components/SearchBar'
+import Pagination from '../../components/Pagination/Pagination'
+import ProjectCard from '../../components/findProject/ProjectCard'
 
 export default function FindProjectView() { 
+    const { projects, loading, error } = useProjects()
     const [page, setPage] = useState(0)
     const PAGE_SIZE = 9
-    const pageProjects = mockProjects.slice(
-      page * PAGE_SIZE,
-      (page + 1) * PAGE_SIZE
+
+    if (loading) return <p>Loading projects…</p>
+    if (error) return <p>{error}</p>
+
+    const pageProjects = projects.slice(
+        page * PAGE_SIZE,
+        (page + 1) * PAGE_SIZE
     )
     
     return (
@@ -43,7 +48,7 @@ export default function FindProjectView() {
             <div className={styles.pagination}>    
                 <Pagination
                     page={page}
-                    totalItems={mockProjects.length}
+                    totalItems={projects.length}
                     pageSize={PAGE_SIZE}
                     onPageChange={(newPage) => setPage(newPage)}
                 />
