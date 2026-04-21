@@ -13,6 +13,7 @@ import arrowIcon from "../assets/icons/arrow-icon.png"
 import bellIcon from "../assets/icons/bell-icon.png"
 import teammatesIcon from "../assets/icons/teammates-icon.png"
 import projectsIcon from "../assets/icons/projects-icon.png"
+import ProfileView from "./ProfileView"
 
 interface ToggleCardProps {
     label: string
@@ -74,6 +75,8 @@ export default function DashboardView({ username, activeNav, onNavigate }: Dashb
                 return <FindProjectView />
             case "meet-teammates":
                 return <CommunityView />
+            case "profile":
+                return <ProfileView />
             default:
                 return (
                     <main className={styles.dashboard}>

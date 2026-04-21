@@ -65,7 +65,7 @@ function App() {
   if (user) {
     return (
       <div className="app">
-        <Header btnLabel="Log out" onBtnClick={() => signOut(auth)} onLogoClick={() => setActiveNav('dashboard')} />
+        <Header btnLabel="Log out" onBtnClick={() => signOut(auth)} onUserClick={() => setActiveNav('profile')} onLogoClick={() => setActiveNav('dashboard')} />
         <DashboardView username={username ?? undefined} activeNav={activeNav} onNavigate={setActiveNav} />
         <Footer />
       </div>

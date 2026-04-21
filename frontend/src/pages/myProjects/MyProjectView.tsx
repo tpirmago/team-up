@@ -15,14 +15,11 @@ export default function MyProjectView() {
     // Fetches projects owned by current user from the database 
     const getMyProjects = async () => {
 
-        const meResponse = await authFetch("http://192.168.101.105:4000/auth/me")
-        const me = await meResponse.json()
-
+        const me = await authFetch("http://192.168.101.105:4000/auth/me")
         setCurrentUser(me)
 
         const projectResponse = await fetch(`http://192.168.101.105:4000/users/${me.user_id}/projects`)
         const projectData = await projectResponse.json()
-
         setProjectList(projectData)
     }
 

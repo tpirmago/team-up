@@ -45,6 +45,7 @@ export default function ProjectForm({ onSubmit, allSkills, addedSkills, formInfo
     return (
         <>
             <header className={styles.headerRow} >
+                <h1 className={styles.headerTitle} >Create New Project</h1>
                 <div className={styles.buttonBox} >
                     <Button
                         label={"Add New Project"}

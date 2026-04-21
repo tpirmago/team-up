@@ -33,11 +33,9 @@ export default function NotificationsView() {
 
     const getNotifications = async () => {
 
-        const meResponse = await authFetch("http://192.168.101.105:4000/auth/me")
-        const me = await meResponse.json()
+        const me = await authFetch("http://192.168.101.105:4000/auth/me")
 
-        const notifResponse = await authFetch(`http://192.168.101.105:4000/notifications/${me.user_id}`)
-        const notifData = await notifResponse.json()
+        const notifData = await authFetch(`http://192.168.101.105:4000/notifications/${me.user_id}`)
 
         const userResponse = await fetch("http://192.168.101.105:4000/users")
         const userData = await userResponse.json()

@@ -8,6 +8,7 @@ export type SidebarItem =
     | "find-project"
     | "meet-teammates"
     | "notifications"
+    | "profile"
 
 interface SidebarProps {
     activeItem: SidebarItem
@@ -21,6 +22,7 @@ const items: { key: SidebarItem; label: string }[] = [
     { key: "find-project", label: "Find New Project" },
     { key: "meet-teammates", label: "Meet Teammates" },
     { key: "notifications", label: "Notifications" },
+    { key: "profile", label: "Profile" },
 ]
 
 export default function Sidebar({ activeItem, onNavigate }: SidebarProps) {

@@ -20,6 +20,25 @@
     color: #1a1a1a;
 }
 
+.buttonBox {
+    display: flex;
+}
+
+.userNameButton {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    font-weight: bold;
+    color: black;
+    border: none;
+    margin-right: 2rem;
+    cursor: pointer;
+    background: #ffffff;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
 .btn {
     font-family: 'JetBrains Mono', monospace;
     font-size: 14px;

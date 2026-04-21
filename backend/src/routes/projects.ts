@@ -1,6 +1,6 @@
-import { Router } from "express";
+import { Router, Response } from "express";
 import { db } from "../db";
-import { authMiddleware } from "../middleware/auth";
+import { authMiddleware, AuthRequest } from "../middleware/auth";
 
 const router = Router();
 
@@ -16,9 +16,9 @@ router.get("/", async (req ,res) => {
 });
 
 // POST a new project
-router.post("/", async (req, res) => {
+router.post("/", authMiddleware, async (req: AuthRequest, res: Response) => {
+    const ownerUid = req.uid
     const {
-    owner_user_id,
     title,
     description,
     topic,
@@ -29,13 +29,26 @@ router.post("/", async (req, res) => {
     } = req.body;
 
     try{
+        const userResult = await db.query(
+            `SELECT user_id
+            FROM users
+            WHERE firebase_id = $1`,
+            [ownerUid]
+        )
+
+        if(userResult.rowCount === 0) {
+            return res.status(404).json({error: "User not found"})
+        }
+
+        const ownerId = userResult.rows[0].user_id
+
         const result = await db.query(
             `INSERT INTO projects 
             (owner_user_id, title, description, topic, location_mode, team_size_min, team_size_max, duration)
             VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
             RETURNING * `,
             [
-                owner_user_id,
+                ownerId,
                 title,
                 description,
                 topic,
@@ -184,9 +197,9 @@ router.get("/:id", async (req ,res) => {
 });
 
 // DELETE a project by id
-router.delete("/:project_id", authMiddleware, async (req, res) => {
+router.delete("/:project_id", authMiddleware, async (req: AuthRequest, res: Response) => {
     const projectId = req.params.project_id
-    const firebaseUid = (req as any).uid
+    const firebaseUid = req.uid
 
     try {
 

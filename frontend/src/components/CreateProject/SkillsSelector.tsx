@@ -1,7 +1,7 @@
 import { RxCross2 } from "react-icons/rx";
 import Button from "../Button";
 import styles from "./SkillsSelector.module.css"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { Skills } from "../../pages/ProfileView";
 import SecundaryButton from "../SecondaryButton";
 
@@ -14,7 +14,13 @@ interface SkillsSelectorProps {
 
 export default function SkillsSelector({addedSkills, allSkills, addSkill, deleteSkill}: SkillsSelectorProps) {
 
-    const [selectedId, setSelectedId] = useState<number>(allSkills[0].skill_id)
+    const [selectedId, setSelectedId] = useState<number | undefined>(undefined)
+
+    useEffect(() => {
+        if(allSkills.length > 0) {
+            setSelectedId(allSkills[0].skill_id)
+        }
+    }, [allSkills])
 
     return (
         <div>
@@ -37,13 +43,13 @@ export default function SkillsSelector({addedSkills, allSkills, addSkill, delete
                 <div className={styles.selectDropdown} >
                     <select className={styles.selectNew} value={selectedId} onChange={(e) => setSelectedId(Number(e.target.value))}>
                         {
-                            allSkills.map(i => <option key={i.skill_id} value={i.skill_id} >{i.skill_name}</option>)
+                            allSkills.map(s => <option key={s.skill_id} value={s.skill_id} >{s.skill_name}</option>)
                         }
                     </select>
                     <SecundaryButton
                         type="button"
-                        label="+ Add"
-                        onClick={() => addSkill(selectedId)}
+                        label="Add"
+                        onClick={() => selectedId !== undefined && addSkill(selectedId)}
                     />
                 </div>
             </div>
