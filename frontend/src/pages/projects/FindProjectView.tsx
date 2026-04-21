@@ -8,8 +8,15 @@ import ProjectCard from "../../components/findProject/ProjectCard"
 
 export default function FindProjectView() { 
     const [page, setPage] = useState(0)
+    const [searchQuery, setSearchQuery] = useState("")
+    
     const PAGE_SIZE = 9
-    const pageProjects = mockProjects.slice(
+
+    const filteredProjects = mockProjects.filter(project => 
+        project.title.toLowerCase().includes(searchQuery.toLowerCase())
+    )
+
+    const pageProjects = filteredProjects.slice(
       page * PAGE_SIZE,
       (page + 1) * PAGE_SIZE
     )
@@ -20,18 +27,27 @@ export default function FindProjectView() {
                 <h1>Find a new project</h1>
 
                 <div className={styles.communityActions}>
-                <Button className={styles.filterButton} label={'Filters'} />
-                <Input placeholder="Search project" />
+                    <Button className={styles.filterButton} label={'Filters'} />
+                    <Input 
+                        placeholder="Search project" 
+                        value={searchQuery}
+                        onChange={(e) => {
+                            setSearchQuery(e.target.value)
+                            setPage(0)
+                        }}
+                    />
                 </div>
             </header>
 
             <div className={styles.projectsGrid}>
+                {pageProjects.length === 0 && <p>No projects found with "{searchQuery}"</p>}
                 {pageProjects.map(project => (
                     <ProjectCard 
                         key={project.project_id}
                         label={project.title}
                         description={project.description}
-                        topic={project.topic} id={0}                       
+                        topic={project.topic} 
+                        id={0}                       
                         location_mode={project.location_mode}
                         team_size_min={project.team_size_min}
                         team_size_max={project.team_size_max}
@@ -42,9 +58,10 @@ export default function FindProjectView() {
 
             <Pagination
                 page={page}
-                totalItems={mockProjects.length}
+                totalItems={filteredProjects.length}
                 pageSize={PAGE_SIZE}
                 onPageChange={(newPage) => setPage(newPage)}
             />
         </section>
-    )}
+    )
+}
