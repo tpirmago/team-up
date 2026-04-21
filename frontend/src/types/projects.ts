@@ -1,4 +1,4 @@
-export type Project = {
+export interface Project {
   project_id: number
   title: string
   description: string
@@ -6,5 +6,5 @@ export type Project = {
   location_mode: 'Remote' | 'Hybrid' | 'On-site'
   team_size_min: number
   team_size_max: number
-  duration: string
+  duration: string[]
 }

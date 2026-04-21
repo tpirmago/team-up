@@ -1,14 +1,14 @@
-export type Interest = {
+export interface Interest {
   interest_id: number
   name: string
 }
 
-export type Skill = {
+export interface Skill {
   skill_id: number
   name: string
 }
 
-export type CommunityUser = {
+export interface CommunityUser  {
   id: number
   name: string
   avatar_url: string | null

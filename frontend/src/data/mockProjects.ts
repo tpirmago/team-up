@@ -9,7 +9,7 @@ export const mockProjects: Project[] = [
     location_mode: 'Hybrid',
     team_size_min: 3,
     team_size_max: 5,
-    duration: '3 months',
+    duration: ['January', 'February', 'March']
   },
   {
     project_id: 2,
@@ -19,7 +19,7 @@ export const mockProjects: Project[] = [
     location_mode: 'Remote',
     team_size_min: 2,
     team_size_max: 4,
-    duration: '4 months',
+    duration: ['April', 'May'],
   },
   {
     project_id: 3,
@@ -29,7 +29,7 @@ export const mockProjects: Project[] = [
     location_mode: 'On-site',
     team_size_min: 2,
     team_size_max: 3,
-    duration: '2 months',
+    duration: ['June', 'July'],
   },
   {
     project_id: 4,
@@ -39,7 +39,7 @@ export const mockProjects: Project[] = [
     location_mode: 'Remote',
     team_size_min: 3,
     team_size_max: 6,
-    duration: '5 months',
+    duration: ['May', 'June', 'July', 'August'],
   },
   {
     project_id: 5,
@@ -49,6 +49,6 @@ export const mockProjects: Project[] = [
     location_mode: 'Hybrid',
     team_size_min: 4,
     team_size_max: 6,
-    duration: '4 months',
+    duration: ['March', 'April'],
   },
 ]
