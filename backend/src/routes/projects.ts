@@ -1,5 +1,6 @@
-import { Router } from "express";
+import { Router, Response } from "express";
 import { db } from "../db";
+import { authMiddleware, AuthRequest } from "../middleware/auth";
 
 const router = Router();
 
@@ -15,9 +16,9 @@ router.get("/", async (req ,res) => {
 });
 
 // POST a new project
-router.post("/", async (req, res) => {
+router.post("/", authMiddleware, async (req: AuthRequest, res: Response) => {
+    const ownerUid = req.uid
     const {
-    owner_user_id,
     title,
     description,
     topic,
@@ -28,13 +29,26 @@ router.post("/", async (req, res) => {
     } = req.body;
 
     try{
+        const userResult = await db.query(
+            `SELECT user_id
+            FROM users
+            WHERE firebase_id = $1`,
+            [ownerUid]
+        )
+
+        if(userResult.rowCount === 0) {
+            return res.status(404).json({error: "User not found"})
+        }
+
+        const ownerId = userResult.rows[0].user_id
+
         const result = await db.query(
             `INSERT INTO projects 
             (owner_user_id, title, description, topic, location_mode, team_size_min, team_size_max, duration)
             VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
             RETURNING * `,
             [
-                owner_user_id,
+                ownerId,
                 title,
                 description,
                 topic,
@@ -181,5 +195,54 @@ router.get("/:id", async (req ,res) => {
         res.status(500).json({ error: "Failed to fetch project" });
     }
 });
+
+// DELETE a project by id
+router.delete("/:project_id", authMiddleware, async (req: AuthRequest, res: Response) => {
+    const projectId = req.params.project_id
+    const firebaseUid = req.uid
+
+    try {
+
+        const userResult = await db.query(
+            `SELECT user_id
+            FROM users
+            WHERE firebase_id = $1`,
+            [firebaseUid]
+        )
+
+        const userId = userResult.rows[0]?.user_id
+
+        if(!userId) {
+            res.status(401).json({error: "User not found"})
+        }
+
+        const result = await db.query(
+            `SELECT owner_user_id
+            FROM projects
+            WHERE project_id = $1`,
+            [projectId]
+        )
+
+        const project = result.rows[0]
+
+        if(!project) {
+            return res.status(404).json({error: "Project not found"})
+        }
+
+        if(project.owner_user_id !== userId) {
+            return res.status(403).json({error: "Not authorized to delete this project"})
+        }
+
+        await db.query(
+            `DELETE FROM projects
+            WHERE project_id = $1`,
+            [projectId, ]
+        )
+        res.json({message: "Project deleted successfully"})
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({error: "Failed to delete project"})
+    }
+})
 
 export default router;
