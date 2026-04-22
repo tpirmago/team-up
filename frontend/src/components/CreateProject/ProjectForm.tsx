@@ -45,6 +45,7 @@ export default function ProjectForm({ onSubmit, allSkills, addedSkills, formInfo
     return (
         <>
             <header className={styles.headerRow} >
+                <h1 className={styles.headerTitle} >Create New Project</h1>
                 <div className={styles.buttonBox} >
                     <Button
                         label={"Add New Project"}
@@ -99,14 +100,12 @@ export default function ProjectForm({ onSubmit, allSkills, addedSkills, formInfo
                         </div>
                     </div>
                 </div>
-                <div>
-                    <SkillsSelector
-                        addSkill={addSkill}
-                        allSkills={allSkills}
-                        addedSkills={addedSkills}
-                        deleteSkill={deleteSkill}
-                    />
-                </div>
+                <SkillsSelector
+                    addSkill={addSkill}
+                    allSkills={allSkills}
+                    addedSkills={addedSkills}
+                    deleteSkill={deleteSkill}
+                />
             </form >
         </>
     )
