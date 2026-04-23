@@ -1,12 +1,12 @@
 .detailBox {
     display: flex;
-    margin-top: 10px;
+    margin-top: 1rem;
     align-items: center;
+    gap: 2rem;
 }
 
 .detailHeader {
     flex: 1;
-    padding: 10px 0;
 }
 
 .detailBox>div {
@@ -16,4 +16,13 @@
 .detailText {
     flex: 2;
     padding: 10px 18px;
+}
+
+@media (max-width: 767px) {
+    .detailBox {
+        flex-direction: column;
+        border-bottom: 1px solid #e5e5e5;
+        margin-top: 0;
+        padding: 1rem 0;
+    }
 }

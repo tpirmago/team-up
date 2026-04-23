@@ -20,6 +20,7 @@ app.use("/skills", skillsRouter);
 app.use("/projects", projectsRouter);
 app.use("/interests", interestsRouter);
 app.use("/notifications", notificationsRouter)
+app.use("/avatars", express.static("public/avatars"));
 
 const PORT = process.env.PORT || 4000;
 

@@ -40,7 +40,8 @@ router.get("/:id", async (req, res) => {
 
 //// USER SKILLS ////
 
-// GET users skills
+// GET CURRENT users skills
+// Secured endpoint
 router.get("/me/skills", authMiddleware, async (req: AuthRequest, res) => {
   const firebaseUid = req.uid;
 
@@ -71,8 +72,25 @@ router.get("/me/skills", authMiddleware, async (req: AuthRequest, res) => {
     res.status(500).json({ error: "Failed to fetch user skills" });
   }
 });
+// GET users skills by user_id
+router.get("/:id/skills", async (req, res) => {
+  const userId = req.params.id;
+
+  try {
+    const result = await db.query(
+      `SELECT s.*
+      FROM user_skills us
+      JOIN skills s ON us.skill_id = s.skill_id
+      WHERE us.user_id = $1`, [userId]
+    );
+    res.json(result.rows);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to fetch user skills" });
+  }
+});
 // POST skills to a user
-router.post("/:id/skills", async (req: AuthRequest, res) => {
+router.post("/:id/skills", async (req, res) => {
   const userId = req.params.id;
   const { skill_ids } = req.body;
 
@@ -99,7 +117,8 @@ router.post("/:id/skills", async (req: AuthRequest, res) => {
     res.status(500).json({ error: "Failed to define skills to the user" });
   }
 });
-// Update all users skills
+// Update all CURRENT users skills
+// Secured endpoint
 router.put("/me/skills", authMiddleware , async (req: AuthRequest, res) => {
   const firebaseUid = req.uid;
   const { skills } = req.body;
@@ -113,7 +132,7 @@ router.put("/me/skills", authMiddleware , async (req: AuthRequest, res) => {
   try {
     await client.query("BEGIN");
 
-    // 1️⃣ Find right user_id based on who is logged in
+    // 1️⃣ Find user_id based on who is logged in
     const userResult = await client.query(
       `SELECT user_id
       FROM users
@@ -154,8 +173,49 @@ router.put("/me/skills", authMiddleware , async (req: AuthRequest, res) => {
     client.release();
   }
 });
+// Update all users skills by user_id
+router.put("/:id/skills", async (req, res) => {
+  const userId = req.params.id;
+  const { skills } = req.body;
+  
+  if (!Array.isArray(skills)) {
+    return res.status(400).json({ error: "skills must be an array of skill IDs" });
+  }
+  
+  const client = await db.connect();
+
+  try {
+    await client.query("BEGIN");
+    
+    // 1️⃣ Remove all existing skills of user
+    await client.query(
+      `DELETE FROM user_skills WHERE user_id = $1`,
+      [userId]
+    );
+
+    // 2️⃣ Insert new skills
+    for (const skillId of skills) {
+      await client.query(
+        `INSERT INTO user_skills (user_id, skill_id)
+         VALUES ($1, $2)
+         ON CONFLICT DO NOTHING`,
+        [userId, skillId]
+      );
+    }
+
+    await client.query("COMMIT");
+
+    res.status(200).json({ message: "Skills udated successfully" });
+  } catch (error) {
+    await client.query("ROLLBACK");
+    console.error(error);
+    res.status(500).json({ error: "Failed to update skills" });
+  } finally {
+    client.release();
+  }
+});
 // DELETE one skill
-router.delete("/:id/skills/:skillId", authMiddleware, async (req, res) => {
+router.delete("/:id/skills/:skillId", async (req, res) => {
   const userId = req.params.id;
   const skillId = req.params.skillId;
 
@@ -182,7 +242,8 @@ router.delete("/:id/skills/:skillId", authMiddleware, async (req, res) => {
 
 //// USER INTEREST ////
 
-// GET users interests
+// GET CURRENT users interests
+// Secured endpoint
 router.get("/me/interests", authMiddleware , async (req: AuthRequest, res) => {
   const firebaseUid = req.uid;
 
@@ -201,6 +262,23 @@ router.get("/me/interests", authMiddleware , async (req: AuthRequest, res) => {
 
     const userId = userResult.rows[0].user_id
 
+    const result = await db.query(
+      `SELECT i.*
+      FROM user_interests ui
+      JOIN interests i ON ui.interest_id = i.interest_id
+      WHERE ui.user_id = $1`, [userId]
+    );
+    res.json(result.rows);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to fetch user interests" });
+  }
+});
+// GET users interests by user_id
+router.get("/:id/interests", async (req, res) => {
+  const userId = req.params.id;
+
+  try {
     const result = await db.query(
       `SELECT i.*
       FROM user_interests ui
@@ -241,7 +319,8 @@ router.post("/:id/interests", async (req, res) => {
     res.status(500).json({ error: "Failed to define interests to the user" });
   }
 });
-// Update all users interests
+// Update all CURRENT users interests
+// Secured endpoint
 router.put("/me/interests", authMiddleware, async (req: AuthRequest, res) => {
   const firebaseUid = req.uid
   const { interests } = req.body;
@@ -276,6 +355,47 @@ router.put("/me/interests", authMiddleware, async (req: AuthRequest, res) => {
     );
 
     // 3️⃣ Insert new interests
+    for (const interestId of interests) {
+      await client.query(
+        `INSERT INTO user_interests (user_id, interest_id)
+         VALUES ($1, $2)
+         ON CONFLICT DO NOTHING`,
+        [userId, interestId]
+      );
+    }
+
+    await client.query("COMMIT");
+
+    res.status(200).json({ message: "Interests updated successfully" });
+  } catch (error) {
+    await client.query("ROLLBACK");
+    console.error(error);
+    res.status(500).json({ error: "Failed to update interests" });
+  } finally {
+    client.release();
+  }
+});
+// Update all users interests by user_id
+router.put("/:id/interests", async (req, res) => {
+  const userId = req.params.id;
+  const { interests } = req.body;
+  
+  if (!Array.isArray(interests)) {
+    return res.status(400).json({ error: "Interests must be an array of interest IDs" });
+  }
+  
+  const client = await db.connect();
+
+  try {
+    await client.query("BEGIN");
+    
+    // 1️⃣ Remove all existing interests of user
+    await client.query(
+      `DELETE FROM user_interests WHERE user_id = $1`,
+      [userId]
+    );
+
+    // 2️⃣ Insert new interests
     for (const interestId of interests) {
       await client.query(
         `INSERT INTO user_interests (user_id, interest_id)

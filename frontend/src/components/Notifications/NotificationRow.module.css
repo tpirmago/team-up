@@ -10,7 +10,8 @@
     padding: 1.5rem;
     margin-bottom: 1.5rem;
     display: grid;
-    grid-template-columns: 1.5fr 3fr
+    grid-template-columns: 1.5fr 3fr;
+    border-radius: 5px;
 }
 
 .firstRowsection {

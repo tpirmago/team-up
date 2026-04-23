@@ -83,47 +83,50 @@ export default function CreateProjectView() {
             skills: form.skills
         }
 
-        const res = await authFetch("http://192.168.101.105:4000/projects", {
-            method: "POST",
-            body: JSON.stringify(newProject)
-        })
+        try {
+            await authFetch("http://192.168.101.105:4000/projects", {
+                method: "POST",
+                body: JSON.stringify(newProject)
+            })
 
-        if (res.ok) {
             setProjectAdded(true)
             setFormInfo(defaultForm)
             setAddedSkills([])
+        } catch (err) {
+            console.error("ERROR:", err)
         }
+
     }
 
-        return (
-            <main className={styles.createProjectPage} >
-                <section className={styles.formSection} >
-                    {
-                        projectAdded
-                            ? <section className={styles.messageBackground} >
-                                <h3 className={styles.messageTitle} >Project created successfully!</h3>
-                                <div className={styles.buttonBox} >
-                                    <SecundaryButton
-                                        variant="view"
-                                        label="View My Projects"
-                                    />
-                                    <button className={styles.closeButton} onClick={() => setProjectAdded(false)} > <RxCross1 size={25} color="black" /></button>
-                                </div>
-                            </section>
-                            : null
-                    }
-                    <section className={styles.formBackground} >
-                        <ProjectForm
-                            onSubmit={handleAddProject}
-                            allSkills={allSkills}
-                            addedSkills={addedSkills}
-                            formInfo={formInfo}
-                            setFormInfo={setFormInfo}
-                            addSkill={addSkill}
-                            deleteSkill={deleteSkill}
-                        />
-                    </section>
+    return (
+        <main className={styles.createProjectPage} >
+            <section className={styles.formSection} >
+                {
+                    projectAdded
+                        ? <section className={styles.messageBackground} >
+                            <h3 className={styles.messageTitle} >Project created successfully!</h3>
+                            <div className={styles.buttonBox} >
+                                <SecundaryButton
+                                    variant="view"
+                                    label="View My Projects"
+                                />
+                                <button className={styles.closeButton} onClick={() => setProjectAdded(false)} > <RxCross1 size={25} color="black" /></button>
+                            </div>
+                        </section>
+                        : null
+                }
+                <section className={styles.formBackground} >
+                    <ProjectForm
+                        onSubmit={handleAddProject}
+                        allSkills={allSkills}
+                        addedSkills={addedSkills}
+                        formInfo={formInfo}
+                        setFormInfo={setFormInfo}
+                        addSkill={addSkill}
+                        deleteSkill={deleteSkill}
+                    />
                 </section>
-            </main>
-        )
-    }
+            </section>
+        </main>
+    )
+}

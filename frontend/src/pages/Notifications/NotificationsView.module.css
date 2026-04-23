@@ -40,3 +40,9 @@
         margin: 1.5rem;
     }
 }
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .notificationsBackground{
+    margin: 1rem 2rem;
+    }
+}

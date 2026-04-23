@@ -1,15 +1,16 @@
 import styles from "./DetailRow.module.css"
 import Input from "../Input"
+import type React from "react"
 
 interface DetailRowProps {
     label: string
     value: string
     editMode: boolean
     type?: string
-    inputRef: React.RefObject<HTMLInputElement | null>
+    setValue: React.Dispatch<React.SetStateAction<string>>
 }
 
-export default function DetailRow({ label, value, editMode, inputRef, type = "text" }: DetailRowProps) {
+export default function DetailRow({ label, value, editMode, setValue, type = "text" }: DetailRowProps) {
     return (
         <div className={styles.detailBox} >
             <h4 className={styles.detailHeader} >{label}</h4>
@@ -18,7 +19,7 @@ export default function DetailRow({ label, value, editMode, inputRef, type = "te
                     ? <Input className={styles.detailInput}
                         type={type}
                         defaultValue={value}
-                        ref={inputRef} />
+                        onChange={e => setValue(e.target.value)} />
                     : <p className={styles.detailText} >{value}</p>
             }
         </div>
