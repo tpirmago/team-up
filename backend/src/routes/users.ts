@@ -1,19 +1,20 @@
 import { Router } from "express";
 import { db } from "../db";
+import { authMiddleware, AuthRequest } from "../middleware/auth";
 
 const router = Router();
 
 //// Get users ////
 
 // GET all users
-router.get("/", async (req ,res) => {
-    try{
-        const result = await db.query("SELECT * FROM users");
-        res.json(result.rows);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: "Failed to fetch users" });
-    }
+router.get("/", async (req, res) => {
+  try {
+    const result = await db.query("SELECT * FROM users");
+    res.json(result.rows);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to fetch users" });
+  }
 });
 // GET one user by id
 router.get("/:id", async (req, res) => {
@@ -27,7 +28,7 @@ router.get("/:id", async (req, res) => {
 
     if (result.rows.length === 0) {
       return res.status(404).json({ error: "User not found" })
-    } 
+    }
 
     res.json(result.rows[0]);
   } catch (error) {
@@ -40,10 +41,24 @@ router.get("/:id", async (req, res) => {
 //// USER SKILLS ////
 
 // GET users skills
-router.get("/:id/skills", async (req, res) => {
-  const userId = req.params.id;
+router.get("/me/skills", authMiddleware, async (req: AuthRequest, res) => {
+  const firebaseUid = req.uid;
 
   try {
+
+    const userResult = await db.query(
+      `SELECT user_id
+      FROM users
+      WHERE firebase_id = $1`,
+      [firebaseUid]
+    )
+
+    if(userResult.rowCount === 0) {
+      return res.status(404).json({error: "User not found"})
+    }
+
+    const userId = userResult.rows[0].user_id
+
     const result = await db.query(
       `SELECT s.*
       FROM user_skills us
@@ -57,7 +72,7 @@ router.get("/:id/skills", async (req, res) => {
   }
 });
 // POST skills to a user
-router.post("/:id/skills", async (req, res) => {
+router.post("/:id/skills", async (req: AuthRequest, res) => {
   const userId = req.params.id;
   const { skill_ids } = req.body;
 
@@ -85,26 +100,40 @@ router.post("/:id/skills", async (req, res) => {
   }
 });
 // Update all users skills
-router.put("/:id/skills", async (req, res) => {
-  const userId = req.params.id;
+router.put("/me/skills", authMiddleware , async (req: AuthRequest, res) => {
+  const firebaseUid = req.uid;
   const { skills } = req.body;
-  
+
   if (!Array.isArray(skills)) {
     return res.status(400).json({ error: "skills must be an array of skill IDs" });
   }
-  
+
   const client = await db.connect();
 
   try {
     await client.query("BEGIN");
-    
-    // 1️⃣ Remove all existing skills of user
+
+    // 1️⃣ Find right user_id based on who is logged in
+    const userResult = await client.query(
+      `SELECT user_id
+      FROM users
+      WHERE firebase_id = $1`,
+      [firebaseUid]
+    )
+
+    if(userResult.rowCount === 0){
+      return res.status(404).json({error: "User not found"})
+    }
+
+    const userId = userResult.rows[0].user_id
+
+    // 2️⃣ Remove all existing skills of user
     await client.query(
       `DELETE FROM user_skills WHERE user_id = $1`,
       [userId]
     );
 
-    // 2️⃣ Insert new skills
+    // 3️⃣ Insert new skills
     for (const skillId of skills) {
       await client.query(
         `INSERT INTO user_skills (user_id, skill_id)
@@ -126,10 +155,10 @@ router.put("/:id/skills", async (req, res) => {
   }
 });
 // DELETE one skill
-router.delete("/:id/skills/:skillId", async (req, res) => {
+router.delete("/:id/skills/:skillId", authMiddleware, async (req, res) => {
   const userId = req.params.id;
   const skillId = req.params.skillId;
-  
+
   try {
     const result = await db.query(
       `DELETE FROM user_skills
@@ -154,10 +183,24 @@ router.delete("/:id/skills/:skillId", async (req, res) => {
 //// USER INTEREST ////
 
 // GET users interests
-router.get("/:id/interests", async (req, res) => {
-  const userId = req.params.id;
+router.get("/me/interests", authMiddleware , async (req: AuthRequest, res) => {
+  const firebaseUid = req.uid;
 
   try {
+
+    const userResult = await db.query(
+      `SELECT user_id
+      FROM users
+      WHERE firebase_id = $1`,
+      [firebaseUid]
+    )
+
+    if(userResult.rowCount === 0) {
+      return res.status(404).json({error: "User not found"})
+    }
+
+    const userId = userResult.rows[0].user_id
+
     const result = await db.query(
       `SELECT i.*
       FROM user_interests ui
@@ -199,26 +242,40 @@ router.post("/:id/interests", async (req, res) => {
   }
 });
 // Update all users interests
-router.put("/:id/interests", async (req, res) => {
-  const userId = req.params.id;
+router.put("/me/interests", authMiddleware, async (req: AuthRequest, res) => {
+  const firebaseUid = req.uid
   const { interests } = req.body;
-  
+
   if (!Array.isArray(interests)) {
     return res.status(400).json({ error: "Interests must be an array of interest IDs" });
   }
-  
+
   const client = await db.connect();
 
   try {
     await client.query("BEGIN");
-    
-    // 1️⃣ Remove all existing interests of user
+
+    // 1️⃣ Find right user_id based on who is logged in
+    const userResults = await client.query(
+      `SELECT user_id
+      FROM users
+      WHERE firebase_id = $1`,
+      [firebaseUid]
+    )
+
+    if(userResults.rowCount === 0) {
+      return res.status(404).json({error: "User not found"})
+    }
+
+    const userId = userResults.rows[0].user_id
+
+    // 2️⃣ Remove all existing interests of user
     await client.query(
       `DELETE FROM user_interests WHERE user_id = $1`,
       [userId]
     );
 
-    // 2️⃣ Insert new interests
+    // 3️⃣ Insert new interests
     for (const interestId of interests) {
       await client.query(
         `INSERT INTO user_interests (user_id, interest_id)
@@ -240,10 +297,10 @@ router.put("/:id/interests", async (req, res) => {
   }
 });
 // DELETE one interest
-router.delete("/:id/interests/:interestId", async (req, res) => {
+router.delete("/:id/interests/:interestId", authMiddleware, async (req, res) => {
   const userId = req.params.id;
   const interestId = req.params.interestId;
-  
+
   try {
     const result = await db.query(
       `DELETE FROM user_interests
@@ -267,21 +324,22 @@ router.delete("/:id/interests/:interestId", async (req, res) => {
 
 //// UPDATE PROFILE ////
 // UPDATE user profile
-router.put("/:id", async (req, res) => {
-  const userId = req.params.id;
-  const { name, study_program, avatar_url } = req.body;
+router.put("/me", authMiddleware, async (req: AuthRequest, res) => {
+  const firebaseUid = req.uid;
+  const { name, username, study_program, avatar_url } = req.body;
 
   try {
     const result = await db.query(
       `UPDATE users
        SET name = $1,
-           study_program = $2,
-           avatar_url = $3
-       WHERE user_id = $4
+          username = $2,
+          study_program = $3,
+          avatar_url = $4
+       WHERE firebase_id = $5
        RETURNING *`,
-      [name, study_program, avatar_url, userId]
+      [name, username, study_program, avatar_url, firebaseUid]
     );
-    
+
     if (result.rows.length === 0) {
       return res.status(404).json({ error: "User not found" });
     }
@@ -308,7 +366,7 @@ router.get("/:id/projects", async (req, res) => {
     res.json(result.rows)
   } catch (error) {
     console.log(error)
-    res.status(500).json({error: "Failed to fetch user projects"})
+    res.status(500).json({ error: "Failed to fetch user projects" })
   }
 })
 
