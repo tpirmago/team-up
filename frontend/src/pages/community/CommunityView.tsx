@@ -6,7 +6,11 @@ import styles from './CommunityView.module.css'
 import Pagination from '../../components/Pagination/Pagination'
 import { mockCommunityUsers as mockUsers } from '../../data/mockCommunityUsers'
 
-export default function CommunityView() { 
+interface CommunityViewProps {
+  onOpenUser?: (id: number) => void
+}
+
+export default function CommunityView({ onOpenUser }: CommunityViewProps = {}) {
   const [page, setPage] = useState(0)
   const PAGE_SIZE = 12
   const pageUsers = mockUsers.slice(
@@ -27,7 +31,7 @@ export default function CommunityView() {
 
       <div className={styles.communityGrid}>
         {pageUsers.map(user => (
-          <UserCard key={user.id} user={user} />
+          <UserCard key={user.id} user={user} onViewProfile={onOpenUser} />
         ))}
       </div>
       

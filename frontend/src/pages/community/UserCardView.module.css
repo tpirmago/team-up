@@ -1,0 +1,92 @@
+.page {
+    flex: 1;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 30px 40px;
+}
+
+.topBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.backBtn {
+    background: transparent;
+    border: none;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    font-weight: 600;
+    color: #1a1a1a;
+    cursor: pointer;
+    padding: 6px 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.backArrow {
+    display: block;
+    flex-shrink: 0;
+}
+
+.backBtn:hover {
+    opacity: 0.7;
+}
+
+.card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0px 0px 8px #817e7e;
+    padding: 28px 32px;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.cardHeader {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 24px;
+}
+
+.avatar {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.nameBlock h1 {
+    margin: 0 0 6px 0;
+    font-size: 22px;
+}
+
+.nameBlock p {
+    margin: 0;
+    color: #555;
+    font-size: 14px;
+}
+
+.error {
+    color: #b00020;
+}
+
+@media (max-width: 767px) {
+    .page {
+        padding: 20px 16px;
+    }
+    .card {
+        padding: 20px;
+    }
+}

@@ -5,11 +5,27 @@ import SecondaryButton from "../SecondaryButton"
 
 type UserCardProps = {
   user: CommunityUser
+  onViewProfile?: (userId: number) => void
 }
 
-export default function UserCard({ user }: UserCardProps) {
+export default function UserCard({ user, onViewProfile }: UserCardProps) {
+  const openCard = () => {
+    onViewProfile?.(user.id)
+  }
+
   return (
-    <div className={styles.userCard}>
+    <div
+      className={styles.userCard}
+      role="button"
+      tabIndex={0}
+      onClick={openCard}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault()
+          openCard()
+        }
+      }}
+    >
       <div className={styles.userAvatar}>
         <img 
           src={user.avatar_url || defaultAvatar}
@@ -44,7 +60,11 @@ export default function UserCard({ user }: UserCardProps) {
                 .join(', ')}
           </p>
         </div>
-        <SecondaryButton label="View profile" variant="view" />
+        <SecondaryButton
+          label="View profile"
+          variant="view"
+          onClick={() => onViewProfile?.(user.id)}
+        />
       </div>
     </div>
   )

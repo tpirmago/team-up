@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import styles from "./DashboardView.module.css"
 import Button from "../components/Button"
 import Sidebar from "../components/Sidebar"
@@ -7,6 +7,7 @@ import MyProjectView from "./MyProjectView"
 import CreateProjectView from "./CreateProjectView"
 import NotificationsView from "./notifications/NotificationsView"
 import CommunityView from "./community/CommunityView"
+import UserCardView from "./community/UserCardView"
 import FindProjectView from "./projects/FindProjectView"
 import ProjectCardView from "./projects/ProjectCardView"
 import ProfileView from "./ProfileView"
@@ -60,6 +61,12 @@ export default function DashboardView({ username, activeNav, onNavigate }: Dashb
     const [openForProjects, setOpenForProjects] = useState(true)
     const [lookingForTeammates, setLookingForTeammates] = useState(true)
     const [selectedProjectId, setSelectedProjectId] = useState<number | null>(null)
+    const [selectedUserId, setSelectedUserId] = useState<number | null>(null)
+
+    useEffect(() => {
+        setSelectedProjectId(null)
+        setSelectedUserId(null)
+    }, [activeNav])
 
     const recommendedProjects = 12
     const recommendedTeammates = 27
@@ -76,6 +83,14 @@ export default function DashboardView({ username, activeNav, onNavigate }: Dashb
         setSelectedProjectId(null)
     }
 
+    function openUser(id: number) {
+        setSelectedUserId(id)
+    }
+
+    function closeUser() {
+        setSelectedUserId(null)
+    }
+
     function goToFindNew() {
         setSelectedProjectId(null)
         onNavigate("find-project")
@@ -83,6 +98,7 @@ export default function DashboardView({ username, activeNav, onNavigate }: Dashb
 
     function handleNavigate(item: SidebarItem) {
         setSelectedProjectId(null)
+        setSelectedUserId(null)
         onNavigate(item)
     }
 
@@ -98,6 +114,10 @@ export default function DashboardView({ username, activeNav, onNavigate }: Dashb
             )
         }
 
+        if (selectedUserId !== null) {
+            return <UserCardView userId={selectedUserId} onBack={closeUser} />
+        }
+
         switch (activeNav) {
             case "my-projects":
                 return <MyProjectView onOpenProject={openProject} />
@@ -108,7 +128,7 @@ export default function DashboardView({ username, activeNav, onNavigate }: Dashb
             case "find-project":
                 return <FindProjectView onOpenProject={openProject} />
             case "meet-teammates":
-                return <CommunityView />
+                return <CommunityView onOpenUser={openUser} />
             case "profile":
                 return <ProfileView />
             default:
