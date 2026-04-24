@@ -1,5 +1,5 @@
 import { RxCross2 } from "react-icons/rx";
-import Button from "../Button";
+// import Button from "../Button";
 import styles from "./SkillsSelector.module.css"
 import { useEffect, useState } from "react";
 import type { Skills } from "../../pages/ProfileView";

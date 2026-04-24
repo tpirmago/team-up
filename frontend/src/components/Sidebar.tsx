@@ -8,6 +8,7 @@ export type SidebarItem =
     | "find-project"
     | "meet-teammates"
     | "notifications"
+    | "profile"
 
 interface SidebarProps {
     activeItem: SidebarItem

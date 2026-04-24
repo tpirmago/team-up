@@ -20,6 +20,43 @@
     color: #1a1a1a;
 }
 
+.right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.iconBtn,
+.userBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    border: none;
+    padding: 4px;
+    cursor: pointer;
+    color: #1a1a1a;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.iconBtn:hover,
+.userBtn:hover {
+    opacity: 0.7;
+}
+
+.icon {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+    display: block;
+}
+
+.username {
+    color: #1a1a1a;
+}
+
 .btn {
     font-family: 'JetBrains Mono', monospace;
     font-size: 14px;
@@ -50,5 +87,13 @@
 @media (max-width: 480px) {
     .header {
         padding: 14px 16px;
+    }
+
+    .right {
+        gap: 12px;
+    }
+
+    .username {
+        display: none;
     }
 }
