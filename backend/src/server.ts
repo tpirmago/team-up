@@ -20,8 +20,9 @@ app.use("/skills", skillsRouter);
 app.use("/projects", projectsRouter);
 app.use("/interests", interestsRouter);
 app.use("/notifications", notificationsRouter)
+app.use("/avatars", express.static("public/avatars"));
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

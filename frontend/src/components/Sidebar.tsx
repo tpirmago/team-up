@@ -17,6 +17,7 @@ interface SidebarProps {
 
 const items: { key: SidebarItem; label: string }[] = [
     { key: "dashboard", label: "Dashboard" },
+    { key: "profile", label: "Profile" },
     { key: "my-projects", label: "My Projects" },
     { key: "create-project", label: "Create Project" },
     { key: "find-project", label: "Find New Project" },

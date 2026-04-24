@@ -26,7 +26,7 @@ export default function NotificationRow({ notification, openNotification, users 
                 {
                     users.map(u =>
                         u.user_id === notification.sender_user_id
-                            ? < p className={styles.notificationSender} > {u.username}</p>
+                            ? < p key={u.user_id} className={styles.notificationSender} > {u.username}</p>
                             : null
                     )
                 }
@@ -34,7 +34,9 @@ export default function NotificationRow({ notification, openNotification, users 
             <div className={styles.secondRowsection} >{
                 notification.type === "apply"
                     ? <p className={styles.notificationText} >Your project has received a new join request!</p>
-                    : <p className={styles.notificationText} >You have received a new project invitation!</p>
+                    : notification.type === "invite"
+                        ?  <p className={styles.notificationText} >You have received a new project invitation!</p>
+                        :  <p className={styles.notificationText} >Your request has been answered!</p>
             }
                 <p>{date}</p>
             </div>

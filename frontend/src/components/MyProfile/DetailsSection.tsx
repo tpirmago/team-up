@@ -5,46 +5,43 @@ import type { User } from "../../pages/ProfileView"
 interface ProfileDetailsProps {
     editMode: boolean
     user: User
-    nameRef: React.RefObject<HTMLInputElement | null>
-    usernameRef: React.RefObject<HTMLInputElement | null>
-    programRef: React.RefObject<HTMLInputElement | null>
-    emailRef: React.RefObject<HTMLInputElement | null>
+    setName: React.Dispatch<React.SetStateAction<string>>
+    setUserName: React.Dispatch<React.SetStateAction<string>>
+    setProgram: React.Dispatch<React.SetStateAction<string>>
 }
 
-export default function DetailsSection({ editMode, user, nameRef, usernameRef, programRef, emailRef }: ProfileDetailsProps) {
+export default function DetailsSection({ editMode, user, setName, setUserName, setProgram }: ProfileDetailsProps) {
     return (
-        <div className={styles.info} >
-            <div className={styles.personalDetails} >
+        <div>
+            <div >
                 <h3 className={styles.sectionHeader} >Personal details</h3>
                 <DetailRow
                     editMode={editMode}
                     label={"Full name"}
                     value={user.name}
-                    inputRef={nameRef}
+                    setValue={setName}
                 />
                 <DetailRow
                     editMode={editMode}
                     label={"Username"}
                     value={user.username}
-                    inputRef={usernameRef}
+                    setValue={setUserName}
                 />
                 <DetailRow
                     editMode={editMode}
                     label={"Study Program"}
                     value={user.study_program}
-                    inputRef={programRef}
+                    setValue={setProgram}
                 />
-                <DetailRow
-                    editMode={editMode}
-                    label={"Email"}
-                    value={user.email}
-                    inputRef={emailRef}
-                />
+                <div className={styles.detailBox} >
+                    <h4 className={styles.detailHeader} >Email</h4>
+                    <p className={styles.detailText} >{user.email}</p>
+                </div>
                 <div className={styles.detailBox} >
                     <h4 className={styles.detailHeader} >Password</h4>
                     {
                         editMode
-                            ? <button className={styles.pwButton} >Change password</button>
+                            ? <button className={styles.pwButton} >Forgot password?</button>
                             : <p className={styles.detailText} >••••••</p>
                     }
                 </div>

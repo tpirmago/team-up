@@ -5,6 +5,7 @@ import type { Skills } from "./ProfileView"
 import { RxCross1 } from "react-icons/rx";
 import SecundaryButton from "../components/SecondaryButton"
 import { authFetch } from "../utils/authFetch";
+import type { SidebarItem } from "../components/Sidebar";
 
 export interface Form {
     title: string
@@ -28,7 +29,11 @@ const defaultForm: Form = {
     skills: []
 }
 
-export default function CreateProjectView() {
+interface CreateProjectViewProps {
+    onNavigate: (item: SidebarItem) => void
+}
+
+export default function CreateProjectView({onNavigate}: CreateProjectViewProps) {
 
     const [projectAdded, setProjectAdded] = useState(false)
 
@@ -38,7 +43,7 @@ export default function CreateProjectView() {
     const [allSkills, setAllSkills] = useState<Skills[]>([])
 
     const getSkillsData = async () => {
-        const skillsResponse = await fetch("http://localhost:3000/skills")
+        const skillsResponse = await fetch("http://192.168.101.105:5000/skills")
         const skillsData = await skillsResponse.json()
         setAllSkills(skillsData)
     }
@@ -84,7 +89,7 @@ export default function CreateProjectView() {
         }
 
         try {
-            await authFetch("http://localhost:3000/projects", {
+            await authFetch("http://192.168.101.105:5000/projects", {
                 method: "POST",
                 body: JSON.stringify(newProject)
             })
@@ -92,10 +97,10 @@ export default function CreateProjectView() {
             setProjectAdded(true)
             setFormInfo(defaultForm)
             setAddedSkills([])
-
-        } catch (err) {
-            console.error("ERROR:", err)
+        } catch (error) {
+            console.error("ERROR:", error)
         }
+
     }
 
     return (
@@ -109,6 +114,7 @@ export default function CreateProjectView() {
                                 <SecundaryButton
                                     variant="view"
                                     label="View My Projects"
+                                    onClick={() => onNavigate('my-projects')}
                                 />
                                 <button className={styles.closeButton} onClick={() => setProjectAdded(false)} > <RxCross1 size={25} color="black" /></button>
                             </div>

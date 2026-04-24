@@ -1,43 +1,45 @@
 .projectBox {
     display: flex;
+    flex-direction: column;
     padding: 20px;
     border-radius: 15px;
-    border: 1px solid black;
+    border: 1px solid rgb(158, 158, 158);
     gap: 10px;
 }
 
-.infoColumn {
-    flex: 10
+.textColumn {
+    flex: 10;
+}
+
+.projectHeader {
+    margin-bottom: 1.5rem;
+}
+
+.projectTopic, .projectDescription {
+    margin-bottom: 1rem;
 }
 
 .buttonColumn {
     flex: 1;
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    flex-direction: row;
+    justify-content: space-evenly;
 }
 
-.projectHeaderRow {
-    display: flex;
-    padding-right: 30px;
+.secondaryButton {
+    padding: 8px 20px;
+    border-radius: 20px;
+    background: #fff;
+    color: #1a1a1a;
+    border: 1px solid #1a1a1a;
 }
 
-.projectHeader {
-    margin: 0 15px 15px 0;
-}
+@media (max-width: 767px) {
+    .projectHeader {
+        margin-right: 0;
+    }
 
-.heartButton,
-.deleteButton,
-.infoButton {
-    background: transparent;
-    border: none;
-    cursor: pointer;
-}
-
-.projectTopic {
-    margin-bottom: 10px;
-}
-
-.projectDescription {
-    padding-right: 30px;
+    .projectDescription {
+        padding-right: 0;
+    }
 }
