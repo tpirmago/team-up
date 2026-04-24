@@ -21,8 +21,8 @@
     cursor: pointer
 }
 }
-.project-card:focus-visible {
-  outline: 2px solid #4f46e5; /* or your theme color */
+.projectCard:focus-visible {
+  outline: 2px solid #3f3f3f; 
   outline-offset: 4px;
 }
 .projectCard button {

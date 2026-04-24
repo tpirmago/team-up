@@ -13,6 +13,23 @@
     0 2px 6px rgba(0, 0, 0, 0.06),
     0 1px 2px rgba(0, 0, 0, 0.04)
 }
+@media (hover: hover) {
+.userCard:hover {
+    box-shadow: 
+    0 6px 18px rgba(0, 0, 0, 0.18),
+    0 4px 6px rgba(0, 0, 0, 0.17);
+    transform: translateY(-2px);
+    cursor: pointer
+}
+}
+.userCard:focus-visible {
+  outline: 2px solid #3f3f3f; 
+  outline-offset: 4px;
+}
+.userCard button {
+    margin-top: auto;
+    font-size: 0.9rem;
+}
 .userCardText {
   font-family: 'JetBrains Mono', monospace;
   margin-top: 0.8rem;
@@ -28,12 +45,10 @@
   padding-top: 0.75rem;
   line-height: 1.35;
 }
-.userCard button {
-  margin-top: auto;
-}
 .userTags {
   text-align: center;
   font-size: 0.9rem;
+  margin-bottom: 0.9rem;
 }
 .userAvatar {
   width: 64px;

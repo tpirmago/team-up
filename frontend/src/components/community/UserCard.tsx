@@ -1,19 +1,32 @@
-import type { User } from "../../types/community"
+import type { User } from '../../types/community'
 import styles from './UserCard.module.css'
 import defaultAvatar from '../../assets/avatars/defaultAvatar.png'
-import SecondaryButton from "../SecondaryButton"
+import SecondaryButton from '../SecondaryButton'
 
 type UserCardProps = {
   user: User
 }
 
 export default function UserCard({ user }: UserCardProps) {
+  const openCard = () => {
+    // TODO: implement user details view
+  }
+
   return (
-    <div className={styles.userCard}>
+    <div 
+      className={styles.userCard}
+      role='button'
+      tabIndex={0}
+      onClick={() => openCard()}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          openCard()
+        }
+      }}>
       <div className={styles.userAvatar}>
         <img 
           src={user.avatar_url || defaultAvatar}
-          alt="User profile"
+          alt='User profile'
           onError={(e) => {
             e.currentTarget.src = defaultAvatar
           }}
