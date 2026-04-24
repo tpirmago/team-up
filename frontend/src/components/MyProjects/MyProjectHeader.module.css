@@ -1,0 +1,27 @@
+.headerRow {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 3rem;
+}
+
+.headerButton {
+    border-radius: 50px;
+}
+
+.blackButton {
+    padding: 0.5rem 1rem;
+}
+
+@media (max-width: 767px) {
+    .headerRow {
+        flex-direction: column;
+    }
+
+    .myProjectTitle {
+        margin-bottom: 1.5rem;
+        font-size: 2rem;
+    }
+
+}

@@ -1,16 +1,17 @@
-.profileSection {
-    flex: 5;
-}
-
 .profilePage {
     display: flex;
     flex: 1;
-    margin: 30px;
+    margin: 2rem;
+    width: 100%;
+}
+
+.profileSection {
+    flex: 1;
 }
 
 .profileBackground {
-    padding: 50px;
-    margin: 10px 50px;
+    padding: 3rem;
+    margin: 1rem 3rem;
     background-color: white;
     border-radius: 8px;
     box-shadow: 0px 0px 8px #817e7e;
@@ -19,8 +20,8 @@
 .info {
     display: flex;
     flex-direction: row;
-    gap: 100px;
-    margin-top: 50px;
+    gap: 4rem;
+    margin-top: 3rem;
 }
 
 .personalDetails {
@@ -31,5 +32,36 @@
     flex: 8;
     display: flex;
     flex-direction: column;
-    gap: 40px;
+    gap: 3rem;
+}
+
+@media (max-width: 767px) {
+    .profilePage {
+        margin: 0
+    }
+
+    .profileBackground {
+        padding: 1.5rem;
+        margin: 1.5rem;
+    }
+    
+    .info {
+        flex-direction: column;
+        gap: 4rem;
+    }
+
+    .tagSection {
+        margin-bottom: 2rem;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .profileBackground {
+    margin: 1rem 2rem;
+    }
+
+    .info {
+        flex-direction: column;
+        gap: 2.5rem;
+    }
 }

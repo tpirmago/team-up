@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react"
 import styles from "./NotificationsView.module.css"
 import { type Projects, type User } from "../ProfileView"
-import NotificationsHeader from "../../components/notifications/NotificationsHeader"
-import NotificationRow from "../../components/notifications/NotificationRow"
-import NotificationDialog from "../../components/notifications/NotificationDialog"
+import NotificationsHeader from "../../components/Notifications/NotificationsHeader"
+import NotificationRow from "../../components/Notifications/NotificationRow"
+import NotificationDialog from "../../components/Notifications/NotificationDialog"
 import { authFetch } from "../../utils/authFetch"
 import { FiInbox } from "react-icons/fi"
+import { API_BASE } from "../../config/config"
 
 export interface Notifications {
     notification_id: number
@@ -18,7 +19,11 @@ export interface Notifications {
     created_at: string
 }
 
-export default function NotificationsView() {
+interface NotificationsViewProps {
+    onOpenProject?: (id: number) => void
+}
+
+export default function NotificationsView({ onOpenProject }: NotificationsViewProps) {
 
     const [listStatus, setListStatus] = useState("all")
     const [notificationList, setNotificationList] = useState<Notifications[]>([])
@@ -33,16 +38,14 @@ export default function NotificationsView() {
 
     const getNotifications = async () => {
 
-        const meResponse = await authFetch("http://localhost:3000/auth/me")
-        const me = await meResponse.json()
+        const me = await authFetch(`${API_BASE}/auth/me`)
 
-        const notifResponse = await authFetch(`http://localhost:3000/notifications/${me.user_id}`)
-        const notifData = await notifResponse.json()
+        const notifData = await authFetch(`${API_BASE}/notifications/${me.user_id}`)
 
-        const userResponse = await fetch("http://localhost:3000/users")
+        const userResponse = await fetch(`${API_BASE}/users`)
         const userData = await userResponse.json()
 
-        const projectResponse = await fetch("http://localhost:3000/projects")
+        const projectResponse = await fetch(`${API_BASE}/projects`)
         const projectData = await projectResponse.json()
 
         setNotificationList(notifData)
@@ -56,7 +59,7 @@ export default function NotificationsView() {
 
     async function changeNotificationStatus(notification: Notifications) {
 
-        await authFetch(`http://localhost:3000/notifications/${notification.notification_id}/read`, {
+        await authFetch(`${API_BASE}/notifications/${notification.notification_id}/read`, {
             method: "PATCH"
         })
 
@@ -83,7 +86,7 @@ export default function NotificationsView() {
         setSenderUser(undefined)
         setSelectedProject(undefined)
 
-        await authFetch(`http://localhost:3000/notifications/${notification_id}/decline`, {
+        await authFetch(`${API_BASE}/notifications/${notification_id}/decline`, {
             method: "POST"
         })
 
@@ -96,7 +99,7 @@ export default function NotificationsView() {
         setSenderUser(undefined)
         setSelectedProject(undefined)
 
-        await authFetch(`http://localhost:3000/notifications/${notification_id}/accept`, {
+        await authFetch(`${API_BASE}/notifications/${notification_id}/accept`, {
             method: "POST"
         })
 
@@ -141,6 +144,7 @@ export default function NotificationsView() {
                                         closeDialog={closeDialog}
                                         acceptRequest={handleAccept}
                                         declineRequest={handleDecline}
+                                        onOpenProject={onOpenProject}
                                     />
                                 )}
                         </section>}

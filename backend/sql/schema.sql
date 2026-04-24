@@ -6,8 +6,7 @@ CREATE TABLE users (
     username TEXT UNIQUE,
     firebase_id TEXT UNIQUE NOT NULL,
     study_program TEXT,
-    avatar_url TEXT
-
+    avatar_url TEXT NOT NULL DEFAULT '/avatars/avatar1.png'
 );
 
 -- SKILLS
