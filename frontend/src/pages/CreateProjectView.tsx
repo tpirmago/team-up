@@ -5,6 +5,7 @@ import type { Skills } from "./ProfileView"
 import { RxCross1 } from "react-icons/rx";
 import SecundaryButton from "../components/SecondaryButton"
 import { authFetch } from "../utils/authFetch";
+import type { SidebarItem } from "../components/Sidebar";
 
 export interface Form {
     title: string
@@ -28,7 +29,11 @@ const defaultForm: Form = {
     skills: []
 }
 
-export default function CreateProjectView() {
+interface CreateProjectViewProps {
+    onNavigate: (item: SidebarItem) => void
+}
+
+export default function CreateProjectView({onNavigate}: CreateProjectViewProps) {
 
     const [projectAdded, setProjectAdded] = useState(false)
 
@@ -109,6 +114,7 @@ export default function CreateProjectView() {
                                 <SecundaryButton
                                     variant="view"
                                     label="View My Projects"
+                                    onClick={() => onNavigate('my-projects')}
                                 />
                                 <button className={styles.closeButton} onClick={() => setProjectAdded(false)} > <RxCross1 size={25} color="black" /></button>
                             </div>

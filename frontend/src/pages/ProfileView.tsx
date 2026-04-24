@@ -4,8 +4,6 @@ import ProfileHeader from "../components/MyProfile/ProfileHeader";
 import ProfileTags from "../components/MyProfile/ProfileTags";
 import DetailsSection from "../components/MyProfile/DetailsSection";
 import { authFetch } from "../utils/authFetch";
-import defaultAvatar from "../assets/avatars/defaultAvatar.png"
-
 
 export interface User {
     user_id: number,

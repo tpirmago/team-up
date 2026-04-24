@@ -29,10 +29,6 @@
     gap: 25px;
 }
 
-.blackButton {
-        padding: 0.5rem 1rem;
-}
-
 .closeButton {
     background: transparent;
     border: none;
@@ -41,10 +37,6 @@
 
 .formBackground {
     padding: 50px;
-}
-
-.sectionHeader {
-    margin-bottom: 30px;
 }
 
 @media (max-width: 767px) {
@@ -70,5 +62,11 @@
 @media (min-width: 768px) and (max-width: 1024px) {
     .formBackground{
     margin: 1rem 2rem;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 835px) {
+    .formBackground{
+    padding: 2rem;
     }
 }

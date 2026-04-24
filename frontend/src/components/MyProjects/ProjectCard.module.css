@@ -11,22 +11,19 @@
     flex: 10;
 }
 
+.projectHeader {
+    margin-bottom: 1.5rem;
+}
+
+.projectTopic, .projectDescription {
+    margin-bottom: 1rem;
+}
+
 .buttonColumn {
     flex: 1;
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
-}
-
-.projectHeader {
-    margin-bottom: 1.5rem;
-}
-
-.deleteButton,
-.infoButton {
-    background: transparent;
-    border: none;
-    cursor: pointer;
 }
 
 .secondaryButton {
@@ -37,16 +34,7 @@
     border: 1px solid #1a1a1a;
 }
 
-.projectTopic, .projectDescription {
-    margin-bottom: 1rem;
-}
-
 @media (max-width: 767px) {
-
-    .projectHeaderRow {
-        padding-right: 0;
-    }
-
     .projectHeader {
         margin-right: 0;
     }
@@ -54,18 +42,4 @@
     .projectDescription {
         padding-right: 0;
     }
-
-    /* .buttonColumn {
-        flex-direction: row;
-        justify-content: space-evenly;
-        margin-top: 1rem;
-    } */
 }
-
-/* @media (min-width: 768px) and (max-width: 1024px) {
-    .buttonColumn {
-        flex-direction: row;
-        justify-content: space-evenly;
-        margin-top: 1rem;
-    }
-} */

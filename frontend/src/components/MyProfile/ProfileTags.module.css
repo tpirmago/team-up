@@ -45,6 +45,13 @@
     color: #1a1a1a;
 }
 
+.skillsSection {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 0.5rem;
+}
+
 .deleteInfo {
     background: transparent;
     border: none;
@@ -57,43 +64,20 @@
     gap: 3px;
 }
 
-.skillsSection {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    margin-top: 0.5rem;
-}
-
 .tagName {
     margin: 0 20px 10px 0;
 }
 
 @media (max-width: 767px) {
+    .skillsHeader {
+        flex-direction: column;
+        gap: 0;
+    }
+
     .headerTitle {
         text-align: center;
         width: 100%;
-    }
-
-    .skillsSection {
-        align-items: center;
-        justify-content: center;
-    }
-
-    .skillsHeader {
-        flex-direction: column;
-    }
-
-    .selectDropdown {
-        margin-bottom: 1rem;
-    }
-
-    .selectNew {
-        color: black;
-        font-size: 12px;
-    }
-
-    .deleteInfo {
-        color: black;
+        margin-bottom: 1.5rem;
     }
 
     .selectWrapper {
@@ -104,5 +88,24 @@
         position: inherit;
         margin-bottom: 1rem;
         text-align: center;
+    }
+
+    .selectDropdown {
+        margin-bottom: 1rem;
+        justify-content: center;
+    }
+
+    .selectNew {
+        color: black;
+        font-size: 12px;
+    }
+
+    .skillsSection {
+        align-items: center;
+        justify-content: center;
+    }
+
+    .deleteInfo {
+        color: black;
     }
 }

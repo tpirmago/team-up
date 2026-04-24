@@ -12,8 +12,8 @@ interface ProfileDetailsProps {
 
 export default function DetailsSection({ editMode, user, setName, setUserName, setProgram }: ProfileDetailsProps) {
     return (
-        <div className={styles.info} >
-            <div className={styles.personalDetails} >
+        <div>
+            <div >
                 <h3 className={styles.sectionHeader} >Personal details</h3>
                 <DetailRow
                     editMode={editMode}

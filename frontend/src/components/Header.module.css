@@ -30,7 +30,7 @@
     font-weight: bold;
     color: black;
     border: none;
-    margin-right: 2rem;
+    margin-left: 2rem;
     cursor: pointer;
     background: #ffffff;
     font-size: 1rem;
@@ -69,5 +69,13 @@
 @media (max-width: 480px) {
     .header {
         padding: 14px 16px;
+    }
+
+    .userNameButton {
+        margin-right: 1rem;
+    }
+
+    .userNameText {
+        display: none;
     }
 }

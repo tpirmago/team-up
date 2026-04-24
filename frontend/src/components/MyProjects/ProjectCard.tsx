@@ -1,5 +1,4 @@
 import styles from "./ProjectCard.module.css"
-import { IoIosInformationCircleOutline } from "react-icons/io";
 import ConfirmDialog from "./ConfirmDialog";
 import Button from "../Button";
 

@@ -16,7 +16,7 @@ export default function DetailRow({ label, value, editMode, setValue, type = "te
             <h4 className={styles.detailHeader} >{label}</h4>
             {
                 editMode
-                    ? <Input className={styles.detailInput}
+                    ? <Input
                         type={type}
                         defaultValue={value}
                         onChange={e => setValue(e.target.value)} />

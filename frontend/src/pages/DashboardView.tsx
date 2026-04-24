@@ -5,7 +5,7 @@ import Sidebar from "../components/Sidebar"
 import type { SidebarItem } from "../components/Sidebar"
 import MyProjectView from "./myProjects/MyProjectView"
 import CreateProjectView from "./CreateProjectView"
-import NotificationsView from "./notifications/NotificationsView"
+import NotificationsView from "./Notifications/NotificationsView"
 import CommunityView from "./community/CommunityView"
 import FindProjectView from "./projects/FindProjectView"
 import { testUser } from "../testing/testData"
@@ -66,9 +66,9 @@ export default function DashboardView({ username, activeNav, onNavigate }: Dashb
     function renderPage() {
         switch (activeNav) {
             case "my-projects":
-                return <MyProjectView />
+                return <MyProjectView onNavigate={onNavigate} />
             case "create-project":
-                return <CreateProjectView />
+                return <CreateProjectView onNavigate={onNavigate} />
             case "notifications":
                 return <NotificationsView />
             case "find-project":
@@ -76,7 +76,7 @@ export default function DashboardView({ username, activeNav, onNavigate }: Dashb
             case "meet-teammates":
                 return <CommunityView />
             case "profile":
-                return <ProfileView />
+                return <ProfileView/>
             default:
                 return (
                     <main className={styles.dashboard}>

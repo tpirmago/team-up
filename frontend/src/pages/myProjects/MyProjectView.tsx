@@ -1,13 +1,17 @@
 import { useEffect, useState } from "react"
 import styles from "./MyProjectView.module.css"
 import type { Projects, User } from "../ProfileView"
-import Button from "../../components/Button"
 import ProjectCard from "../../components/MyProjects/ProjectCard"
 import { authFetch } from "../../utils/authFetch"
 import { LuFolderCode } from "react-icons/lu";
 import MyProjectHeader from "../../components/MyProjects/MyProjectHeader"
+import type { SidebarItem } from "../../components/Sidebar"
 
-export default function MyProjectView() {
+interface MyProjectViewProps {
+    onNavigate: (item: SidebarItem) => void
+}
+
+export default function MyProjectView({onNavigate}: MyProjectViewProps) {
 
     const [currentUser, setCurrentUser] = useState<User | null>(null)
     const [projectList, setProjectList] = useState<Projects[]>([])
@@ -39,7 +43,7 @@ export default function MyProjectView() {
         <main className={styles.myProjectPage} >
             <section className={styles.projectSection} >
                 <section className={styles.projectBackground} >
-                    <MyProjectHeader />
+                    <MyProjectHeader onNavigate={onNavigate} />
                     <section className={styles.projectGrid} >
                         {
                             projectList.length === 0
