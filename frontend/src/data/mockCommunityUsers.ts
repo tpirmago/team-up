@@ -1,4 +1,4 @@
-import type { CommunityUser } from '../types/community'
+import type { User } from '../types/community'
 import MattiAvatar from '../assets/avatars/MattiMeikalainenAvatar.png'
 import AnnaAvatar from '../assets/avatars/AnnaAaltoAvatar.png'
 import KalleAvatar from '../assets/avatars/KalleKoodariAvatar.png'
@@ -7,7 +7,7 @@ import MaijaAvatar from '../assets/avatars/MaijaMehilainenAvatar.png'
 import PekkaAvatar from '../assets/avatars/PekkaPelotonAvatar.png'
 
 
-export const mockCommunityUsers: CommunityUser[] = [
+export const mockCommunityUsers: User[] = [
     {
         id: 1,
         name: 'Anna Aalto',

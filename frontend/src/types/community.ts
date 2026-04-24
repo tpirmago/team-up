@@ -1,18 +1,21 @@
 export interface Interest {
   interest_id: number
-  name: string
+  interest_name: string
 }
 
 export interface Skill {
   skill_id: number
-  name: string
+  skill_name: string
 }
 
-export interface CommunityUser  {
-  id: number
+export interface User  {
+  user_id: number
   name: string
+  email: string
+  username: string
+  firebase_id: string
+  study_program: string
   avatar_url: string | null
-  studyProgram: string
   interests: Interest[]
   skills: Skill[]
 }

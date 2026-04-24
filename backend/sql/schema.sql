@@ -7,7 +7,6 @@ CREATE TABLE users (
     firebase_id TEXT UNIQUE NOT NULL,
     study_program TEXT,
     avatar_url TEXT
-
 );
 
 -- SKILLS

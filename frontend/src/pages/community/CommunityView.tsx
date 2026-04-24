@@ -1,15 +1,20 @@
 import { useState } from 'react'
-import UserCard from '../../components/community/UserCard'
+import useUsers from '../../hooks/useUsers'
 import SecondaryButton from '../../components/SecondaryButton'
 import SearchBar from '../../components/SearchBar'
 import styles from './CommunityView.module.css'
 import Pagination from '../../components/Pagination/Pagination'
-import { mockCommunityUsers as mockUsers } from '../../data/mockCommunityUsers'
+import UserCard from '../../components/community/UserCard'
 
 export default function CommunityView() { 
+  const { users, loading, error } = useUsers()
   const [page, setPage] = useState(0)
   const PAGE_SIZE = 12
-  const pageUsers = mockUsers.slice(
+
+  if (loading) return <p>Loading users…</p>
+  if (error) return <p>{error}</p>
+
+  const pageUsers = users.slice(
     page * PAGE_SIZE,
     (page + 1) * PAGE_SIZE
   )
@@ -27,14 +32,14 @@ export default function CommunityView() {
 
       <div className={styles.communityGrid}>
         {pageUsers.map(user => (
-          <UserCard key={user.id} user={user} />
+          <UserCard key={user.user_id} user={user} />
         ))}
       </div>
       
       <div className={styles.pagination}>
         <Pagination
           page={page}
-          totalItems={mockUsers.length}
+          totalItems={users.length}
           pageSize={PAGE_SIZE}
           onPageChange={(newPage) => setPage(newPage)}
         />

@@ -15,6 +15,60 @@ router.get("/", async (req ,res) => {
         res.status(500).json({ error: "Failed to fetch users" });
     }
 });
+// GET all users for community view with their interests and skills
+router.get("/community", async (req, res) => {
+  try {
+    const result = await db.query(
+      `SELECT 
+        u.user_id,
+        u.name,
+        u.study_program,
+        u.avatar_url,
+
+        COALESCE(interests.interests, '[]'::json) AS interests,
+        COALESCE(skills.skills, '[]'::json) AS skills
+
+      FROM users u
+
+      LEFT JOIN (
+        SELECT
+          ui.user_id,
+          json_agg(
+            json_build_object(
+              'interest_id', i.interest_id,
+              'interest_name', i.interest_name
+            )
+          ) AS interests
+        FROM user_interests ui
+        JOIN interests i ON i.interest_id = ui.interest_id
+        GROUP BY ui.user_id
+      ) interests ON interests.user_id = u.user_id
+
+      LEFT JOIN (
+        SELECT
+          us.user_id,
+          json_agg(
+            json_build_object(
+              'skill_id', s.skill_id,
+              'skill_name', s.skill_name
+            )
+          ) AS skills
+        FROM user_skills us
+        JOIN skills s ON s.skill_id = us.skill_id
+        GROUP BY us.user_id
+      ) skills ON skills.user_id = u.user_id;`
+    );
+    res.json(result.rows);
+  } catch (error) {
+    console.error("users/community SQL error:", error);
+
+    res.status(500).json({
+      name: error.name,
+      message: error.message,
+      stack: error.stack,   // dev only
+    });
+  }
+});
 // GET one user by id
 router.get("/:id", async (req, res) => {
   const userId = req.params.id;
@@ -35,7 +89,8 @@ router.get("/:id", async (req, res) => {
     res.status(500).json({ error: "Failed to fetch user" });
   }
 });
-// Update the user status
+
+// Todo: Update the user status
 
 //// USER SKILLS ////
 

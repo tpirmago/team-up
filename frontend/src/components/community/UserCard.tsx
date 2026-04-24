@@ -1,10 +1,10 @@
-import type { CommunityUser } from "../../types/community"
+import type { User } from "../../types/community"
 import styles from './UserCard.module.css'
 import defaultAvatar from '../../assets/avatars/defaultAvatar.png'
 import SecondaryButton from "../SecondaryButton"
 
 type UserCardProps = {
-  user: CommunityUser
+  user: User
 }
 
 export default function UserCard({ user }: UserCardProps) {
@@ -22,7 +22,7 @@ export default function UserCard({ user }: UserCardProps) {
       <div className={styles.userCardText}>
         <div className={styles.userInfo}>
           <h3>{user.name}</h3>
-          <p>{user.studyProgram}</p>
+          <p>{user.study_program}</p>
         </div>
 
         <div className={styles.userTags}>
@@ -30,18 +30,22 @@ export default function UserCard({ user }: UserCardProps) {
           <strong>Interests:</strong>{' '}
           <br />
             {user.interests
-                .slice(0, 2)
-                .map(interest => interest.name)
-                .join(', ')}
+              ?.slice(0, 2)
+              .map(interest => interest.interest_name)
+              .join(', ')
+              || 'No interests listed'
+            }
           </p>
 
           <p>
             <strong>Skills:</strong>{' '}
             <br />
             {user.skills
-                .slice(0, 3)
-                .map(skill => skill.name)
-                .join(', ')}
+              ?.slice(0, 3)
+              .map(skill => skill.skill_name)
+              .join(', ')
+              || 'No skills listed'
+            }
           </p>
         </div>
         <SecondaryButton label="View profile" variant="view" />
