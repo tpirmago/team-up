@@ -4,6 +4,7 @@ import ProfileHeader from "../components/MyProfile/ProfileHeader";
 import ProfileTags from "../components/MyProfile/ProfileTags";
 import DetailsSection from "../components/MyProfile/DetailsSection";
 import { authFetch } from "../utils/authFetch";
+import { API_BASE } from "../config/config";
 
 export interface User {
     user_id: number,
@@ -67,13 +68,13 @@ export default function ProfileView() {
     const [avatar, setAvatar] = useState<string>("")
 
     const fetchData = async () => {
-        const userData = await authFetch("http://192.168.101.105:5000/auth/me")
+        const userData = await authFetch(`${API_BASE}/auth/me`)
         setCurrentUser(userData)
 
-        const skillsData = await authFetch(`http://192.168.101.105:5000/users/me/skills`)
+        const skillsData = await authFetch(`${API_BASE}/users/me/skills`)
         setUserSkills(skillsData)
 
-        const interestsData = await authFetch(`http://192.168.101.105:5000/users/me/interests`)
+        const interestsData = await authFetch(`${API_BASE}/users/me/interests`)
         setUserInterests(interestsData)
     }
 
@@ -83,10 +84,10 @@ export default function ProfileView() {
 
     useEffect(() => {
         async function fetchTags() {
-            const allSkillsRes = await fetch(`http://192.168.101.105:5000/skills`)
+            const allSkillsRes = await fetch(`${API_BASE}/skills`)
             setAllSkills(await allSkillsRes.json())
 
-            const allInterestsRes = await fetch(`http://192.168.101.105:5000/interests`)
+            const allInterestsRes = await fetch(`${API_BASE}/interests`)
             setAllInterests(await allInterestsRes.json())
         }
 
@@ -113,17 +114,17 @@ export default function ProfileView() {
 async function saveProfile() {
     if (!currentUser) return
 
-    await authFetch(`http://192.168.101.105:5000/users/me/skills`, {
+    await authFetch(`${API_BASE}/users/me/skills`, {
         method: "PUT",
         body: JSON.stringify({ skills: userSkills.map(s => s.skill_id) })
     })
 
-    await authFetch(`http://192.168.101.105:5000/users/me/interests`, {
+    await authFetch(`${API_BASE}/users/me/interests`, {
         method: "PUT",
         body: JSON.stringify({ interests: userInterests.map(i => i.interest_id) })
     })
 
-    await authFetch(`http://192.168.101.105:5000/users/me`, {
+    await authFetch(`${API_BASE}/users/me`, {
         method: "PUT",
         body: JSON.stringify({ name, username: userName, study_program: studyProgram, avatar_url: avatar })
     })

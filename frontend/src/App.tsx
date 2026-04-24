@@ -8,6 +8,7 @@ import Footer from './components/Footer'
 import LoginView from './pages/LoginView'
 import SignUpView from './pages/SignUpView'
 import DashboardView from './pages/DashboardView'
+import { API_BASE } from './config/config'
 
 type Page = 'login' | 'signup'
 
@@ -26,7 +27,7 @@ function App() {
       if (firebaseUser) {
         try {
           const token = await firebaseUser.getIdToken()
-          const res = await fetch('http://192.168.101.105:5000/auth/me', {
+          const res = await fetch(`${API_BASE}/auth/me`, {
             headers: { Authorization: `Bearer ${token}` },
           })
           if (res.ok) {

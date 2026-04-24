@@ -3,6 +3,7 @@ import styles from "./ProfileHeader.module.css"
 import Button from "../Button"
 import type { User } from "../../pages/ProfileView"
 import type React from "react"
+import { API_BASE } from "../../config/config"
 
 interface ProfileHeaderProps {
     editMode: boolean
@@ -30,7 +31,7 @@ export default function ProfileHeader({ editMode, setEditMode, saveProfile, canc
                 </div>
             </header>
             <div className={styles.profileInfo} >
-                <img className={styles.profileImg} src={`http://192.168.101.105:5000${avatar}`} alt="" />
+                <img className={styles.profileImg} src={`${API_BASE}${avatar}`} alt="" />
                 {editMode && (
                     <div className={styles.avatarOptionsBox}>
                         <div className={styles.avatarGrid}>
@@ -44,7 +45,7 @@ export default function ProfileHeader({ editMode, setEditMode, saveProfile, canc
                             ].map((path) => (
                                 <img
                                     key={path}
-                                    src={`http://192.168.101.105:5000${path}`}
+                                    src={`${API_BASE}${path}`}
                                     className={styles.avatarOption}
                                     onClick={() => setAvatar(path)}
                                 />

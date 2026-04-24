@@ -147,6 +147,7 @@ export default function ProjectCardView({ projectId, onBack, onFindNew, onDelete
                         deleteSkill={deleteSkill}
                         submitLabel="Save changes"
                         onCancel={() => setEditMode(false)}
+                        title="Edit project"
                     />
                 ) : (
                     <>

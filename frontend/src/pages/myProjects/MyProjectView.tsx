@@ -6,6 +6,7 @@ import { authFetch } from "../../utils/authFetch"
 import { LuFolderCode } from "react-icons/lu";
 import MyProjectHeader from "../../components/MyProjects/MyProjectHeader"
 import type { SidebarItem } from "../../components/Sidebar"
+import { API_BASE } from "../../config/config"
 
 interface MyProjectViewProps {
     onNavigate: (item: SidebarItem) => void
@@ -20,10 +21,10 @@ export default function MyProjectView({ onNavigate, onOpenProject }: MyProjectVi
     // Fetches projects owned by current user from the database 
     const getMyProjects = async () => {
 
-        const me = await authFetch("http://192.168.101.105:5000/auth/me")
+        const me = await authFetch(`${API_BASE}/auth/me`)
         setCurrentUser(me)
 
-        const projectResponse = await fetch(`http://192.168.101.105:5000/users/${me.user_id}/projects`)
+        const projectResponse = await fetch(`${API_BASE}/users/${me.user_id}/projects`)
         const projectData = await projectResponse.json()
         setProjectList(projectData)
     }
@@ -34,7 +35,7 @@ export default function MyProjectView({ onNavigate, onOpenProject }: MyProjectVi
 
 
     async function handleDeleteProject(id: number) {
-        await authFetch(`http://192.168.101.105:5000/projects/${id}`, { method: "DELETE" })
+        await authFetch(`${API_BASE}/projects/${id}`, { method: "DELETE" })
         getMyProjects()
 
         setProjectList(prev => [...prev.filter(p => p.project_id !== id)])

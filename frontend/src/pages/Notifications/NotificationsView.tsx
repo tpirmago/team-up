@@ -6,6 +6,7 @@ import NotificationRow from "../../components/Notifications/NotificationRow"
 import NotificationDialog from "../../components/Notifications/NotificationDialog"
 import { authFetch } from "../../utils/authFetch"
 import { FiInbox } from "react-icons/fi"
+import { API_BASE } from "../../config/config"
 
 export interface Notifications {
     notification_id: number
@@ -37,14 +38,14 @@ export default function NotificationsView({ onOpenProject }: NotificationsViewPr
 
     const getNotifications = async () => {
 
-        const me = await authFetch("http://192.168.101.105:5000/auth/me")
+        const me = await authFetch(`${API_BASE}/auth/me`)
 
-        const notifData = await authFetch(`http://192.168.101.105:5000/notifications/${me.user_id}`)
+        const notifData = await authFetch(`${API_BASE}/notifications/${me.user_id}`)
 
-        const userResponse = await fetch("http://192.168.101.105:5000/users")
+        const userResponse = await fetch(`${API_BASE}/users`)
         const userData = await userResponse.json()
 
-        const projectResponse = await fetch("http://192.168.101.105:5000/projects")
+        const projectResponse = await fetch(`${API_BASE}/projects`)
         const projectData = await projectResponse.json()
 
         setNotificationList(notifData)
@@ -58,7 +59,7 @@ export default function NotificationsView({ onOpenProject }: NotificationsViewPr
 
     async function changeNotificationStatus(notification: Notifications) {
 
-        await authFetch(`http://192.168.101.105:5000/notifications/${notification.notification_id}/read`, {
+        await authFetch(`${API_BASE}/notifications/${notification.notification_id}/read`, {
             method: "PATCH"
         })
 
@@ -85,7 +86,7 @@ export default function NotificationsView({ onOpenProject }: NotificationsViewPr
         setSenderUser(undefined)
         setSelectedProject(undefined)
 
-        await authFetch(`http://192.168.101.105:5000/notifications/${notification_id}/decline`, {
+        await authFetch(`${API_BASE}/notifications/${notification_id}/decline`, {
             method: "POST"
         })
 
@@ -98,7 +99,7 @@ export default function NotificationsView({ onOpenProject }: NotificationsViewPr
         setSenderUser(undefined)
         setSelectedProject(undefined)
 
-        await authFetch(`http://192.168.101.105:5000/notifications/${notification_id}/accept`, {
+        await authFetch(`${API_BASE}/notifications/${notification_id}/accept`, {
             method: "POST"
         })
 

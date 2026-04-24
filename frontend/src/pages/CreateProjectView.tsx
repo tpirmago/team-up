@@ -6,6 +6,7 @@ import { RxCross1 } from "react-icons/rx";
 import SecundaryButton from "../components/SecondaryButton"
 import { authFetch } from "../utils/authFetch";
 import type { SidebarItem } from "../components/Sidebar";
+import { API_BASE } from "../config/config";
 
 export interface Form {
     title: string
@@ -43,7 +44,7 @@ export default function CreateProjectView({onNavigate}: CreateProjectViewProps) 
     const [allSkills, setAllSkills] = useState<Skills[]>([])
 
     const getSkillsData = async () => {
-        const skillsResponse = await fetch("http://192.168.101.105:5000/skills")
+        const skillsResponse = await fetch(`${API_BASE}/skills`)
         const skillsData = await skillsResponse.json()
         setAllSkills(skillsData)
     }
@@ -89,7 +90,7 @@ export default function CreateProjectView({onNavigate}: CreateProjectViewProps) 
         }
 
         try {
-            await authFetch("http://192.168.101.105:5000/projects", {
+            await authFetch(`${API_BASE}/projects`, {
                 method: "POST",
                 body: JSON.stringify(newProject)
             })
@@ -130,6 +131,7 @@ export default function CreateProjectView({onNavigate}: CreateProjectViewProps) 
                         setFormInfo={setFormInfo}
                         addSkill={addSkill}
                         deleteSkill={deleteSkill}
+                        title="Create New Project"
                     />
                 </section>
             </section>
