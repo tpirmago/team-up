@@ -8,7 +8,11 @@ import Button from "../components/Button"
 import ProjectCard from "../components/MyProjects/ProjectCard"
 import type { Form } from "./CreateProjectView"
 
-export default function MyProjectView() {
+interface MyProjectViewProps {
+    onOpenProject?: (id: number) => void
+}
+
+export default function MyProjectView({ onOpenProject }: MyProjectViewProps = {}) {
 
     const [user, setUser] = useState<User>(testUser)
     const [projectList, setProjectList] = useState<Projects[]>(allProjects)
@@ -120,6 +124,7 @@ export default function MyProjectView() {
                                                 topic={p.topic}
                                                 id={p.project_id}
                                                 onClick={handleDeleteProject}
+                                                onOpen={onOpenProject}
                                                 />)
                                     }
                                 </div>
