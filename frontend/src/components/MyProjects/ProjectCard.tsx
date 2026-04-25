@@ -18,6 +18,12 @@ export default function ProjectCard({ label, description, topic, id, onClick, on
     return (
         <div
             className={styles.projectBox}
+            role={onOpen ? "button" : undefined}
+            tabIndex={onOpen ? 0 : undefined}
+            onClick={onOpen ? () => onOpen(id) : undefined}
+            onKeyDown={onOpen ? (e) => {
+                if (e.key === "Enter" || e.key === " ") onOpen(id)
+            } : undefined}
         >
             <div className={styles.textColumn} >
                 <h3 className={styles.projectHeader} >{label}</h3>
@@ -26,7 +32,6 @@ export default function ProjectCard({ label, description, topic, id, onClick, on
             </div>
             <div
                 className={styles.buttonColumn}
-                onClick={(e) => e.stopPropagation()}
             >
                 <Button
                     label="View Project"
@@ -35,8 +40,8 @@ export default function ProjectCard({ label, description, topic, id, onClick, on
                 />
                 {
                     ownerId === userId && (
-                    <ConfirmDialog onDelete={onClick} id={id} />
-                )}
+                        <ConfirmDialog onDelete={onClick} id={id} />
+                    )}
             </div>
         </div>
     )

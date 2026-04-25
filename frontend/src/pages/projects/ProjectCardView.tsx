@@ -10,6 +10,8 @@ import ProjectForm from "../../components/CreateProject/ProjectForm"
 import type { Form } from "../CreateProjectView"
 import type { Skills } from "../ProfileView"
 import { testSkills } from "../../testing/testData"
+import { authFetch } from "../../utils/authFetch"
+import { API_BASE } from "../../config/config"
 
 interface ProjectCardViewProps {
     projectId: number
@@ -86,18 +88,20 @@ export default function ProjectCardView({ projectId, onBack, onFindNew, onDelete
         setEditMode(false)
     }
 
-    function handleDelete() {
+    async function handleDelete(projectId: number) {
         if (!project) return
         const confirmed = window.confirm("Are you sure you want to delete this project?")
         if (!confirmed) return
-        // TODO: replace with DELETE /projects/:id once backend endpoint is ready
+        await authFetch(`${API_BASE}/projects/${projectId}`, { method: "DELETE" })
         onDeleted?.(project.project_id)
         onBack()
     }
 
-    function handleRequestJoin() {
+    async function handleRequestJoin(projectId: number) {
         if (!project) return
-        // TODO: replace with POST /projects/:id/join-requests once backend endpoint is ready
+        await authFetch(`${API_BASE}/projects/${projectId}/apply`, {
+            method: "POST"
+        })
         window.alert("Join request sent!")
     }
 
@@ -225,7 +229,7 @@ export default function ProjectCardView({ projectId, onBack, onFindNew, onDelete
                                 <button
                                     type="button"
                                     className={styles.deleteBtn}
-                                    onClick={handleDelete}
+                                    onClick={() => handleDelete(projectId)}
                                 >
                                     <RiDeleteBin6Line />
                                     <span>Delete project</span>
@@ -234,7 +238,7 @@ export default function ProjectCardView({ projectId, onBack, onFindNew, onDelete
                                 <Button
                                     label="Request to join"
                                     className={styles.joinBtn}
-                                    onClick={handleRequestJoin}
+                                    onClick={() => handleRequestJoin(projectId)}
                                 />
                             )}
                         </div>
