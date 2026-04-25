@@ -194,14 +194,14 @@ interface NotificationMessageProps {
 function NotificationMessage({ notification, user, project }: NotificationMessageProps) {
 
     if (notification.type === "apply") {
-        return `User ${user.name} wants to join your project "${project.title}". Accept or decline their request.`
+        return `User ${user.username} wants to join your project "${project.title}". Accept or decline their request.`
     } else if (notification.type === "invite") {
-        return `User ${user.name} has invited you to join their project "${project.title}". Accept or decline their invitation.`
+        return `User ${user.username} has invited you to join their project "${project.title}". Accept or decline their invitation.`
     } else {
         if (notification.status === "declined") {
-            return `User ${user.name} has declined your request regarding the project "${project.title}".`
+            return `User ${user.username} has declined your request regarding the project "${project.title}".`
         } else {
-            return `User ${user.name} has accepted your request regarding the project "${project.title}".`
+            return `User ${user.username} has accepted your request regarding the project "${project.title}".`
         }
     }
 }
