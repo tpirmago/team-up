@@ -1,6 +1,9 @@
+import { useState } from "react"
+import { FaHeart, FaRegHeart } from "react-icons/fa"
 import styles from "./UserCardView.module.css"
 import defaultAvatar from "../../assets/avatars/defaultAvatar.png"
 import { mockCommunityUsers } from "../../data/mockCommunityUsers"
+import Button from "../../components/Button"
 
 interface UserCardViewProps {
     userId: number
@@ -10,6 +13,7 @@ interface UserCardViewProps {
 export default function UserCardView({ userId, onBack }: UserCardViewProps) {
     // TODO: replace with GET /users/:id once backend endpoint is ready
     const user = mockCommunityUsers.find(u => u.id === userId)
+    const [favorited, setFavorited] = useState(false)
 
     if (!user) {
         return (
@@ -17,6 +21,11 @@ export default function UserCardView({ userId, onBack }: UserCardViewProps) {
                 <p className={styles.error}>User not found</p>
             </main>
         )
+    }
+
+    function handleRequestConnect() {
+        // TODO: POST /users/:id/connect once backend endpoint is ready
+        window.alert("Connect request sent!")
     }
 
     return (
@@ -59,7 +68,24 @@ export default function UserCardView({ userId, onBack }: UserCardViewProps) {
                         <h1>{user.name}</h1>
                         <p>{user.studyProgram}</p>
                     </div>
+                    <button
+                        type="button"
+                        className={`${styles.favBtn} ${favorited ? styles.favBtnActive : ""}`}
+                        onClick={() => setFavorited(v => !v)}
+                        aria-label={favorited ? "Remove from favorites" : "Add to favorites"}
+                        aria-pressed={favorited}
+                    >
+                        {favorited ? <FaHeart /> : <FaRegHeart />}
+                    </button>
                 </header>
+
+                <div className={styles.footerActions}>
+                    <Button
+                        label="Request to connect"
+                        className={styles.connectBtn}
+                        onClick={handleRequestConnect}
+                    />
+                </div>
             </section>
         </main>
     )

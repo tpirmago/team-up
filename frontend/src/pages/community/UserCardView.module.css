@@ -52,6 +52,47 @@
     margin-bottom: 24px;
 }
 
+.nameBlock {
+    flex: 1;
+    min-width: 0;
+}
+
+.favBtn {
+    align-self: flex-start;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border-radius: 999px;
+    color: #1a1a1a;
+    font-size: 24px;
+    line-height: 0;
+    transition: transform 0.15s, color 0.15s;
+}
+
+.favBtn:hover {
+    transform: scale(1.1);
+}
+
+.favBtnActive {
+    color: #e11d48;
+}
+
+.footerActions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 12px;
+}
+
+.connectBtn {
+    padding: 8px 20px;
+    border-radius: 20px;
+}
+
 .avatar {
     width: 96px;
     height: 96px;
