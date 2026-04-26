@@ -3,9 +3,9 @@ import styles from "./DashboardView.module.css"
 import Button from "../components/Button"
 import Sidebar from "../components/Sidebar"
 import type { SidebarItem } from "../components/Sidebar"
-import MyProjectView from "./MyProjectView"
+import MyProjectView from "./myProjects/MyProjectView"
 import CreateProjectView from "./CreateProjectView"
-import NotificationsView from "./notifications/NotificationsView"
+import NotificationsView from "./Notifications/NotificationsView"
 import CommunityView from "./community/CommunityView"
 import UserCardView from "./community/UserCardView"
 import FindProjectView from "./projects/FindProjectView"
@@ -120,11 +120,11 @@ export default function DashboardView({ username, activeNav, onNavigate }: Dashb
 
         switch (activeNav) {
             case "my-projects":
-                return <MyProjectView onOpenProject={openProject} />
+                return <MyProjectView onOpenProject={openProject} onNavigate={onNavigate} />
             case "create-project":
-                return <CreateProjectView />
+                return <CreateProjectView onNavigate={onNavigate} />
             case "notifications":
-                return <NotificationsView />
+                return <NotificationsView onOpenProject={openProject} />
             case "find-project":
                 return <FindProjectView onOpenProject={openProject} />
             case "meet-teammates":

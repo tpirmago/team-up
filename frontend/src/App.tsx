@@ -8,9 +8,7 @@ import Footer from './components/Footer'
 import LoginView from './pages/LoginView'
 import SignUpView from './pages/SignUpView'
 import DashboardView from './pages/DashboardView'
-// import NotificationsView from './pages/notifications/NotificationsView'
-// import CommunityView from './pages/community/CommunityView'
-// import FindProjectView from './pages/projects/FindProjectView'
+import { API_BASE } from './config/config'
 
 type Page = 'login' | 'signup'
 
@@ -29,7 +27,7 @@ function App() {
       if (firebaseUser) {
         try {
           const token = await firebaseUser.getIdToken()
-          const res = await fetch('http://localhost:3000/auth/me', {
+          const res = await fetch(`${API_BASE}/auth/me`, {
             headers: { Authorization: `Bearer ${token}` },
           })
           if (res.ok) {
@@ -60,7 +58,6 @@ function App() {
           onBellClick={() => setActiveNav('notifications')}
           onUserClick={() => setActiveNav('profile')}
         />
-        {/* <NotificationsView /> */}
         <DashboardView activeNav={activeNav} onNavigate={setActiveNav} />
         <Footer />
       </div>

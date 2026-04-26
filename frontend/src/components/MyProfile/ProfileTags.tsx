@@ -10,8 +10,8 @@ interface Tags {
 interface ProfileTagsProps {
     title: string
     editMode: boolean
-    selectedId: number
-    setSelectedId: React.Dispatch<React.SetStateAction<number>>
+    selectedId: number | null
+    setSelectedId: React.Dispatch<React.SetStateAction<number | null>>
     allTags: Tags[]
     userTags: Tags[]
     handleAdd: (id: number) => void
@@ -38,15 +38,15 @@ export default function ProfileTags({
                         ? <div className={styles.selectWrapper} >
                             {error && <p className={styles.error}>{error}</p>}
                             <div className={styles.selectDropdown} >
-                                <select className={styles.selectNew} value={selectedId} onChange={(e) => setSelectedId(Number(e.target.value))}>
+                                <select className={styles.selectNew} value={selectedId ?? ""} onChange={(e) => setSelectedId(Number(e.target.value))}>
                                     {
                                         allTags.map(i => <option key={i.id} value={i.id} >{i.name}</option>)
                                     }
                                 </select>
                                 <Button
-                                    label="+ Add"
+                                    label="Add"
                                     className={styles.blackButton}
-                                    onClick={() => handleAdd(selectedId)}
+                                    onClick={() => selectedId !== null && handleAdd(selectedId)}
                                 />
                             </div>
                         </div>

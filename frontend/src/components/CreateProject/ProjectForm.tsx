@@ -17,9 +17,10 @@ interface ProjectFormProps {
     addSkill: (id: number) => void
     submitLabel?: string
     onCancel?: () => void
+    title: string
 }
 
-export default function ProjectForm({ onSubmit, allSkills, addedSkills, formInfo, setFormInfo, deleteSkill, addSkill, submitLabel = "Add New Project", onCancel }: ProjectFormProps) {
+export default function ProjectForm({ onSubmit, allSkills, addedSkills, formInfo, setFormInfo, deleteSkill, addSkill, submitLabel = "Add New Project", onCancel, title }: ProjectFormProps) {
 
     const months = ["January", "February", "March", "April", "May", "June",
         "July", "August", "September", "October", "November", "December"]
@@ -47,7 +48,7 @@ export default function ProjectForm({ onSubmit, allSkills, addedSkills, formInfo
     return (
         <>
             <header className={styles.headerRow} >
-                <h1 className={styles.headerTitle} >Create New Project</h1>
+                <h1 className={styles.headerTitle} >{title}</h1>
                 <div className={styles.buttonBox} >
                     {onCancel && (
                         <button type="button" onClick={onCancel} className={styles.cancelButton}>

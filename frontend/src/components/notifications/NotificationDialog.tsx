@@ -1,6 +1,6 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
 import React from "react";
-import type { Notifications } from "../../pages/notifications/NotificationsView";
+import type { Notifications } from "../../pages/Notifications/NotificationsView";
 import type { Projects, User } from "../../pages/ProfileView";
 import { RxCross1 } from "react-icons/rx";
 import styles from "./NotificationDialog.module.css"
@@ -14,6 +14,7 @@ interface NotificationDialogProps {
     closeDialog: () => void
     acceptRequest: (notification_id: number) => void
     declineRequest: (notification_id: number) => void
+    onOpenProject?: (id: number) => void
 }
 
 export default function NotificationDialog({
@@ -23,8 +24,97 @@ export default function NotificationDialog({
     dialogOpen,
     closeDialog,
     acceptRequest,
-    declineRequest
+    declineRequest,
+    onOpenProject
 }: NotificationDialogProps) {
+
+    function getButtons(notification: Notifications) {
+        if (notification.type === "response") {
+            if (notification.status === "accepted") {
+                return (
+                    <Button
+                        onClick={onOpenProject ? () => onOpenProject(notification.project_id) : undefined}
+                        variant="outlined"
+                        sx={{
+                            borderColor: "#000000",
+                            fontFamily: "inherit",
+                            color: "black",
+                            margin: "10px 20px 20px 20px"
+                        }}
+
+                    >View project page</Button>
+                )
+            }
+            return null
+        }
+        if (notification.status === "pending") {
+            return (
+                <>
+                    <Button
+                        variant="outlined"
+                        sx={{
+
+                            borderColor: "#000000",
+                            fontFamily: "inherit",
+                            color: "black",
+                            margin: "0 20px 0 20px"
+                        }}
+                    >{notification.type === "invite"
+                        ? "View project page"
+                        : "View user profile"
+                        }
+                    </Button>
+                    <div className={styles.buttonRow}>
+                        <Button
+                            onClick={() => declineRequest(notification.notification_id)}
+                            sx={{
+                                backgroundColor: "black",
+                                color: "white",
+                                borderRadius: 50,
+                                fontFamily: "inherit",
+                                padding: "10px 20px",
+                                margin: "0 10px 0 10px"
+                            }}
+                        >Decline</Button>
+                        <Button
+                            onClick={() => acceptRequest(notification.notification_id)}
+                            sx={{
+                                backgroundColor: "black",
+                                color: "white",
+                                borderRadius: 50,
+                                fontFamily: "inherit",
+                                padding: "5px 20px",
+                                margin: "0 10px 0 10px"
+                            }}
+                        >Accept</Button>
+                    </div>
+                </>
+            )
+        }
+        return (
+            <>
+                <Button
+                    variant="outlined"
+                    sx={{
+                        borderColor: "#000000",
+                        fontFamily: "inherit",
+                        color: "black",
+                        margin: "0 20px 0 20px"
+                    }}
+                >
+                    {notification.type === "invite"
+                        ? "View project page"
+                        : "View user profile"}
+                </Button>
+
+                <p className={styles.answerText}>
+                    You have already answered this request.
+                </p>
+            </>
+        )
+    }
+
+    const isSingle = notification.type === "response"
 
     return (
         <React.Fragment>
@@ -33,10 +123,11 @@ export default function NotificationDialog({
                 onClose={closeDialog}
                 slotProps={{
                     paper: {
-                    sx: {
-                        width: { laptop: "50%", desktop: "40%" },
-                        maxWidth: "600px"
-                    }}
+                        sx: {
+                            width: { laptop: "50%", desktop: "40%" },
+                            maxWidth: "600px"
+                        }
+                    }
                 }}
             >
                 <DialogTitle
@@ -69,50 +160,10 @@ export default function NotificationDialog({
                     sx={{
                         display: { mobile: "flex", tablet: "grid" },
                         flexDirection: { mobile: "column" },
-                        gridTemplateColumns: "2fr 2fr",
-                        margin: "0px 20px 0 20px"
+                        gridTemplateColumns: isSingle ? "1fr" : "2fr 2fr",
+                        margin: "0px 20px 20px 20px"
                     }}>
-                    <Button
-                        variant="outlined"
-                        sx={{
-
-                            borderColor: "#000000",
-                            fontFamily: "inherit",
-                            color: "black",
-                            margin: "10px 20px 20px 20px"
-                        }}
-                    >{
-                            notification.type === "invite"
-                                ? "View project page"
-                                : "View user profile"
-                        }</Button>
-                    {notification.status === "pending"
-                        ? (<div className={styles.buttonRow}>
-                            <Button
-                                onClick={() => declineRequest(notification.notification_id)}
-                                sx={{
-                                    backgroundColor: "black",
-                                    color: "white",
-                                    borderRadius: 50,
-                                    fontFamily: "inherit",
-                                    padding: "10px 20px",
-                                    margin: "10px 10px 20px 10px"
-                                }}
-                            >Decline</Button>
-                            <Button
-                                onClick={() => acceptRequest(notification.notification_id)}
-                                sx={{
-                                    backgroundColor: "black",
-                                    color: "white",
-                                    borderRadius: 50,
-                                    fontFamily: "inherit",
-                                    padding: "5px 20px",
-                                    margin: "10px 10px 20px 10px"
-                                }}
-                            >Accept</Button>
-                        </div>)
-                        : <p className={styles.answerText} >You have already answered this request.</p>
-                    }
+                    {getButtons(notification)}
                 </DialogActions>
             </Dialog>
         </React.Fragment >
@@ -143,9 +194,14 @@ interface NotificationMessageProps {
 function NotificationMessage({ notification, user, project }: NotificationMessageProps) {
 
     if (notification.type === "apply") {
-        return `User ${user.name} wants to join your project "${project.title}". Accept or decline their request.`
+        return `User ${user.username} wants to join your project "${project.title}". Accept or decline their request.`
     } else if (notification.type === "invite") {
-        return `User ${user.name} has invited you to join their project "${project.title}". Accept or decline their invitation.`
+        return `User ${user.username} has invited you to join their project "${project.title}". Accept or decline their invitation.`
+    } else {
+        if (notification.status === "declined") {
+            return `User ${user.username} has declined your request regarding the project "${project.title}".`
+        } else {
+            return `User ${user.username} has accepted your request regarding the project "${project.title}".`
+        }
     }
-
 }
