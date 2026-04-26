@@ -1,4 +1,4 @@
-.userCard { 
+.userCard {
   background-color: #ffffff;
   border-radius: 16px;
   padding: 1.5rem;
@@ -9,9 +9,22 @@
   flex-direction: column;
 
   border: 1px solid #e6e6e6;
-  box-shadow: 
+  box-shadow:
     0 2px 6px rgba(0, 0, 0, 0.06),
     0 1px 2px rgba(0, 0, 0, 0.04)
+}
+@media (hover: hover) {
+  .userCard:hover {
+    box-shadow:
+      0 6px 18px rgba(0, 0, 0, 0.18),
+      0 4px 6px rgba(0, 0, 0, 0.17);
+    transform: translateY(-2px);
+    cursor: pointer;
+  }
+}
+.userCard:focus-visible {
+  outline: 2px solid #4f46e5;
+  outline-offset: 4px;
 }
 .userCardText {
   font-family: 'JetBrains Mono', monospace;
