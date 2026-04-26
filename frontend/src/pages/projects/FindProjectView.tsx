@@ -6,7 +6,11 @@ import SearchBar from '../../components/SearchBar'
 import Pagination from '../../components/Pagination/Pagination'
 import ProjectCard from '../../components/findProject/ProjectCard'
 
-export default function FindProjectView() { 
+interface FindProjectViewProps {
+    onOpenProject?: (id: number) => void
+}
+
+export default function FindProjectView({ onOpenProject }: FindProjectViewProps) {
     const { projects, loading, error } = useProjects()
     const [page, setPage] = useState(0)
     const PAGE_SIZE = 9
@@ -32,15 +36,17 @@ export default function FindProjectView() {
 
             <div className={styles.projectsGrid}>
                 {pageProjects.map(project => (
-                    <ProjectCard 
+                    <ProjectCard
                         key={project.project_id}
                         label={project.title}
                         description={project.description}
-                        topic={project.topic} id={0}                       
+                        topic={project.topic}
+                        id={project.project_id}
                         location_mode={project.location_mode}
                         team_size_min={project.team_size_min}
                         team_size_max={project.team_size_max}
                         duration={project.duration}
+                        onOpen={onOpenProject}
                     />
                 ))}
             </div>

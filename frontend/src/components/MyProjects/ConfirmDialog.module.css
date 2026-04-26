@@ -3,24 +3,3 @@
     border: none;
     cursor: pointer;
 }
-
-.blackButton {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 14px;
-    font-weight: 500;
-    color: black;
-    background: #1a1a1a;
-    border: none;
-    border-radius: 50px;
-    padding: 12px 32px;
-    cursor: pointer;
-    transition: opacity 0.2s;
-}
-
-.btn:hover {
-    opacity: 0.8;
-}
-
-.fullWidth {
-    width: 100%;
-}

@@ -5,10 +5,24 @@
     align-items: center;
 }
 
+.headerTitle {
+    font-size: 2rem;
+    text-align: center;
+}
+
 .buttonBox {
     display: flex;
     flex-direction: row;
     align-items: center;
+}
+
+.cancelButton {
+    background: transparent;
+    border: none;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 0 8px;
 }
 
 .blackButton {
@@ -32,11 +46,6 @@
     display: flex;
     flex-direction: column;
     gap: 2rem;
-}
-
-.headerTitle {
-    font-size: 2rem;
-    text-align: center;
 }
 
 .monthSection {
@@ -78,11 +87,16 @@
     transition: border-color 0.2s;
 }
 
-.placeholderText {
-    color: #999999;
-}
-
 @media (max-width: 767px) {
+    .headerRow {
+        flex-direction: column;
+        margin-bottom: 2rem;
+    }
+
+    .headerTitle {
+        margin-bottom: 2rem;
+    }
+    
     .formGrid {
         display: flex;
         flex-direction: column;
@@ -95,18 +109,10 @@
         grid-template-columns: 1fr 1fr;
         width: 100%;
     }
+}
 
-    .headerRow {
-        flex-direction: column;
-        margin-bottom: 2rem;
-
+@media (max-width: 835px) {
+    .formGrid {
+        gap: 2rem;
     }
-
-    .headerTitle {
-    margin-bottom: 2rem;
-}
-}
-
-@media (min-width: 768px) and (max-width: 1024px) {
-    
 }

@@ -1,0 +1,101 @@
+.button {
+    all: unset;
+    cursor: pointer;
+}
+
+.read,
+.unread {
+    display: flex;
+    justify-content: space-between;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    display: grid;
+    grid-template-columns: 1.5fr 3fr;
+    border-radius: 5px;
+}
+
+.read {
+    border: 1px solid rgb(158, 158, 158);
+}
+
+.unread {
+    background-color: beige;
+}
+
+.firstRowsection {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+}
+
+.secondRowsection {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+@media (max-width: 767px) {
+
+    .read,
+    .unread {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .firstRowsection {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .notificationSender {
+        font-weight: bold;
+        margin-bottom: 1rem;
+    }
+
+    .secondRowsection {
+        flex-direction: column;
+    }
+
+    .notificationText {
+        margin-bottom: 1rem;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+
+    .read,
+    .unread {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .firstRowsection {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .notificationSender {
+        font-weight: bold;
+        margin-bottom: 1rem;
+    }
+
+    .secondRowsection {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .notificationText {
+        margin-bottom: 1rem;
+        margin-right: 2rem;
+    }
+}
+
+@media (min-width: 1025px) and (max-width: 1525px) {
+    .button,
+    .firstRowsection,
+    .secondRowsection {
+        gap: 1rem;
+    }
+}

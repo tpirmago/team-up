@@ -1,0 +1,18 @@
+.buttonRow {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.answerText {
+    text-align: center;
+}
+
+@media (max-width: 767px) {
+    .buttonRow {
+        margin: 1rem;
+    }
+    
+    .answerText {
+        margin: 1rem 1rem 2rem 1rem;
+    }
+}

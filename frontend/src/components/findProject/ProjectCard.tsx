@@ -4,24 +4,25 @@ import SecondaryButton from "../SecondaryButton"
 interface ProjectCardProps {
     label: string
     description: string
-    topic: string   
+    topic: string
     location_mode: string
     team_size_min: number
     team_size_max: number
     duration: string[]
     id: number
+    onOpen?: (id: number) => void
 }
 
 const capitalize = (value: string) =>
   value.charAt(0).toUpperCase() + value.slice(1)
 
-export default function ProjectCard({ label, description, topic, location_mode, team_size_min, team_size_max, duration }: ProjectCardProps) {
+export default function ProjectCard({ label, description, topic, location_mode, team_size_min, team_size_max, duration, id, onOpen }: ProjectCardProps) {
     const openCard = () => {
-        // TODO: implement project details view
+        onOpen?.(id)
     }
 
     return (
-        <div 
+        <div
             className={styles.projectCard}
             role="button"
             tabIndex={0}

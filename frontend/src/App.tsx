@@ -8,8 +8,7 @@ import Footer from './components/Footer'
 import LoginView from './pages/LoginView'
 import SignUpView from './pages/SignUpView'
 import DashboardView from './pages/DashboardView'
-
-const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000'
+import { API_BASE } from './config/config'
 
 type Page = 'login' | 'signup'
 
@@ -28,7 +27,7 @@ function App() {
       if (firebaseUser) {
         try {
           const token = await firebaseUser.getIdToken()
-          const res = await fetch(`${apiUrl}/auth/me`, {
+          const res = await fetch(`${API_BASE}/auth/me`, {
             headers: { Authorization: `Bearer ${token}` },
           })
           if (res.ok) {
@@ -51,8 +50,14 @@ function App() {
   if (DEV_BYPASS_AUTH) {
     return (
       <div className="app">
-        <Header btnLabel="Log out" onBtnClick={() => signOut(auth)} onLogoClick={() => setActiveNav('dashboard')} />
-        {/* <NotificationsView /> */}
+        <Header
+          btnLabel="Log out"
+          onBtnClick={() => signOut(auth)}
+          onLogoClick={() => setActiveNav('dashboard')}
+          username={username ?? undefined}
+          onBellClick={() => setActiveNav('notifications')}
+          onUserClick={() => setActiveNav('profile')}
+        />
         <DashboardView activeNav={activeNav} onNavigate={setActiveNav} />
         <Footer />
       </div>
@@ -64,7 +69,14 @@ function App() {
   if (user) {
     return (
       <div className="app">
-        <Header btnLabel="Log out" onBtnClick={() => signOut(auth)} onLogoClick={() => setActiveNav('dashboard')} />
+        <Header
+          btnLabel="Log out"
+          onBtnClick={() => signOut(auth)}
+          onLogoClick={() => setActiveNav('dashboard')}
+          username={username ?? undefined}
+          onBellClick={() => setActiveNav('notifications')}
+          onUserClick={() => setActiveNav('profile')}
+        />
         <DashboardView username={username ?? undefined} activeNav={activeNav} onNavigate={setActiveNav} />
         <Footer />
       </div>

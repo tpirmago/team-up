@@ -19,3 +19,10 @@
 .active {
     background-color: beige;
 }
+
+@media (max-width: 835px) {
+    .month{
+    margin: 10px 5px;
+    padding: 10px 5px;
+    }
+}

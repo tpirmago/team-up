@@ -3,12 +3,16 @@ import styles from "./DashboardView.module.css"
 import Button from "../components/Button"
 import Sidebar from "../components/Sidebar"
 import type { SidebarItem } from "../components/Sidebar"
-import MyProjectView from "./MyProjectView"
+import MyProjectView from "./myProjects/MyProjectView"
 import CreateProjectView from "./CreateProjectView"
 import NotificationsView from "./Notifications/NotificationsView"
 import CommunityView from "./community/CommunityView"
 import FindProjectView from "./projects/FindProjectView"
+import ProjectCardView from "./projects/ProjectCardView"
+import ProfileView from "./ProfileView"
 import { testUser } from "../testing/testData"
+import useProjects from "../hooks/useProjects"
+import { formatDuration } from "../utils/formatDuration"
 import arrowIcon from "../assets/icons/arrow-icon.png"
 import bellIcon from "../assets/icons/bell-icon.png"
 import teammatesIcon from "../assets/icons/teammates-icon.png"
@@ -55,25 +59,58 @@ export default function DashboardView({ username, activeNav, onNavigate }: Dashb
     const displayName = username ?? user.username
     const [openForProjects, setOpenForProjects] = useState(true)
     const [lookingForTeammates, setLookingForTeammates] = useState(true)
+    const [selectedProjectId, setSelectedProjectId] = useState<number | null>(null)
 
     const recommendedProjects = 12
     const recommendedTeammates = 27
     const newNotifications: number = 15
 
-    const displayedProjects = user.projects.slice(0, 2)
+    const { projects: backendProjects } = useProjects()
+    const displayedProjects = backendProjects.slice(0, 2)
+
+    function openProject(id: number) {
+        setSelectedProjectId(id)
+    }
+
+    function closeProject() {
+        setSelectedProjectId(null)
+    }
+
+    function goToFindNew() {
+        setSelectedProjectId(null)
+        onNavigate("find-project")
+    }
+
+    function handleNavigate(item: SidebarItem) {
+        setSelectedProjectId(null)
+        onNavigate(item)
+    }
 
     function renderPage() {
+        if (selectedProjectId !== null) {
+            return (
+                <ProjectCardView
+                    projectId={selectedProjectId}
+                    onBack={closeProject}
+                    onFindNew={goToFindNew}
+                    variant={activeNav === "find-project" ? "find" : "owner"}
+                />
+            )
+        }
+
         switch (activeNav) {
             case "my-projects":
-                return <MyProjectView />
+                return <MyProjectView onOpenProject={openProject} onNavigate={onNavigate} />
             case "create-project":
-                return <CreateProjectView />
+                return <CreateProjectView onNavigate={onNavigate} />
             case "notifications":
-                return <NotificationsView />
+                return <NotificationsView onOpenProject={openProject} />
             case "find-project":
-                return <FindProjectView />
+                return <FindProjectView onOpenProject={openProject} />
             case "meet-teammates":
                 return <CommunityView />
+            case "profile":
+                return <ProfileView />
             default:
                 return (
                     <main className={styles.dashboard}>
@@ -98,12 +135,31 @@ export default function DashboardView({ username, activeNav, onNavigate }: Dashb
 
                                 <div className={styles.projectsList}>
                                     {displayedProjects.map((p) => (
-                                        <div key={p.project_id} className={styles.projectItem}>
+                                        <div
+                                            key={p.project_id}
+                                            className={styles.projectItem}
+                                            role="button"
+                                            tabIndex={0}
+                                            onClick={() => openProject(p.project_id)}
+                                            onKeyDown={(e) => {
+                                                if (e.key === "Enter" || e.key === " ") {
+                                                    e.preventDefault()
+                                                    openProject(p.project_id)
+                                                }
+                                            }}
+                                        >
                                             <p className={styles.projectName}>{p.title}</p>
-                                            <p className={styles.projectMeta}>Duration: {p.duration}</p>
+                                            <p className={styles.projectMeta}>Duration: {formatDuration(p.duration) || "—"}</p>
                                             <p className={styles.projectMeta}>Status: In Progress</p>
-                                            <div className={styles.projectBtn}>
-                                                <Button label="View Project" className={`${styles.compactBtn} ${styles.secondaryBtn}`} />
+                                            <div
+                                                className={styles.projectBtn}
+                                                onClick={(e) => e.stopPropagation()}
+                                            >
+                                                <Button
+                                                    label="View Project"
+                                                    className={`${styles.compactBtn} ${styles.secondaryBtn}`}
+                                                    onClick={() => openProject(p.project_id)}
+                                                />
                                             </div>
                                         </div>
                                     ))}
@@ -183,7 +239,7 @@ export default function DashboardView({ username, activeNav, onNavigate }: Dashb
 
     return (
         <div className={styles.layout}>
-            <Sidebar activeItem={activeNav} onNavigate={onNavigate} />
+            <Sidebar activeItem={activeNav} onNavigate={handleNavigate} />
             {renderPage()}
         </div>
     )
