@@ -67,7 +67,7 @@ export default function UserCard({ user, onViewProfile }: UserCardProps) {
         <SecondaryButton
           label="View profile"
           variant="view"
-          onClick={() => onViewProfile?.(user.id)}
+          onClick={() => onViewProfile?.(user.user_id)}
         />
       </div>
     </div>
