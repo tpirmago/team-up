@@ -12,8 +12,8 @@ describe('useUsers', () => {
         name: 'Minna Mansikka',
         avatar_url: AnnaAvatar,
         study_program: 'Computer Science',
-        interests: [{ interest_id: 1, name: 'UX Design' }],
-        skills: [{ skill_id: 2, name: 'React' }],
+        interests: [{ interest_id: 1, interest_name: 'UX Design' }],
+        skills: [{ skill_id: 2, skill_name: 'React' }],
         email: "",
         username: "",
         firebase_id: ""

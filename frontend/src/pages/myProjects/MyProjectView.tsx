@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react"
 import styles from "./MyProjectView.module.css"
 import type { Projects } from "../ProfileView"
-import ProjectCard from "../../components/MyProjects/ProjectCard"
+import ProjectCard from "../../components/myProjects/ProjectCard"
 import Button from "../../components/Button"
 import { authFetch } from "../../utils/authFetch"
 import { LuFolderCode } from "react-icons/lu";
-import MyProjectHeader from "../../components/MyProjects/MyProjectHeader"
+import MyProjectHeader from "../../components/myProjects/MyProjectHeader"
 import type { SidebarItem } from "../../components/Sidebar"
 import { API_BASE } from "../../config/config"
 

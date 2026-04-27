@@ -1,137 +1,129 @@
-import type { User } from '../types/community'
-import MattiAvatar from '../assets/avatars/MattiMeikalainenAvatar.png'
-import AnnaAvatar from '../assets/avatars/AnnaAaltoAvatar.png'
-import KalleAvatar from '../assets/avatars/KalleKoodariAvatar.png'
-import LiisaAvatar from '../assets/avatars/LiisaLintunenAvatar.png'
-import MaijaAvatar from '../assets/avatars/MaijaMehilainenAvatar.png'
-import PekkaAvatar from '../assets/avatars/PekkaPelotonAvatar.png'
-
-
-export const mockCommunityUsers: User[] = [
+// Mockdata for testing
+export const mockCommunityUsers = [
     {
-        id: 1,
+        user_id: 1,
         name: 'Anna Aalto',
-        avatar_url: AnnaAvatar,
-        studyProgram: 'Information Technology',
-        interests: [{ interest_id: 1, name: 'UX Design' }],
-        skills: [{ skill_id: 2, name: 'React' }]
+        avatar_url: null,
+        study_program: 'Information Technology',
+        interests: [{ interest_id: 1, interest_name: 'UX Design' }],
+        skills: [{ skill_id: 2, skill_name: 'React' }]
     },
     {
-        id: 2,
+        user_id: 2,
         name: 'Matti Meikäläinen',
-        avatar_url: MattiAvatar,
-        studyProgram: 'Business Information Technology',
-        interests: [{ interest_id: 5, name: 'Entrepreneurship' }],
-        skills: [{ skill_id: 1, name: 'Figma' }, { skill_id: 3, name: 'TypeScript' }]
+        avatar_url: null,
+        study_program: 'Business Information Technology',
+        interests: [{ interest_id: 5, interest_name: 'Entrepreneurship' }],
+        skills: [{ skill_id: 1, skill_name: 'Figma' }, { skill_id: 3, skill_name: 'TypeScript' }]
     },
     {
-        id: 3,
+        user_id: 3,
         name: 'Maija Mehiläinen',
-        avatar_url: MaijaAvatar,
-        studyProgram: 'Business Analytics',
-        interests: [{ interest_id: 3, name: 'AI & Machine Learning' }],
-        skills: [{ skill_id: 4, name: 'Data Analysis' }]
+        avatar_url: null,
+        study_program: 'Business Analytics',
+        interests: [{ interest_id: 3, interest_name: 'AI & Machine Learning' }],
+        skills: [{ skill_id: 4, skill_name: 'Data Analysis' }]
     },
     {
-        id: 4,
+        user_id: 4,
         name: 'Liisa Lintunen',
-        avatar_url: LiisaAvatar,
-        studyProgram: 'Information Technology',
-        interests: [{ interest_id: 4, name: 'Sustainability' }],
-        skills: [{ skill_id: 5, name: 'UX Research' }]
+        avatar_url: null,
+        study_program: 'Information Technology',
+        interests: [{ interest_id: 4, interest_name: 'Sustainability' }],
+        skills: [{ skill_id: 5, skill_name: 'UX Research' }]
     },
     {
-        id: 5,
+        user_id: 5,
         name: 'Pekka Peloton',
-        avatar_url: PekkaAvatar,
-        studyProgram: 'Business Information Technology',
-        interests: [{ interest_id: 2, name: 'Healthcare' }],
-        skills: [{ skill_id: 2, name: 'React' }]
+        avatar_url: null,
+        study_program: 'Business Information Technology',
+        interests: [{ interest_id: 2, interest_name: 'Healthcare' }],
+        skills: [{ skill_id: 2, skill_name: 'React' }]
     },
     {
-        id: 6,
+        user_id: 6,
         name: 'Kalle Koodari',
-        avatar_url: KalleAvatar,
-        studyProgram: 'Information Technology',
-        interests: [{ interest_id: 1, name: 'UX Design' }],
-        skills: [{ skill_id: 3, name: 'TypeScript' }]
+        avatar_url: null,
+        study_program: 'Information Technology',
+        interests: [{ interest_id: 1, interest_name: 'UX Design' }],
+        skills: [{ skill_id: 3, skill_name: 'TypeScript' }]
     },
     {
-        id: 7,
+        user_id: 7,
         name: 'Topi Topakka',
         avatar_url: null,
-        studyProgram: 'Business Administration',
-        interests: [{ interest_id: 1, name: 'UX Design' }],
-        skills: [{ skill_id: 3, name: 'TypeScript' }]
+        study_program: 'Business Administration',
+        interests: [{ interest_id: 1, interest_name: 'UX Design' }],
+        skills: [{ skill_id: 3, skill_name: 'TypeScript' }]
     },  
     {
-    id: 8,
+    user_id: 8,
     name: 'Joonas Nieminen',
     avatar_url: null,
-    studyProgram: 'Software Engineering',
+    study_program: 'Software Engineering',
     interests: [
-        { interest_id: 6, name: 'Open Source' },
-        { interest_id: 7, name: 'Cybersecurity' },
+        { interest_id: 6, interest_name: 'Open Source' },
+        { interest_id: 7, interest_name: 'Cybersecurity' },
     ],
     skills: [
-        { skill_id: 6, name: 'Python' },
-        { skill_id: 7, name: 'Docker' },
+        { skill_id: 6, skill_name: 'Python' },
+        { skill_id: 7, skill_name: 'Docker' },
     ]
     },
     {
-    id: 9,
+    user_id: 9,
     name: 'Elina Saarinen',
     avatar_url: null,
-    studyProgram: 'Digital Media',
+    study_program: 'Digital Media',
     interests: [
-        { interest_id: 8, name: 'Visual Storytelling' },
-        { interest_id: 1, name: 'UX Design' },
+        { interest_id: 8, interest_name: 'Visual Storytelling' },
+        { interest_id: 1, interest_name: 'UX Design' },
     ],
     skills: [
-        { skill_id: 8, name: 'Adobe XD' },
-        { skill_id: 1, name: 'Figma' },
+        { skill_id: 8, skill_name: 'Adobe XD' },
+        { skill_id: 1, skill_name: 'Figma' },
     ]
     },
     {
-    id: 10,
+    user_id: 10,
     name: 'Tuomas Lahti',
     avatar_url: null,
-    studyProgram: 'Data Science',
+    study_program: 'Data Science',
     interests: [
-        { interest_id: 3, name: 'AI & Machine Learning' },
-        { interest_id: 9, name: 'Statistics' },
+        { interest_id: 3, interest_name: 'AI & Machine Learning' },
+        { interest_id: 9, interest_name: 'Statistics' },
     ],
     skills: [
-        { skill_id: 4, name: 'Data Analysis' },
-        { skill_id: 9, name: 'SQL' },
+        { skill_id: 4, skill_name: 'Data Analysis' },
+        { skill_id: 9, skill_name: 'SQL' },
     ]
     },
     {
-    id: 11,
+    user_id: 11,
     name: 'Sara Jokinen',
     avatar_url: null,
-    studyProgram: 'Business Administration',
+    study_program: 'Business Administration',
     interests: [
-        { interest_id: 5, name: 'Entrepreneurship' },
-        { interest_id: 10, name: 'Marketing Strategy' },
+        { interest_id: 5, interest_name: 'Entrepreneurship' },
+        { interest_id: 10, interest_name: 'Marketing Strategy' },
     ],
     skills: [
-        { skill_id: 10, name: 'Market Research' },
-        { skill_id: 11, name: 'Presentation Design' },
+        { skill_id: 10, skill_name: 'Market Research' },
+        { skill_id: 11, skill_name: 'Presentation Design' },
     ]
     },
     {
-    id: 12,
+    user_id: 12,
     name: 'Oskari Lehtonen',
     avatar_url: null,
-    studyProgram: 'Game Development',
+    study_program: 'Game Development',
     interests: [
-        { interest_id: 11, name: 'Game Design' },
-        { interest_id: 12, name: 'Interactive Media' },
+        { interest_id: 11, interest_name: 'Game Design' },
+        { interest_id: 12, interest_name: 'Interactive Media' },
     ],
     skills: [
-        { skill_id: 12, name: 'Unity' },
-        { skill_id: 13, name: 'C#' },
+        { skill_id: 12, skill_name: 'Unity' },
+        { skill_id: 13, skill_name: 'C#' },
     ]
     }
 ]

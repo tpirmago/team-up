@@ -4,7 +4,7 @@ import { useState } from 'react'
 import Button from '../../components/Button'
 import SecondaryButton from '../../components/SecondaryButton'
 import SearchBar from '../../components/SearchBar'
-import Pagination from '../../components/Pagination/Pagination'
+import Pagination from '../../components/pagination/Pagination'
 import ProjectCard from '../../components/findProject/ProjectCard'
 
 interface FindProjectViewProps {

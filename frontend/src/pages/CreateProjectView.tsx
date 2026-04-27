@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import ProjectForm from "../components/CreateProject/ProjectForm"
+import ProjectForm from "../components/createProject/ProjectForm"
 import styles from "./CreateProjectView.module.css"
 import type { Skills } from "./ProfileView"
 import { RxCross1 } from "react-icons/rx";

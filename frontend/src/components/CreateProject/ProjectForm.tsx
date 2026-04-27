@@ -81,7 +81,7 @@ export default function ProjectForm({ onSubmit, allSkills, addedSkills, formInfo
                             <select name="location" value={formInfo.location} className={styles.selectLocation} onChange={handleForm} >
                                 <option value="on-site">On site</option>
                                 <option value="remote">Remote</option>
-                                <option value="hyprid">Hyprid</option>
+                                <option value="hyprid">Hybrid</option>
                                 <option value="optional">Optional</option>
                             </select>
                         </div>

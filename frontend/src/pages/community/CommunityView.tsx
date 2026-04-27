@@ -4,7 +4,7 @@ import Button from '../../components/Button'
 import SecondaryButton from '../../components/SecondaryButton'
 import SearchBar from '../../components/SearchBar'
 import styles from './CommunityView.module.css'
-import Pagination from '../../components/Pagination/Pagination'
+import Pagination from '../../components/pagination/Pagination'
 import UserCard from '../../components/community/UserCard'
 
 interface CommunityViewProps {

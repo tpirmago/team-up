@@ -1,8 +1,8 @@
 import styles from "./ProfileView.module.css"
 import { useEffect, useState } from "react";
-import ProfileHeader from "../components/MyProfile/ProfileHeader";
-import ProfileTags from "../components/MyProfile/ProfileTags";
-import DetailsSection from "../components/MyProfile/DetailsSection";
+import ProfileHeader from "../components/myProfile/ProfileHeader";
+import ProfileTags from "../components/myProfile/ProfileTags";
+import DetailsSection from "../components/myProfile/DetailsSection";
 import Button from "../components/Button";
 import { authFetch } from "../utils/authFetch";
 import { API_BASE } from "../config/config";

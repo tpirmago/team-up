@@ -1,6 +1,6 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
 import React from "react";
-import type { Notifications } from "../../pages/Notifications/NotificationsView";
+import type { Notifications } from "../../pages/notifications/NotificationsView";
 import type { Projects, User } from "../../pages/ProfileView";
 import { RxCross1 } from "react-icons/rx";
 import styles from "./NotificationDialog.module.css"
