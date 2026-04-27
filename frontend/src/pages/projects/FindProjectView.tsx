@@ -18,9 +18,6 @@ export default function FindProjectView({ onOpenProject, onBack, onCreateNew }: 
     const [page, setPage] = useState(0)
     const PAGE_SIZE = 9
 
-    if (loading) return <p>Loading projects…</p>
-    if (error) return <p>{error}</p>
-
     const pageProjects = projects.slice(
         page * PAGE_SIZE,
         (page + 1) * PAGE_SIZE
@@ -61,6 +58,11 @@ export default function FindProjectView({ onOpenProject, onBack, onCreateNew }: 
                     )}
                 </section>
             )}
+            {loading ? (
+                <p>Loading projects…</p>
+            ) : error ? (
+                <p>{error}</p>
+            ) : (
             <section className={styles.findProjectBackground}>
                 <header className={styles.headerRow}>
                     <h1 className={styles.pageTitle}>Find a new project</h1>
@@ -97,6 +99,7 @@ export default function FindProjectView({ onOpenProject, onBack, onCreateNew }: 
                     />
                 </div>
             </section>
+            )}
         </main>
     )
 }

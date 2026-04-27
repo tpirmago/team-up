@@ -46,6 +46,8 @@
 
 .projectsCard {
     grid-area: projects;
+    display: flex;
+    flex-direction: column;
 }
 
 .togglesRow {
@@ -121,7 +123,8 @@
 .viewAllWrap {
     display: flex;
     justify-content: flex-start;
-    margin-top: 10px;
+    margin-top: auto;
+    padding-top: 16px;
 }
 
 .compactBtn {

@@ -105,39 +105,43 @@ export default function ProjectCardView({ projectId, onBack, onFindNew, onDelete
         window.alert("Join request sent!")
     }
 
-    if (loading) return <main className={styles.page}><p>Loading project…</p></main>
-    if (error) return <main className={styles.page}><p className={styles.error}>{error}</p></main>
+    const renderTopBar = () => (
+        <section className={styles.topBar}>
+            <button type="button" onClick={onBack} className={styles.backBtn}>
+                <svg
+                    className={styles.backArrow}
+                    width="52"
+                    height="12"
+                    viewBox="0 0 52 12"
+                    aria-hidden="true"
+                >
+                    <line x1="1" y1="6" x2="52" y2="6" stroke="currentColor" strokeWidth="1.5" />
+                    <polyline
+                        points="7,1 1,6 7,11"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                    />
+                </svg>
+                <span>Back</span>
+            </button>
+            <Button
+                label="Find New Project"
+                className={styles.findBtn}
+                onClick={onFindNew}
+            />
+        </section>
+    )
+
+    if (loading) return <main className={styles.page}>{renderTopBar()}<p>Loading project…</p></main>
+    if (error) return <main className={styles.page}>{renderTopBar()}<p className={styles.error}>{error}</p></main>
     if (!project) return null
 
     return (
         <main className={styles.page}>
-            <section className={styles.topBar}>
-                <button type="button" onClick={onBack} className={styles.backBtn}>
-                    <svg
-                        className={styles.backArrow}
-                        width="52"
-                        height="12"
-                        viewBox="0 0 52 12"
-                        aria-hidden="true"
-                    >
-                        <line x1="1" y1="6" x2="52" y2="6" stroke="currentColor" strokeWidth="1.5" />
-                        <polyline
-                            points="7,1 1,6 7,11"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="1.5"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                        />
-                    </svg>
-                    <span>Back</span>
-                </button>
-                <Button
-                    label="Find New Project"
-                    className={styles.findBtn}
-                    onClick={onFindNew}
-                />
-            </section>
+            {renderTopBar()}
 
             <section className={styles.card}>
                 {editMode ? (

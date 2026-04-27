@@ -16,7 +16,8 @@ export default function SignUpView({ onLogIn }: SignUpViewProps) {
     const [fullName, setFullName] = useState('')
     const [error, setError] = useState('')
 
-    async function handleSignUp() {
+    const handleSignUp: React.FormEventHandler<HTMLFormElement> = async (e) => {
+        e.preventDefault()
         setError('')
         try {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password)
@@ -39,21 +40,21 @@ export default function SignUpView({ onLogIn }: SignUpViewProps) {
     }
 
     return (
-        <div className={styles.formCard}>
+        <form className={styles.formCard} onSubmit={handleSignUp}>
             <h2 className={styles.title}>Get started</h2>
 
             {error && <p className={styles.error}>{error}</p>}
 
-            <Input label="Full Name" type="text" value={fullName} onChange={e => setFullName(e.target.value)} />
-            <Input label="Username" type="text" value={username} onChange={e => setUsername(e.target.value)} />
-            <Input label="Email" type="email" value={email} onChange={e => setEmail(e.target.value)} />
-            <Input label="Password" type="password" value={password} onChange={e => setPassword(e.target.value)} />
+            <Input label="Full Name" type="text" value={fullName} onChange={e => setFullName(e.target.value)} required />
+            <Input label="Username" type="text" value={username} onChange={e => setUsername(e.target.value)} required />
+            <Input label="Email" type="email" value={email} onChange={e => setEmail(e.target.value)} required />
+            <Input label="Password" type="password" value={password} onChange={e => setPassword(e.target.value)} required minLength={6} />
 
-            <Button label="Sign up" onClick={handleSignUp} />
+            <Button label="Sign up" type="submit" />
 
             <p className={styles.loginText}>
                 Already have an account? <a href="#" className={styles.loginLink} onClick={onLogIn}>Log in here</a>
             </p>
-        </div>
+        </form>
     )
 }

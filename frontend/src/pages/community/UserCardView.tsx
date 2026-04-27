@@ -12,14 +12,15 @@ import type { User } from "../../types/community"
 interface UserCardViewProps {
     userId: number
     onBack: () => void
+    onFindNew?: () => void
 }
 
-export default function UserCardView({ userId, onBack }: UserCardViewProps) {
+export default function UserCardView({ userId, onBack, onFindNew }: UserCardViewProps) {
     const { users } = useUsers()
     const [user, setUser] = useState<User>()
     const [projectList, setProjectList] = useState<Projects[]>([])
     const [selectedProjectId, setSelectedProjectId] = useState<number | null>(null)
-    // const [favorited, setFavorited] = useState(false)
+    const [favorited, setFavorited] = useState(false)
 
     useEffect(() => {
         setUser(users.find(u => u.user_id === userId))
@@ -78,6 +79,13 @@ export default function UserCardView({ userId, onBack }: UserCardViewProps) {
                     </svg>
                     <span>Back</span>
                 </button>
+                {onFindNew && (
+                    <Button
+                        label="Find New Project"
+                        className={styles.findBtn}
+                        onClick={onFindNew}
+                    />
+                )}
             </section>
 
             <section className={styles.card}>
@@ -95,7 +103,7 @@ export default function UserCardView({ userId, onBack }: UserCardViewProps) {
                         <h1>{user.name}</h1>
                         <p>{user.study_program || ""}</p>
                     </div>
-                    {/* <button
+                    <button
                         type="button"
                         className={`${styles.favBtn} ${favorited ? styles.favBtnActive : ""}`}
                         onClick={() => setFavorited(v => !v)}
@@ -103,7 +111,7 @@ export default function UserCardView({ userId, onBack }: UserCardViewProps) {
                         aria-pressed={favorited}
                     >
                         {favorited ? <FaHeart /> : <FaRegHeart />}
-                    </button> */}
+                    </button>
                 </header>
 
                 <section className={styles.detailsSection}>
