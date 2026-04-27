@@ -7,7 +7,7 @@ const router = Router();
 // POST /auth/register — create user in DB after Firebase sign-up
 router.post("/register", authMiddleware, async (req: AuthRequest, res: Response) => {
   const firebaseId = req.uid;
-  const { username, email } = req.body;
+  const { username, email, fullName } = req.body;
 
   try {
     const existing = await db.query("SELECT * FROM users WHERE firebase_id = $1", [firebaseId]);
@@ -16,8 +16,8 @@ router.post("/register", authMiddleware, async (req: AuthRequest, res: Response)
     }
 
     const result = await db.query(
-      "INSERT INTO users (firebase_id, username, email) VALUES ($1, $2, $3) RETURNING *",
-      [firebaseId, username, email]
+      "INSERT INTO users (firebase_id, username, email, name) VALUES ($1, $2, $3, $4) RETURNING *",
+      [firebaseId, username, email, fullName]
     );
 
     res.status(201).json(result.rows[0]);

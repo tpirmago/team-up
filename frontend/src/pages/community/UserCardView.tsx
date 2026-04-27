@@ -1,9 +1,14 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { FaHeart, FaRegHeart } from "react-icons/fa"
 import styles from "./UserCardView.module.css"
 import defaultAvatar from "../../assets/avatars/defaultAvatar.png"
 import { mockCommunityUsers } from "../../data/mockCommunityUsers"
 import Button from "../../components/Button"
+import useUsers from "../../hooks/useUsers"
+import { API_BASE } from "../../config/config"
+import type { Projects } from "../ProfileView"
+import { authFetch } from "../../utils/authFetch"
+import type { User } from "../../types/community"
 
 interface UserCardViewProps {
     userId: number
@@ -11,9 +16,19 @@ interface UserCardViewProps {
 }
 
 export default function UserCardView({ userId, onBack }: UserCardViewProps) {
-    // TODO: replace with GET /users/:id once backend endpoint is ready
-    const user = mockCommunityUsers.find(u => u.id === userId)
-    const [favorited, setFavorited] = useState(false)
+    const { users } = useUsers()
+    const [user, setUser] = useState<User>()
+    const [projectList, setProjectList] = useState<Projects[]>([])
+    const [selectedProjectId, setSelectedProjectId] = useState<number | null>(null)
+    // const [favorited, setFavorited] = useState(false)
+
+    useEffect(() => {
+        setUser(users.find(u => u.user_id === userId))
+    }, [users])
+
+    useEffect(() => {
+        getData()
+    }, [])
 
     if (!user) {
         return (
@@ -23,9 +38,22 @@ export default function UserCardView({ userId, onBack }: UserCardViewProps) {
         )
     }
 
-    function handleRequestConnect() {
-        // TODO: POST /users/:id/connect once backend endpoint is ready
-        window.alert("Connect request sent!")
+    async function getData() {
+        const me = await authFetch(`${API_BASE}/auth/me`)
+
+        const projectResponse = await fetch(`${API_BASE}/users/${me.user_id}/projects`)
+        const projectData = await projectResponse.json()
+        setProjectList(projectData)
+    }
+
+    async function handleRequestJoin(userId: number, projectId: number) {
+        if (!projectId || !userId) return
+
+        await authFetch(`${API_BASE}/projects/${projectId}/invite`, {
+            method: "POST",
+            body: JSON.stringify({ invited_user_id: userId })
+        })
+        window.alert("Join request sent!")
     }
 
     return (
@@ -57,7 +85,7 @@ export default function UserCardView({ userId, onBack }: UserCardViewProps) {
                 <header className={styles.cardHeader}>
                     <div className={styles.avatar}>
                         <img
-                            src={user.avatar_url || defaultAvatar}
+                            src={`${API_BASE}${user?.avatar_url}`}
                             alt="User profile"
                             onError={(e) => {
                                 e.currentTarget.src = defaultAvatar
@@ -66,9 +94,9 @@ export default function UserCardView({ userId, onBack }: UserCardViewProps) {
                     </div>
                     <div className={styles.nameBlock}>
                         <h1>{user.name}</h1>
-                        <p>{user.studyProgram}</p>
+                        <p>{user.study_program || ""}</p>
                     </div>
-                    <button
+                    {/* <button
                         type="button"
                         className={`${styles.favBtn} ${favorited ? styles.favBtnActive : ""}`}
                         onClick={() => setFavorited(v => !v)}
@@ -76,15 +104,64 @@ export default function UserCardView({ userId, onBack }: UserCardViewProps) {
                         aria-pressed={favorited}
                     >
                         {favorited ? <FaHeart /> : <FaRegHeart />}
-                    </button>
+                    </button> */}
                 </header>
 
+                <section className={styles.detailsSection}>
+                    <h3 className={styles.subSectionTitle}>Skills</h3>
+                    <div className={styles.skillsList}>
+                        {user?.skills.length === 0
+                            ? <p className={styles.placeholder}>No skills specified</p>
+                            : user?.skills.map(s => (
+                                <span key={s.skill_id} className={styles.skillPill}>
+                                    [{s.skill_name}]
+                                </span>
+                            ))}
+                    </div>
+                </section>
+
+                <section className={styles.detailsSection}>
+                    <h3 className={styles.subSectionTitle}>Interests</h3>
+                    <div className={styles.skillsList}>
+                        {user?.interests.length === 0
+                            ? <p className={styles.placeholder}>No interests specified</p>
+                            : user?.interests.map(i => (
+                                <span key={i.interest_id} className={styles.skillPill}>
+                                    [{i.interest_name}]
+                                </span>
+                            ))}
+                    </div>
+                </section>
+
                 <div className={styles.footerActions}>
-                    <Button
+                    {
+                        projectList.length !== 0 && (
+                            <div>
+                                <h3 className={styles.requestTitle}>Invite user to join your project</h3>
+                                <div className={styles.selectDropdown} >
+                                    <select
+                                        className={styles.selectNew}
+                                        value={selectedProjectId ?? ""}
+                                        onChange={e => setSelectedProjectId(Number(e.target.value))}>
+                                        <option value="">Select a project</option>
+                                        {
+                                            projectList.map(p => <option key={p.project_id} value={p.project_id} >{p.title}</option>)
+                                        }
+                                    </select>
+                                    <Button
+                                        label="Send request"
+                                        className={styles.joinBtn}
+                                        onClick={() => handleRequestJoin(user!.user_id, selectedProjectId!)}
+                                    />
+                                </div>
+                            </div>
+                        )
+                    }
+                    {/* <Button
                         label="Request to connect"
                         className={styles.connectBtn}
-                        onClick={handleRequestConnect}
-                    />
+                        onClick={handleRequestJoin}
+                    /> */}
                 </div>
             </section>
         </main>
