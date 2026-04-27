@@ -23,7 +23,7 @@ export default function ProfileHeader({ editMode, setEditMode, saveProfile, canc
                 <h1 className={styles.profileTitle} >My profile</h1>
                 <div className={styles.buttonBox} >
                     <button onClick={() => editMode ? cancelEdit() : setEditMode(true)} className={styles.editButton} >
-                        {editMode ? "Cancel" : <> <GrEdit size={20} color="black" /> Edit</>}
+                        {editMode ? "Cancel" : <> <GrEdit /> Edit</>}
                     </button>
                     {
                         editMode ? <Button label="Save" onClick={saveProfile} className={styles.blackButton} /> : null

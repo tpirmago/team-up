@@ -26,20 +26,27 @@ export default function UserCard({ user, onViewProfile }: UserCardProps) {
         }
       }}
     >
-      <div className={styles.userAvatar}>
-        <img 
-          src={user.avatar_url || defaultAvatar}
-          alt='User profile'
-          onError={(e) => {
-            e.currentTarget.src = defaultAvatar
-          }}
-        />
-      </div>
-      <div className={styles.userCardText}>
-        <div className={styles.userInfo}>
-          <h3>{user.name}</h3>
-          <p>{user.study_program}</p>
+      <div className={styles.userHeader}>
+        <div className={styles.userAvatar}>
+          <img
+            src={user.avatar_url || defaultAvatar}
+            alt='User profile'
+            onError={(e) => {
+              e.currentTarget.src = defaultAvatar
+            }}
+          />
         </div>
+        <h3>{user.username || user.name}</h3>
+      </div>
+
+      <div className={styles.userCardText}>
+        {user.study_program && (
+          <p>
+            <strong>Study Program:</strong>{' '}
+            <br />
+            {user.study_program}
+          </p>
+        )}
 
         <div className={styles.userTags}>
           <p>

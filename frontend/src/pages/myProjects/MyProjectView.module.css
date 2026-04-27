@@ -1,20 +1,57 @@
 .myProjectPage {
-    display: flex;
     flex: 1;
-    margin: 2rem;
     width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 30px 40px;
+}
+
+.topBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.backBtn {
+    background: transparent;
+    border: none;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    font-weight: 600;
+    color: #1a1a1a;
+    cursor: pointer;
+    padding: 6px 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.backArrow {
+    display: block;
+    flex-shrink: 0;
+}
+
+.backBtn:hover {
+    opacity: 0.7;
+}
+
+.findBtn {
+    padding: 8px 20px;
+    border-radius: 20px;
+    align-self: flex-end;
 }
 
 .projectSection {
-    flex: 1;
+    width: 100%;
 }
 
 .projectBackground {
-    padding: 3rem;
-    margin: 1rem 3rem;
     background-color: white;
     border-radius: 8px;
     box-shadow: 0px 0px 8px #817e7e;
+    padding: 28px 32px;
 }
 
 .projectGrid {
@@ -26,18 +63,39 @@
 .noMessage {
     display: flex;
     gap: 1rem;
-    font-size: 1.2rem;
+    font-size: 14px;
+    color: #333;
     align-items: center;
+}
+
+@media (max-width: 1199px) {
+    .myProjectPage {
+        padding: 24px 32px;
+    }
 }
 
 @media (max-width: 767px) {
     .myProjectPage {
-        margin: 0;
+        padding: 20px 20px;
     }
 
     .projectBackground {
-        padding: 1.5rem;
-        margin: 1.5rem;
+        padding: 20px;
+    }
+
+    .topBar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .backBtn {
+        align-self: flex-start;
+        padding: 12px 0;
+    }
+
+    .findBtn {
+        align-self: stretch;
     }
 
     .projectGrid {
@@ -47,11 +105,13 @@
 }
 
 @media (min-width: 768px) and (max-width: 1024px) {
-    .projectBackground {
-        margin: 1rem 2rem
-    }
-
     .projectGrid {
         grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .myProjectPage {
+        padding: 16px;
     }
 }

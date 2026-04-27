@@ -27,53 +27,57 @@
 }
 .projectCard button {
     margin-top: auto;
+    align-self: flex-end;
     font-size: 0.9rem;
 }
 
 .projectHeaderRow {
-    font-size: 1.1rem;
+    font-size: 20px;
+}
+.projectHeader {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0;
 }
 .projectTopic {
-    font-size: 1.05rem;
+    font-size: 14px;
+    font-weight: 700;
+    color: #1a1a1a;
     margin-top: 1.5rem;
 }
 .projectDescription {
-    margin-top: 1rem;   
-    line-clamp: 4;    
+    margin-top: 1rem;
+    font-size: 14px;
+    color: #333;
+    line-clamp: 4;
     display: -webkit-box;
     -webkit-line-clamp: 4; /* number of visible lines */
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
 .infoColumn {
-    text-align: center;
     gap: 8px;
     margin-bottom: auto;
 }
 .projectMeta {
     display: flex;
     flex-direction: row;
-    justify-content: center;
     flex-wrap: wrap;
     gap: 0.5rem;
     margin-top: 1rem;
     margin-bottom: 1rem;
-    text-align: center;
-    font-size: 0.9rem;
+    font-size: 14px;
+    color: #333;
 }
 
 @media (max-width: 767px) {
-    .infoColumn {
-        font-size: 0.9rem;
-    }
     .viewProjectCard {
         margin-top: 1rem;
     }
     .projectMeta {
         margin-top: 1rem;
-        font-size: 0.8rem;
     }
-
 }
 
 @media (min-width: 768px) and (max-width: 1024px) {
@@ -83,22 +87,12 @@
 }
 
 @media (min-width: 1025px) and (max-width: 1525px) {
-    .projectCard button {
-        font-size: 0.85rem;
-    }
-    .projectHeaderRow {
-        font-size: 1rem;
-    }
     .projectTopic {
-        font-size: 0.95rem;
         margin-top: 0.8rem;
     }
     .projectDescription {
         margin-top: 0.8rem;
         line-clamp: 3;
-        -webkit-line-clamp: 3; 
-    }
-    .projectMeta {
-        font-size: 0.85rem;
+        -webkit-line-clamp: 3;
     }
 }

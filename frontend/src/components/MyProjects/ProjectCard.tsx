@@ -1,5 +1,4 @@
 import styles from "./ProjectCard.module.css"
-import ConfirmDialog from "./ConfirmDialog";
 import Button from "../Button";
 
 
@@ -8,13 +7,10 @@ interface ProjectCardProps {
     description: string
     topic: string
     id: number
-    onClick: (id: number) => void
     onOpen?: (id: number) => void
-    ownerId: number
-    userId: number | undefined
 }
 
-export default function ProjectCard({ label, description, topic, id, onClick, onOpen, ownerId, userId }: ProjectCardProps) {
+export default function ProjectCard({ label, description, topic, id, onOpen }: ProjectCardProps) {
     return (
         <div
             className={styles.projectBox}
@@ -38,10 +34,6 @@ export default function ProjectCard({ label, description, topic, id, onClick, on
                     className={styles.secondaryButton}
                     onClick={onOpen ? () => onOpen(id) : undefined}
                 />
-                {
-                    ownerId === userId && (
-                        <ConfirmDialog onDelete={onClick} id={id} />
-                    )}
             </div>
         </div>
     )

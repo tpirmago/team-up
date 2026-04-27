@@ -3,6 +3,7 @@ import ProjectForm from "../components/CreateProject/ProjectForm"
 import styles from "./CreateProjectView.module.css"
 import type { Skills } from "./ProfileView"
 import { RxCross1 } from "react-icons/rx";
+import Button from "../components/Button"
 import SecundaryButton from "../components/SecondaryButton"
 import { authFetch } from "../utils/authFetch";
 import type { SidebarItem } from "../components/Sidebar";
@@ -32,9 +33,11 @@ const defaultForm: Form = {
 
 interface CreateProjectViewProps {
     onNavigate: (item: SidebarItem) => void
+    onBack?: () => void
+    onFindNew?: () => void
 }
 
-export default function CreateProjectView({onNavigate}: CreateProjectViewProps) {
+export default function CreateProjectView({onNavigate, onBack, onFindNew}: CreateProjectViewProps) {
 
     const [projectAdded, setProjectAdded] = useState(false)
 
@@ -106,6 +109,39 @@ export default function CreateProjectView({onNavigate}: CreateProjectViewProps) 
 
     return (
         <main className={styles.createProjectPage} >
+            {(onBack || onFindNew) && (
+                <section className={styles.topBar}>
+                    {onBack ? (
+                        <button type="button" onClick={onBack} className={styles.backBtn}>
+                            <svg
+                                className={styles.backArrow}
+                                width="52"
+                                height="12"
+                                viewBox="0 0 52 12"
+                                aria-hidden="true"
+                            >
+                                <line x1="1" y1="6" x2="52" y2="6" stroke="currentColor" strokeWidth="1.5" />
+                                <polyline
+                                    points="7,1 1,6 7,11"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth="1.5"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                />
+                            </svg>
+                            <span>Back</span>
+                        </button>
+                    ) : <span />}
+                    {onFindNew && (
+                        <Button
+                            label="Find New Project"
+                            className={styles.findBtn}
+                            onClick={onFindNew}
+                        />
+                    )}
+                </section>
+            )}
             <section className={styles.formSection} >
                 {
                     projectAdded

@@ -1,23 +1,60 @@
-.content {
-    margin-top: 5rem; 
-    margin-bottom: 5rem;
-    margin-left: auto;
-    margin-right: auto;
-    padding-inline: 1.5rem;
-
+.findProjectPage {
+    flex: 1;
     width: 100%;
-    max-width: 1280px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 30px 40px;
+}
 
-    padding: 4.5rem;
-    background-color: #fff;
-    border-radius: 16px;
+.topBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 20px;
+}
 
-    box-shadow: 
-    0 4px 10px rgba(0, 0, 0, 0.08),
-    0 1px 3px rgba(0, 0, 0, 0.06);
+.backBtn {
+    background: transparent;
+    border: none;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    font-weight: 600;
+    color: #1a1a1a;
+    cursor: pointer;
+    padding: 6px 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
 
+.backArrow {
+    display: block;
+    flex-shrink: 0;
+}
+
+.backBtn:hover {
+    opacity: 0.7;
+}
+
+.createBtn {
+    padding: 8px 20px;
+    border-radius: 20px;
+    align-self: flex-end;
+}
+
+.findProjectBackground {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0px 0px 8px #817e7e;
+    padding: 28px 32px;
     display: flex;
     flex-direction: column;
+}
+
+.pageTitle {
+    font-size: 26px;
+    margin: 0;
 }
 
 .projectsActions {
@@ -37,75 +74,87 @@
     flex-direction: row;
     align-items: center;
     gap: 1.5rem;
-    margin-bottom: 2rem;    
+    margin-bottom: 3rem;
 }
+
 .projectsGrid {
-    margin-top: 1.8rem;
     margin-bottom: 1.5rem;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 1.5rem;
     flex: 1;
     align-items: stretch;
-    overflow-y: auto;
     overflow: visible;
 }
 
+@media (max-width: 1199px) {
+    .findProjectPage {
+        padding: 24px 32px;
+    }
+}
+
 @media (max-width: 767px) {
-    .content {
-        margin-top: 2rem;
-        margin-bottom: 2rem;
-        padding: 1.5rem;
-        background-color: #f0f0f000;
-        box-shadow: none;
+    .findProjectPage {
+        padding: 20px 20px;
     }
-    .projectsGrid {
-        margin-top: 0rem;
-        padding: 0rem;
+
+    .findProjectBackground {
+        padding: 20px;
     }
+
+    .topBar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .backBtn {
+        align-self: flex-start;
+        padding: 12px 0;
+    }
+
+    .createBtn {
+        align-self: stretch;
+    }
+
     .headerRow {
         justify-content: center;
         text-align: center;
-        font-size: 0.85rem;
     }
+
     .pagination {
         display: flex;
         justify-content: center;
     }
 }
-@media (min-width: 768px) and (max-width: 1024px) {   
-    .content {
-        margin-left: 1rem;
-        margin-right: 1rem;
-        padding: 1rem;
-        margin-bottom: 2rem;
-        margin-top: 2rem;
-    }
+
+@media (min-width: 768px) and (max-width: 1024px) {
     .headerRow {
         justify-content: center;
         text-align: center;
     }
+
     .pagination {
         display: flex;
         justify-content: center;
     }
-    .projectsGrid{
-        padding: 0rem;
+
+    .projectsGrid {
         align-items: stretch;
         grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
         margin-bottom: 0.5rem;
         gap: 0.8rem;
     }
 }
+
 @media (min-width: 1025px) and (max-width: 1525px) {
-    .content {
-        max-width: 1020px;
-        padding: 2.5rem;
-    }
     .projectsGrid {
         gap: 1rem;
     }
-    .headerRow {
-        font-size: 1rem;
+}
+
+@media (max-width: 480px) {
+    .findProjectPage {
+        padding: 16px;
     }
 }

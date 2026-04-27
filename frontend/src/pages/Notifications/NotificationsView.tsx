@@ -4,6 +4,7 @@ import { type Projects, type User } from "../ProfileView"
 import NotificationsHeader from "../../components/notifications/NotificationsHeader"
 import NotificationRow from "../../components/notifications/NotificationRow"
 import NotificationDialog from "../../components/notifications/NotificationDialog"
+import Button from "../../components/Button"
 import { authFetch } from "../../utils/authFetch"
 import { FiInbox } from "react-icons/fi"
 import { API_BASE } from "../../config/config"
@@ -21,9 +22,11 @@ export interface Notifications {
 
 interface NotificationsViewProps {
     onOpenProject?: (id: number) => void
+    onBack?: () => void
+    onFindNew?: () => void
 }
 
-export default function NotificationsView({ onOpenProject }: NotificationsViewProps) {
+export default function NotificationsView({ onOpenProject, onBack, onFindNew }: NotificationsViewProps) {
 
     const [listStatus, setListStatus] = useState("all")
     const [notificationList, setNotificationList] = useState<Notifications[]>([])
@@ -113,6 +116,39 @@ export default function NotificationsView({ onOpenProject }: NotificationsViewPr
 
     return (
         <main className={styles.notificationsPage} >
+            {(onBack || onFindNew) && (
+                <section className={styles.topBar}>
+                    {onBack ? (
+                        <button type="button" onClick={onBack} className={styles.backBtn}>
+                            <svg
+                                className={styles.backArrow}
+                                width="52"
+                                height="12"
+                                viewBox="0 0 52 12"
+                                aria-hidden="true"
+                            >
+                                <line x1="1" y1="6" x2="52" y2="6" stroke="currentColor" strokeWidth="1.5" />
+                                <polyline
+                                    points="7,1 1,6 7,11"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth="1.5"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                />
+                            </svg>
+                            <span>Back</span>
+                        </button>
+                    ) : <span />}
+                    {onFindNew && (
+                        <Button
+                            label="Find New Project"
+                            className={styles.findBtn}
+                            onClick={onFindNew}
+                        />
+                    )}
+                </section>
+            )}
             <section className={styles.notificationsSection} >
                 <section className={styles.notificationsBackground} >
                     <NotificationsHeader

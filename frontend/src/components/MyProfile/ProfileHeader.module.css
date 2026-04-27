@@ -6,6 +6,17 @@
     margin-bottom: 30px;
 }
 
+.profileTitle {
+    font-size: 26px;
+    margin: 0;
+}
+
+.userName h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0;
+}
+
 .buttonBox {
     display: flex;
     flex-direction: row;
@@ -17,12 +28,12 @@
     background: transparent;
     border: none;
     cursor: pointer;
-    font-size: 18px;
+    font-size: 14px;
     font-family: 'JetBrains Mono', monospace;
-    font-weight: bold;
+    font-weight: 600;
     margin: 0 20px;
     gap: 0.5rem;
-    color: black;
+    color: #1a1a1a;
 }
 
 .blackButton {
@@ -78,7 +89,7 @@
 
     .profileTitle {
         margin-bottom: 1.5rem;
-        font-size: 2rem;
+        font-size: 26px;
     }
 
     .profileInfo {
