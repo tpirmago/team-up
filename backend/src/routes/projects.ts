@@ -157,6 +157,7 @@ router.post("/:project_id/apply", authMiddleware, async (req: AuthRequest, res) 
 router.post("/:project_id/invite", authMiddleware, async (req: AuthRequest, res) => {
     const projectId = req.params.project_id
     const firebaseUid = req.uid
+    const invitedUserId = req.body.invited_user_id
 
     try {
 
@@ -168,28 +169,19 @@ router.post("/:project_id/invite", authMiddleware, async (req: AuthRequest, res)
             [firebaseUid]
         )
 
-        // 2️⃣ Find user_id of user who is being invited (will receive the request)
-        const userResult = await db.query(
-            `SELECT owner_user_id
-            FROM projects
-            WHERE project_id = $1`,
-            [projectId]
-        )
-
-        if (userResult.rowCount === 0 || projectOwnerResult.rowCount === 0) {
+        if (projectOwnerResult.rowCount === 0) {
             return res.status(404).json({ error: "User not found" })
         }
 
-        const userID = userResult.rows[0].user_id
-        const projectOwnerId = projectOwnerResult.rows[0].owner_user_id
+        const projectOwnerId = projectOwnerResult.rows[0].user_id
 
-        // 3️⃣ Insert a new notification to database
+        // 2️⃣ Insert a new notification to database
         await db.query(
             `
             INSERT INTO notifications (type, project_id, sender_user_id, receiver_user_id)
             VALUES ('invite', $1, $2, $3)
             ON CONFLICT DO NOTHING
-            `, [projectId, projectOwnerId, userID]
+            `, [projectId, projectOwnerId, invitedUserId]
         )
         res.json({ message: "Invitation sent" })
     } catch (error) {

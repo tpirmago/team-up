@@ -13,6 +13,7 @@ export default function SignUpView({ onLogIn }: SignUpViewProps) {
     const [username, setUsername] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [fullName, setFullName] = useState('')
     const [error, setError] = useState('')
 
     async function handleSignUp() {
@@ -27,8 +28,10 @@ export default function SignUpView({ onLogIn }: SignUpViewProps) {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`,
                 },
-                body: JSON.stringify({ username, email }),
+                body: JSON.stringify({ username, email, fullName }),
             })
+
+            onLogIn()
         } catch (err: unknown) {
             const message = err instanceof Error ? err.message : 'Sign up failed'
             setError(message)
@@ -41,6 +44,7 @@ export default function SignUpView({ onLogIn }: SignUpViewProps) {
 
             {error && <p className={styles.error}>{error}</p>}
 
+            <Input label="Full Name" type="text" value={fullName} onChange={e => setFullName(e.target.value)} />
             <Input label="Username" type="text" value={username} onChange={e => setUsername(e.target.value)} />
             <Input label="Email" type="email" value={email} onChange={e => setEmail(e.target.value)} />
             <Input label="Password" type="password" value={password} onChange={e => setPassword(e.target.value)} />

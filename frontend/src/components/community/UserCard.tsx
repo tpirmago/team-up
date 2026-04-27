@@ -2,6 +2,7 @@ import type { User } from '../../types/community'
 import styles from './UserCard.module.css'
 import defaultAvatar from '../../assets/avatars/defaultAvatar.png'
 import SecondaryButton from '../SecondaryButton'
+import { API_BASE } from '../../config/config'
 
 type UserCardProps = {
   user: User
@@ -29,7 +30,7 @@ export default function UserCard({ user, onViewProfile }: UserCardProps) {
       <div className={styles.userHeader}>
         <div className={styles.userAvatar}>
           <img
-            src={user.avatar_url || defaultAvatar}
+            src={`${API_BASE}${user?.avatar_url}` || defaultAvatar}
             alt='User profile'
             onError={(e) => {
               e.currentTarget.src = defaultAvatar
