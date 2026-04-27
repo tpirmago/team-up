@@ -12,8 +12,18 @@ export default function NotificationsHeader({status, setStatus}: NotificationsHe
         <section className={styles.headerRow} >
             <h1 className={styles.notificationTitle} >Notifications</h1>
             <div className={styles.headerButtons} >
-                <button onClick={() => setStatus("all")} className={status === "all" ? styles.active : styles.switchButton} >All</button>
-                <button onClick={() => setStatus("unread")} className={status === "unread" ? styles.active : styles.switchButton} >Unread</button>
+                <button
+                    onClick={() => setStatus("all")}
+                    className={`${styles.switchButton} ${status === "all" ? styles.activeAll : ""}`}
+                >
+                    All
+                </button>
+                <button
+                    onClick={() => setStatus("unread")}
+                    className={`${styles.switchButton} ${status === "unread" ? styles.activeUnread : ""}`}
+                >
+                    Unread
+                </button>
             </div>
         </section>
     )

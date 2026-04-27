@@ -6,14 +6,14 @@
 }
 
 .headerTitle {
-    font-size: 2rem;
-    text-align: center;
+    font-size: 26px;
+    margin: 0;
 }
 
-.buttonBox {
+.submitRow {
     display: flex;
-    flex-direction: row;
-    align-items: center;
+    justify-content: flex-end;
+    margin-top: 2rem;
 }
 
 .cancelButton {
@@ -21,6 +21,8 @@
     border: none;
     font-family: 'JetBrains Mono', monospace;
     font-size: 14px;
+    font-weight: 600;
+    color: #1a1a1a;
     cursor: pointer;
     padding: 0 8px;
 }
@@ -32,13 +34,15 @@
 .formGrid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 5rem;
+    gap: 4rem;
     margin-bottom: 2rem;
 }
 
 .formHeader {
-    margin: 1rem 0;
-    font-size: 1.17em;
+    margin: 0 0 0.75rem 0;
+    font-size: 16px;
+    font-weight: 700;
+    color: #1a1a1a;
 }
 
 .leftColumn,
@@ -58,7 +62,7 @@
     width: 100%;
     padding: 10px 18px;
     font-family: inherit;
-    font-size: 14px;
+    font-size: 13px;
     border: 1px solid #ccc;
     border-radius: 50px;
     background: rgba(255, 255, 255, 0.6);
@@ -78,7 +82,7 @@
     width: 100%;
     resize: none;
     font-family: inherit;
-    font-size: 14px;
+    font-size: 13px;
     padding: 10px 18px;
     border: 1px solid #ccc;
     border-radius: 25px;
@@ -90,13 +94,15 @@
 @media (max-width: 767px) {
     .headerRow {
         flex-direction: column;
+        align-items: flex-start;
+        gap: 1.5rem;
         margin-bottom: 2rem;
     }
 
     .headerTitle {
-        margin-bottom: 2rem;
+        margin-bottom: 0;
     }
-    
+
     .formGrid {
         display: flex;
         flex-direction: column;

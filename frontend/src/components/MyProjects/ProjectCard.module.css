@@ -2,16 +2,29 @@
     display: flex;
     flex-direction: column;
     padding: 20px;
-    border-radius: 15px;
-    border: 1px solid rgb(158, 158, 158);
+    border-radius: 16px;
+    border: 1px solid #e6e6e6;
+    background-color: #ffffff;
     gap: 10px;
+    box-shadow:
+        0 2px 6px rgba(0, 0, 0, 0.06),
+        0 1px 2px rgba(0, 0, 0, 0.04);
+    transition: box-shadow 0.15s, transform 0.15s;
 }
 
-.projectBox:hover {
-    box-shadow: 
-    0 6px 18px rgba(0, 0, 0, 0.18),
-    0 4px 6px rgba(0, 0, 0, 0.17);
-    transform: translateY(-2px);
+@media (hover: hover) {
+    .projectBox:hover {
+        box-shadow:
+            0 6px 18px rgba(0, 0, 0, 0.18),
+            0 4px 6px rgba(0, 0, 0, 0.17);
+        transform: translateY(-2px);
+        cursor: pointer;
+    }
+}
+
+.projectBox:focus-visible {
+    outline: 2px solid #3f3f3f;
+    outline-offset: 4px;
 }
 
 .textColumn {
@@ -20,17 +33,29 @@
 
 .projectHeader {
     margin-bottom: 1.5rem;
+    font-size: 20px;
+    font-weight: 700;
+    color: #1a1a1a;
 }
 
-.projectTopic, .projectDescription {
+.projectTopic {
     margin-bottom: 1rem;
+    font-size: 14px;
+    font-weight: 700;
+    color: #1a1a1a;
+}
+
+.projectDescription {
+    margin-bottom: 1rem;
+    font-size: 14px;
+    color: #333;
 }
 
 .buttonColumn {
     flex: 1;
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: flex-end;
 }
 
 .secondaryButton {

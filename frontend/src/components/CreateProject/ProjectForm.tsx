@@ -49,19 +49,11 @@ export default function ProjectForm({ onSubmit, allSkills, addedSkills, formInfo
         <>
             <header className={styles.headerRow} >
                 <h1 className={styles.headerTitle} >{title}</h1>
-                <div className={styles.buttonBox} >
-                    {onCancel && (
-                        <button type="button" onClick={onCancel} className={styles.cancelButton}>
-                            Cancel
-                        </button>
-                    )}
-                    <Button
-                        label={submitLabel}
-                        className={styles.blackButton}
-                        type="submit"
-                        form="project-form"
-                    />
-                </div>
+                {onCancel && (
+                    <button type="button" onClick={onCancel} className={styles.cancelButton}>
+                        Cancel
+                    </button>
+                )}
             </header>
             <form id="project-form" onSubmit={(e) => { e.preventDefault(); onSubmit(formInfo) }} >
                 <div className={styles.formGrid}>
@@ -114,6 +106,13 @@ export default function ProjectForm({ onSubmit, allSkills, addedSkills, formInfo
                     addedSkills={addedSkills}
                     deleteSkill={deleteSkill}
                 />
+                <div className={styles.submitRow}>
+                    <Button
+                        label={submitLabel}
+                        className={styles.blackButton}
+                        type="submit"
+                    />
+                </div>
             </form >
         </>
     )

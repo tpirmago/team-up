@@ -120,17 +120,53 @@ export default function DashboardView({ username, activeNav, onNavigate }: Dashb
 
         switch (activeNav) {
             case "my-projects":
-                return <MyProjectView onOpenProject={openProject} onNavigate={onNavigate} />
+                return (
+                    <MyProjectView
+                        onOpenProject={openProject}
+                        onNavigate={onNavigate}
+                        onBack={() => onNavigate("dashboard")}
+                        onFindNew={() => onNavigate("find-project")}
+                    />
+                )
             case "create-project":
-                return <CreateProjectView onNavigate={onNavigate} />
+                return (
+                    <CreateProjectView
+                        onNavigate={onNavigate}
+                        onBack={() => onNavigate("dashboard")}
+                        onFindNew={() => onNavigate("find-project")}
+                    />
+                )
             case "notifications":
-                return <NotificationsView onOpenProject={openProject} />
+                return (
+                    <NotificationsView
+                        onOpenProject={openProject}
+                        onBack={() => onNavigate("dashboard")}
+                        onFindNew={() => onNavigate("find-project")}
+                    />
+                )
             case "find-project":
-                return <FindProjectView onOpenProject={openProject} />
+                return (
+                    <FindProjectView
+                        onOpenProject={openProject}
+                        onBack={() => onNavigate("dashboard")}
+                        onCreateNew={() => onNavigate("create-project")}
+                    />
+                )
             case "meet-teammates":
-                return <CommunityView onOpenUser={openUser} />
+                return (
+                    <CommunityView
+                        onOpenUser={openUser}
+                        onBack={() => onNavigate("dashboard")}
+                        onFindNew={() => onNavigate("find-project")}
+                    />
+                )
             case "profile":
-                return <ProfileView />
+                return (
+                    <ProfileView
+                        onBack={() => onNavigate("dashboard")}
+                        onFindNew={() => onNavigate("find-project")}
+                    />
+                )
             default:
                 return (
                     <main className={styles.dashboard}>
@@ -210,19 +246,26 @@ export default function DashboardView({ username, activeNav, onNavigate }: Dashb
                             <div className={styles.rightColumn}>
                                 <div className={styles.infoCard}>
                                     <h3 className={styles.cardTitle}>Notifications</h3>
-                                    <div className={styles.infoRow}>
+                                    <div
+                                        className={styles.infoRow}
+                                        role="button"
+                                        tabIndex={0}
+                                        onClick={() => onNavigate("notifications")}
+                                        onKeyDown={(e) => {
+                                            if (e.key === "Enter" || e.key === " ") {
+                                                e.preventDefault()
+                                                onNavigate("notifications")
+                                            }
+                                        }}
+                                    >
                                         <img src={bellIcon} alt="" className={styles.rowIcon} />
                                         <span className={styles.rowText}>
                                             You have {newNotifications} new notification
                                             {newNotifications === 1 ? "" : "s"}
                                         </span>
-                                        <button
-                                            type="button"
-                                            className={styles.arrowBtn}
-                                            onClick={() => onNavigate("notifications")}
-                                        >
-                                            <img src={arrowIcon} alt="Open" />
-                                        </button>
+                                        <span className={styles.arrowBtn} aria-hidden="true">
+                                            <img src={arrowIcon} alt="" />
+                                        </span>
                                     </div>
                                     {/* <div className={styles.viewAllWrap}>
                                         <Button label="View All" className={`${styles.compactBtn} ${styles.secondaryBtn}`} />
@@ -231,23 +274,45 @@ export default function DashboardView({ username, activeNav, onNavigate }: Dashb
 
                                 <div className={styles.infoCard}>
                                     <h3 className={styles.cardTitle}>Matchmaking</h3>
-                                    <div className={styles.infoRow}>
+                                    <div
+                                        className={styles.infoRow}
+                                        role="button"
+                                        tabIndex={0}
+                                        onClick={() => window.alert("Coming soon...")}
+                                        onKeyDown={(e) => {
+                                            if (e.key === "Enter" || e.key === " ") {
+                                                e.preventDefault()
+                                                window.alert("Coming soon...")
+                                            }
+                                        }}
+                                    >
                                         <img src={projectsIcon} alt="" className={styles.rowIcon} />
                                         <span className={styles.rowText}>
                                             Recommended Projects: {recommendedProjects}
                                         </span>
-                                        <button type="button" className={styles.arrowBtn}>
-                                            <img src={arrowIcon} alt="Open" />
-                                        </button>
+                                        <span className={styles.arrowBtn} aria-hidden="true">
+                                            <img src={arrowIcon} alt="" />
+                                        </span>
                                     </div>
-                                    <div className={styles.infoRow}>
+                                    <div
+                                        className={styles.infoRow}
+                                        role="button"
+                                        tabIndex={0}
+                                        onClick={() => window.alert("Coming soon...")}
+                                        onKeyDown={(e) => {
+                                            if (e.key === "Enter" || e.key === " ") {
+                                                e.preventDefault()
+                                                window.alert("Coming soon...")
+                                            }
+                                        }}
+                                    >
                                         <img src={teammatesIcon} alt="" className={styles.rowIcon} />
                                         <span className={styles.rowText}>
                                             Recommended Teammates: {recommendedTeammates}
                                         </span>
-                                        <button type="button" className={styles.arrowBtn}>
-                                            <img src={arrowIcon} alt="Open" />
-                                        </button>
+                                        <span className={styles.arrowBtn} aria-hidden="true">
+                                            <img src={arrowIcon} alt="" />
+                                        </span>
                                     </div>
                                 </div>
                             </div>
