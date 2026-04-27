@@ -3,11 +3,8 @@
     display: flex;
     flex-direction: column;
     padding-top: 55px;
-    background-image: url('./assets/Background.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    /* background-attachment: fixed; */
+    background: linear-gradient(180deg, #FFFFFF 0%, #FEEFA7 100%);
+    background-attachment: fixed;
 }
 
 .content {
