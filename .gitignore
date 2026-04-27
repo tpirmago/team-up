@@ -12,11 +12,18 @@ lerna-debug.log*
 .env.local
 .env.*.local
 
+# Dependencies and build output
 node_modules
 dist
 dist-ssr
 .vite
 *.local
+
+# TypeScript incremental build cache (created by `tsc -b` in frontend)
+*.tsbuildinfo
+
+# Test coverage reports (Vitest)
+coverage
 
 # Editor directories and files
 .vscode/*
@@ -29,7 +36,10 @@ dist-ssr
 *.sln
 *.sw?
 
+# Secrets — never commit these
+# Firebase Admin service account key, used by the backend
 serviceAccountKey.json
 
+# Generic certificates and private keys
 *.pem
 *.key
