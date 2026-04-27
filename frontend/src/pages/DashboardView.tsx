@@ -5,14 +5,16 @@ import Sidebar from "../components/Sidebar"
 import type { SidebarItem } from "../components/Sidebar"
 import MyProjectView from "./myProjects/MyProjectView"
 import CreateProjectView from "./CreateProjectView"
-import NotificationsView from "./Notifications/NotificationsView"
+import NotificationsView from "./notifications/NotificationsView"
 import CommunityView from "./community/CommunityView"
 import UserCardView from "./community/UserCardView"
 import FindProjectView from "./projects/FindProjectView"
 import ProjectCardView from "./projects/ProjectCardView"
 import ProfileView from "./ProfileView"
-import { testUser } from "../testing/testData"
-import useProjects from "../hooks/useProjects"
+// import { testUser } from "../testing/testData"
+import { authFetch } from "../utils/authFetch"
+import { API_BASE } from "../config/config"
+import type { Projects } from "./ProfileView"
 import { formatDuration } from "../utils/formatDuration"
 import arrowIcon from "../assets/icons/arrow-icon.png"
 import bellIcon from "../assets/icons/bell-icon.png"
@@ -56,8 +58,8 @@ interface DashboardViewProps {
 }
 
 export default function DashboardView({ username, activeNav, onNavigate }: DashboardViewProps) {
-    const user = testUser
-    const displayName = username ?? user.username
+    // const user = testUser
+    const displayName = username ?? ""
     const [openForProjects, setOpenForProjects] = useState(true)
     const [lookingForTeammates, setLookingForTeammates] = useState(true)
     const [selectedProjectId, setSelectedProjectId] = useState<number | null>(null)
@@ -72,8 +74,22 @@ export default function DashboardView({ username, activeNav, onNavigate }: Dashb
     const recommendedTeammates = 27
     const newNotifications: number = 15
 
-    const { projects: backendProjects } = useProjects()
-    const displayedProjects = backendProjects.slice(0, 2)
+    const [myProjects, setMyProjects] = useState<Projects[]>([])
+    const displayedProjects = myProjects.slice(0, 2)
+
+    useEffect(() => {
+        async function fetchMyProjects() {
+            const me = await authFetch(`${API_BASE}/auth/me`)
+            const res = await fetch(`${API_BASE}/users/${me.user_id}/projects`)
+            const data: Projects[] = await res.json()
+            setMyProjects(data)
+        }
+        fetchMyProjects()
+    }, [])
+
+    function handleProjectDeleted(id: number) {
+        setMyProjects(prev => prev.filter(p => p.project_id !== id))
+    }
 
     function openProject(id: number) {
         setSelectedProjectId(id)
@@ -109,13 +125,20 @@ export default function DashboardView({ username, activeNav, onNavigate }: Dashb
                     projectId={selectedProjectId}
                     onBack={closeProject}
                     onFindNew={goToFindNew}
+                    onDeleted={handleProjectDeleted}
                     variant={activeNav === "find-project" ? "find" : "owner"}
                 />
             )
         }
 
         if (selectedUserId !== null) {
-            return <UserCardView userId={selectedUserId} onBack={closeUser} />
+            return (
+                <UserCardView
+                    userId={selectedUserId}
+                    onBack={closeUser}
+                    onFindNew={() => onNavigate("find-project")}
+                />
+            )
         }
 
         switch (activeNav) {
@@ -174,10 +197,10 @@ export default function DashboardView({ username, activeNav, onNavigate }: Dashb
                         <section className={styles.topBar}>
                             <div>
                                 <h1 className={styles.greeting}>Welcome back, {displayName}!</h1>
-                                <p className={styles.subGreeting}>
+                                {/* <p className={styles.subGreeting}>
                                     You're currently working on {user.projects.length} project
                                     {user.projects.length === 1 ? "" : "s"}
-                                </p>
+                                </p> */}
                             </div>
                             <Button
                                 label="Find New Project"

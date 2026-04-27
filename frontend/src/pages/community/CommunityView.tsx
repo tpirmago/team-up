@@ -18,9 +18,6 @@ export default function CommunityView({ onOpenUser, onBack, onFindNew }: Communi
   const [page, setPage] = useState(0)
   const PAGE_SIZE = 12
 
-  if (loading) return <p>Loading users…</p>
-  if (error) return <p>{error}</p>
-
   const pageUsers = users.slice(
     page * PAGE_SIZE,
     (page + 1) * PAGE_SIZE
@@ -61,31 +58,37 @@ export default function CommunityView({ onOpenUser, onBack, onFindNew }: Communi
           )}
         </section>
       )}
-      <section className={styles.community}>
-        <header className={styles.headerRow}>
-          <h1 className={styles.pageTitle}>Connect with other students</h1>
+      {loading ? (
+        <p>Loading users…</p>
+      ) : error ? (
+        <p>{error}</p>
+      ) : (
+        <section className={styles.community}>
+          <header className={styles.headerRow}>
+            <h1 className={styles.pageTitle}>Connect with other students</h1>
 
-          <div className={styles.communityActions}>
-            <SecondaryButton label={'Filters'} />
-            <SearchBar placeholder="Search profile" />
+            <div className={styles.communityActions}>
+              <SecondaryButton label={'Filters'} />
+              <SearchBar placeholder="Search profile" />
+            </div>
+          </header>
+
+          <div className={styles.communityGrid}>
+            {pageUsers.map(user => (
+              <UserCard key={user.user_id} user={user} onViewProfile={onOpenUser} />
+            ))}
           </div>
-        </header>
 
-        <div className={styles.communityGrid}>
-          {pageUsers.map(user => (
-            <UserCard key={user.user_id} user={user} onViewProfile={onOpenUser} />
-          ))}
-        </div>
-
-        <div className={styles.pagination}>
-          <Pagination
-            page={page}
-            totalItems={users.length}
-            pageSize={PAGE_SIZE}
-            onPageChange={(newPage) => setPage(newPage)}
-          />
-        </div>
-      </section>
+          <div className={styles.pagination}>
+            <Pagination
+              page={page}
+              totalItems={users.length}
+              pageSize={PAGE_SIZE}
+              onPageChange={(newPage) => setPage(newPage)}
+            />
+          </div>
+        </section>
+      )}
     </main>
   )
 }

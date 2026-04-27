@@ -29,5 +29,5 @@ export default function useProjects() {
         fetchProjects()
 }, [])
 
-    return { projects, loading, error }
+    return { projects, setProjects, loading, error }
 }
