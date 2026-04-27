@@ -5,7 +5,7 @@ import Sidebar from "../components/Sidebar"
 import type { SidebarItem } from "../components/Sidebar"
 import MyProjectView from "./myProjects/MyProjectView"
 import CreateProjectView from "./CreateProjectView"
-import NotificationsView from "./notifications/NotificationsView"
+import NotificationsView from "./Notifications/NotificationsView"
 import CommunityView from "./community/CommunityView"
 import UserCardView from "./community/UserCardView"
 import FindProjectView from "./projects/FindProjectView"
@@ -140,6 +140,7 @@ export default function DashboardView({ username, activeNav, onNavigate }: Dashb
                 return (
                     <NotificationsView
                         onOpenProject={openProject}
+                        onOpenUser={openUser}
                         onBack={() => onNavigate("dashboard")}
                         onFindNew={() => onNavigate("find-project")}
                     />

@@ -22,11 +22,12 @@ export interface Notifications {
 
 interface NotificationsViewProps {
     onOpenProject?: (id: number) => void
+    onOpenUser?: (id: number) => void
     onBack?: () => void
     onFindNew?: () => void
 }
 
-export default function NotificationsView({ onOpenProject, onBack, onFindNew }: NotificationsViewProps) {
+export default function NotificationsView({ onOpenProject, onOpenUser, onBack, onFindNew }: NotificationsViewProps) {
 
     const [listStatus, setListStatus] = useState("all")
     const [notificationList, setNotificationList] = useState<Notifications[]>([])
@@ -181,6 +182,7 @@ export default function NotificationsView({ onOpenProject, onBack, onFindNew }: 
                                         acceptRequest={handleAccept}
                                         declineRequest={handleDecline}
                                         onOpenProject={onOpenProject}
+                                        onOpenUser={onOpenUser}
                                     />
                                 )}
                         </section>}

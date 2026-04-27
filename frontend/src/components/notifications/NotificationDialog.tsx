@@ -1,6 +1,6 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
 import React from "react";
-import type { Notifications } from "../../pages/notifications/NotificationsView";
+import type { Notifications } from "../../pages/Notifications/NotificationsView";
 import type { Projects, User } from "../../pages/ProfileView";
 import { RxCross1 } from "react-icons/rx";
 import styles from "./NotificationDialog.module.css"
@@ -15,6 +15,7 @@ interface NotificationDialogProps {
     acceptRequest: (notification_id: number) => void
     declineRequest: (notification_id: number) => void
     onOpenProject?: (id: number) => void
+    onOpenUser?: (id: number) => void
 }
 
 export default function NotificationDialog({
@@ -25,7 +26,8 @@ export default function NotificationDialog({
     closeDialog,
     acceptRequest,
     declineRequest,
-    onOpenProject
+    onOpenProject,
+    onOpenUser
 }: NotificationDialogProps) {
 
     function getButtons(notification: Notifications) {
@@ -50,20 +52,32 @@ export default function NotificationDialog({
         if (notification.status === "pending") {
             return (
                 <>
-                    <Button
-                        variant="outlined"
-                        sx={{
+                    {
+                        notification.type === "invite"
+                            ? < Button
+                                variant="outlined"
+                                onClick={onOpenProject ? () => onOpenProject(notification.project_id) : undefined}
+                                sx={{
 
-                            borderColor: "#000000",
-                            fontFamily: "inherit",
-                            color: "black",
-                            margin: "0 20px 0 20px"
-                        }}
-                    >{notification.type === "invite"
-                        ? "View project page"
-                        : "View user profile"
-                        }
-                    </Button>
+                                    borderColor: "#000000",
+                                    fontFamily: "inherit",
+                                    color: "black",
+                                    margin: "0 20px 0 20px"
+                                }}
+                            >View project page</Button >
+                            : <Button
+                                variant="outlined"
+                                onClick={onOpenUser ? () => onOpenUser(notification.sender_user_id) : undefined}
+                                sx={{
+
+                                    borderColor: "#000000",
+                                    fontFamily: "inherit",
+                                    color: "black",
+                                    margin: "0 20px 0 20px"
+                                }}
+                            >View user profile</Button>
+                    }
+
                     <div className={styles.buttonRow}>
                         <Button
                             onClick={() => declineRequest(notification.notification_id)}
@@ -93,19 +107,31 @@ export default function NotificationDialog({
         }
         return (
             <>
-                <Button
-                    variant="outlined"
-                    sx={{
-                        borderColor: "#000000",
-                        fontFamily: "inherit",
-                        color: "black",
-                        margin: "0 20px 0 20px"
-                    }}
-                >
-                    {notification.type === "invite"
-                        ? "View project page"
-                        : "View user profile"}
-                </Button>
+                {
+                    notification.type === "invite"
+                        ? < Button
+                            variant="outlined"
+                            onClick={onOpenProject ? () => onOpenProject(notification.project_id) : undefined}
+                            sx={{
+
+                                borderColor: "#000000",
+                                fontFamily: "inherit",
+                                color: "black",
+                                margin: "0 20px 0 20px"
+                            }}
+                        >View project page</Button >
+                        : <Button
+                            variant="outlined"
+                            onClick={onOpenUser ? () => onOpenUser(notification.sender_user_id) : undefined}
+                            sx={{
+
+                                borderColor: "#000000",
+                                fontFamily: "inherit",
+                                color: "black",
+                                margin: "0 20px 0 20px"
+                            }}
+                        >View user profile</Button>
+                }
 
                 <p className={styles.answerText}>
                     You have already answered this request.
